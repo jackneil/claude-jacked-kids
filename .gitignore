@@ -1,0 +1,13 @@
+# OS / editor
+.DS_Store
+*.swp
+.idea
+.vscode
+
+# Node (if any tooling is added later)
+node_modules
+npm-debug.log*
+
+# Local-only kid files the skills create in a kid's own project (never here, but just in case)
+.claude/player-profile.json
+.game-backups/

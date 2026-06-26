@@ -1,0 +1,14 @@
+{
+  "name": "claude-jacked-kids",
+  "owner": {
+    "name": "Jack Neil",
+    "email": "jack.neil@hank.ai"
+  },
+  "plugins": [
+    {
+      "name": "claude-jacked-kids",
+      "source": "./plugins/claude-jacked-kids",
+      "description": "Turns Claude Code into a warm, kid-safe game-building buddy. A kid describes a game; Claude builds the whole thing."
+    }
+  ]
+}
