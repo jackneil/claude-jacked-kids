@@ -39,6 +39,7 @@ claude-jacked-kids/
     ├── settings.json                       # { "agent": "kid-buddy" } — always-on kid persona
     ├── agents/kid-buddy.md                 # the warm, kid-safe main-thread persona (tone + safety)
     └── skills/
+        ├── build-my-arcade/                # the from-scratch recipe: builds the kid's whole offline-first arcade
         ├── about-me/                       # the local "Player Card": name, age, interests + "Things I Learned" wall
         └── teach-and-check/                # learn-as-you-build gate: teach an idea, check they got it, earn Brain Points
 ```
@@ -62,12 +63,12 @@ The behavioral core ships now, and so does the learning system. The game-buildin
 
 **Shipped:**
 
+- [x] **`build-my-arcade`** — the from-scratch recipe: in an empty folder, build the kid's whole game platform — an **offline-first** static arcade (hub, game registry, the Brain Wall, local high scores) that opens with no internet and no install. Grows only on a grown-up's say-so: deploy to Railway (Tier 2), or clone & adapt the full Hank's Hits logins+leaderboards platform (Tier 3). Ships working starter templates + a zero-dependency live-reload dev server.
 - [x] **`about-me`** — the local "Player Card" (first name, age, interests) plus the "Things I Learned" wall, Brain Points, rank, and the grown-up learning dial.
 - [x] **`teach-and-check`** — the learn-as-you-build gate: teach a new idea, check the kid got it before unlocking the next thing, earn Brain Points. Age-adaptive, voice-to-text friendly, never blocks a game. (Full design: `docs/teach-and-check-design.html`.)
 
 **Next:**
 
-- [ ] **`build-my-arcade`** — the from-scratch recipe: in an empty folder, build the whole kid game platform (hub, game registry + discovery, dashboard, opt-in leaderboards/cloud-save, local run, deploy, branding). Claude builds it; this skill is the recipe. Seeds the Player Card and renders the wall in the hub.
 - [ ] **`make-a-game`**, **`change-a-game`**, **`remix-a-game`**, **`play-my-game`**, **`put-it-online`** (with the under-13 grown-up gate + identity scrub), **`my-creations`**, **`oops-go-back`** (undo) — each invokes `teach-and-check` at the seam where a new concept appears.
 - [ ] **`getting-started`**, **`game-ideas`**
 - [ ] A SessionStart hook that surfaces a friendly "new powers are ready!" update notice

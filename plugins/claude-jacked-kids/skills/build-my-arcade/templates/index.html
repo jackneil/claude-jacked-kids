@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Arcade</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <!-- Plain scripts so the hub works offline straight from a file. Order matters. -->
+  <script src="arcade.config.js"></script>
+  <script src="assets/games-manifest.js"></script>
+  <script src="assets/brain-wall.js"></script>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hub-header">
+      <div class="hub-emoji" id="hubEmoji">🎮</div>
+      <h1 class="hub-title" id="hubTitle">My Arcade</h1>
+      <p class="hub-tagline" id="hubTagline"></p>
+      <p class="hub-greeting" id="hubGreeting"></p>
+    </header>
+
+    <section id="brainPanel"></section>
+    <main id="gameSections"></main>
+    <p class="empty" id="emptyState" style="display:none">No games yet — tell your buddy what game to make! 🚀</p>
+  </div>
+
+  <script>
+  (function () {
+    var ARCADE = window.ARCADE || {};
+    var GAMES = window.GAMES || [];
+    var BRAIN = window.BRAIN_WALL || null;
+
+    // --- theme (from arcade.config.js) ---
+    var theme = ARCADE.theme || {};
+    var root = document.documentElement;
+    ["bg", "card", "accent", "accent2", "text"].forEach(function (k) {
+      if (theme[k]) root.style.setProperty("--" + k, theme[k]);
+    });
+
+    // --- header ---
+    if (ARCADE.emoji) document.getElementById("hubEmoji").textContent = ARCADE.emoji;
+    if (ARCADE.name) { document.getElementById("hubTitle").textContent = ARCADE.name; document.title = ARCADE.name; }
+    if (ARCADE.tagline) document.getElementById("hubTagline").textContent = ARCADE.tagline;
+    if (ARCADE.owner && ARCADE.owner !== "friend") {
+      document.getElementById("hubGreeting").textContent = "Hi, " + ARCADE.owner + "! 👋";
+    }
+
+    // --- Brain Power panel (only if there's a wall) ---
+    if (BRAIN && BRAIN.stickers && BRAIN.stickers.length) {
+      var panel = document.getElementById("brainPanel");
+      panel.className = "brain-panel";
+      var top = document.createElement("div"); top.className = "brain-top";
+      var rank = document.createElement("div"); rank.className = "brain-rank";
+      rank.textContent = BRAIN.rank || "🐻 Curious Cub";
+      var pts = document.createElement("div"); pts.className = "brain-points";
+      pts.textContent = (BRAIN.points || 0) + " Brain Points";
+      top.appendChild(rank); top.appendChild(pts); panel.appendChild(top);
+      var strip = document.createElement("div"); strip.className = "brain-stickers";
+      BRAIN.stickers.forEach(function (s) {
+        var el = document.createElement("span"); el.className = "sticker";
+        el.innerHTML = '<span class="s-emoji"></span><span class="s-text"></span>';
+        el.querySelector(".s-emoji").textContent = s.emoji || "⭐";
+        el.querySelector(".s-text").textContent = s.kidName + (s.note ? " — " + s.note : "");
+        strip.appendChild(el);
+      });
+      panel.appendChild(strip);
+    }
+
+    // --- game grid, grouped by category ---
+    var CATEGORIES = [
+      { key: "arcade", label: "Arcade", emoji: "🕹️" },
+      { key: "racing", label: "Racing", emoji: "🏎️" },
+      { key: "action", label: "Action", emoji: "💥" },
+      { key: "puzzle", label: "Puzzles", emoji: "🧩" },
+      { key: "board", label: "Board & Cards", emoji: "♟️" },
+      { key: "retro", label: "Retro", emoji: "👾" },
+      { key: "maker", label: "Maker", emoji: "🎨" }
+    ];
+    var container = document.getElementById("gameSections");
+
+    if (!GAMES.length) {
+      document.getElementById("emptyState").style.display = "block";
+      return;
+    }
+
+    function makeCard(g) {
+      var a = document.createElement("a");
+      a.className = "game-card";
+      a.href = g.path;
+      var emoji = document.createElement("div"); emoji.className = "g-emoji"; emoji.textContent = g.emoji || "🎮";
+      var name = document.createElement("div"); name.className = "g-name"; name.textContent = g.name || g.id;
+      a.appendChild(emoji); a.appendChild(name);
+      if (g.description) { var d = document.createElement("div"); d.className = "g-desc"; d.textContent = g.description; a.appendChild(d); }
+      if (g.madeByKid) { var b = document.createElement("div"); b.className = "kid-badge"; b.textContent = "✨ I made this"; a.appendChild(b); }
+      return a;
+    }
+
+    var shown = {};
+    CATEGORIES.forEach(function (cat) {
+      var inCat = GAMES.filter(function (g) { return g.category === cat.key; });
+      if (!inCat.length) return;
+      var sec = document.createElement("section"); sec.className = "cat-section";
+      var h = document.createElement("h2"); h.className = "cat-title";
+      h.textContent = cat.emoji + " " + cat.label; sec.appendChild(h);
+      var grid = document.createElement("div"); grid.className = "game-grid";
+      inCat.forEach(function (g) { grid.appendChild(makeCard(g)); shown[g.id] = true; });
+      sec.appendChild(grid); container.appendChild(sec);
+    });
+
+    // any game with an unknown category still shows, under "More games"
+    var leftover = GAMES.filter(function (g) { return !shown[g.id]; });
+    if (leftover.length) {
+      var sec = document.createElement("section"); sec.className = "cat-section";
+      var h = document.createElement("h2"); h.className = "cat-title"; h.textContent = "🎮 More games"; sec.appendChild(h);
+      var grid = document.createElement("div"); grid.className = "game-grid";
+      leftover.forEach(function (g) { grid.appendChild(makeCard(g)); });
+      sec.appendChild(grid); container.appendChild(sec);
+    }
+  })();
+  </script>
+</body>
+</html>

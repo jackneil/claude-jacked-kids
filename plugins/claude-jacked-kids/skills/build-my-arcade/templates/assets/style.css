@@ -1,0 +1,82 @@
+/* =========================================================================
+   style.css — the arcade's look. Colors come from arcade.config.js (the hub
+   sets them as CSS variables), so you usually edit colors there, not here.
+   ========================================================================= */
+:root {
+  --bg: #0e1020;
+  --card: #1b1e3a;
+  --accent: #ff5db1;
+  --accent2: #3df0e0;
+  --text: #f3f3ff;
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, "Comic Sans MS", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap { max-width: 1000px; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
+
+/* Header */
+.hub-header { text-align: center; padding: 1.5rem 0 0.5rem; }
+.hub-emoji { font-size: 4rem; line-height: 1; filter: drop-shadow(0 4px 12px rgba(0,0,0,.4)); }
+.hub-title {
+  font-size: clamp(2rem, 6vw, 3.2rem); font-weight: 800; margin: .4rem 0 .2rem;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hub-tagline { font-size: 1.1rem; opacity: .8; margin: 0; }
+.hub-greeting { font-size: 1.05rem; opacity: .9; margin: .6rem 0 0; }
+
+/* Brain Power panel */
+.brain-panel {
+  margin: 1.4rem auto 0; max-width: 720px;
+  background: var(--card); border: 2px solid var(--accent2);
+  border-radius: 18px; padding: 1rem 1.2rem; box-shadow: 0 6px 20px rgba(0,0,0,.25);
+}
+.brain-top { display: flex; align-items: center; justify-content: space-between; gap: .8rem; flex-wrap: wrap; }
+.brain-rank { font-size: 1.25rem; font-weight: 800; }
+.brain-points { font-size: 1rem; background: var(--accent); color: #fff; padding: .2rem .7rem; border-radius: 99px; font-weight: 700; }
+.brain-stickers { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .7rem; }
+.sticker { background: rgba(255,255,255,.08); border-radius: 12px; padding: .35rem .6rem; font-size: .95rem; }
+.sticker .s-emoji { margin-right: .25rem; }
+
+/* Category sections */
+.cat-section { margin-top: 2.2rem; }
+.cat-title { font-size: 1.4rem; font-weight: 800; margin: 0 0 .8rem; display: flex; align-items: center; gap: .5rem; }
+
+/* Game grid */
+.game-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; }
+.game-card {
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  background: var(--card); border: 2px solid transparent; border-radius: 18px;
+  padding: 1.2rem .8rem; text-decoration: none; color: var(--text);
+  transition: transform .12s ease, border-color .12s ease, box-shadow .12s ease;
+  box-shadow: 0 4px 14px rgba(0,0,0,.2);
+}
+.game-card:hover, .game-card:focus {
+  transform: translateY(-4px) scale(1.03); border-color: var(--accent);
+  box-shadow: 0 10px 24px rgba(0,0,0,.35); outline: none;
+}
+.game-card .g-emoji { font-size: 3rem; line-height: 1; }
+.game-card .g-name { font-weight: 700; margin-top: .5rem; }
+.game-card .g-desc { font-size: .85rem; opacity: .75; margin-top: .25rem; }
+.kid-badge { margin-top: .4rem; font-size: .72rem; background: var(--accent2); color: #06222a; padding: .12rem .5rem; border-radius: 99px; font-weight: 700; }
+
+/* Empty state */
+.empty { text-align: center; opacity: .8; margin-top: 3rem; font-size: 1.15rem; }
+
+/* Back link used by game pages */
+.back-link {
+  display: inline-flex; align-items: center; gap: .4rem; text-decoration: none;
+  color: var(--text); background: var(--card); border-radius: 99px;
+  padding: .5rem 1rem; font-weight: 700; box-shadow: 0 3px 10px rgba(0,0,0,.25);
+}
+.back-link:hover { transform: translateY(-2px); }
