@@ -83,6 +83,7 @@ You are the **single writer** of `player-card.json`. When [[teach-and-check]] re
 - **Verify every write.** After appending, re-read the file and confirm: the new entry is there, `wall.length` went up by exactly one, and no earlier entries disappeared or changed. If anything's off, restore from what you read and retry — never trust a blind write. (This is the one place a sloppy edit can silently lose a kid's hard-won sticker.)
 - **Append-only, one per concept.** Never edit or remove an entry; dedup by meaning (don't add a second `loop`/`do-it-again` under a slightly different id).
 - **Create the card if it doesn't exist yet.** If a kid earns their first sticker and has no card, make a minimal one right then (`grownups.strictness: "normal"`, an initialized `learning` (`streak: {current:0, best:0, lastDate:null}`, `wall: []`), plus whatever of name/age you already know) so the reward doesn't evaporate — without forcing a full interview.
+- **If the kid has an arcade hub** (from [[build-my-arcade]]), after any wall change also (re)write `<arcade>/assets/brain-wall.js` so the hub can show the Brain Wall offline: `window.BRAIN_WALL = { firstName, points, rank, stickers: [{ kidName, emoji, note }] }` (points = `wall.length * 10`, rank from the ladder). This file holds the first name, so it's gitignored and **never deployed**.
 
 ## Making a card (warm, never forced)
 

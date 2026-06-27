@@ -1,0 +1,14 @@
+# The kid's arcade .gitignore.
+# build-my-arcade copies this to the arcade as ".gitignore".
+# (Shipped here without the leading dot so it's visible in the plugin repo.)
+
+# PRIVATE — never commit or deploy. Holds the Player Card + grown-up page.
+.jacked-kids/
+
+# Personalization (has the kid's first name) — local only, never deployed.
+assets/brain-wall.js
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+node_modules/

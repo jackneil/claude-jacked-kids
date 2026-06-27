@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Star Catcher</title>
+  <link rel="stylesheet" href="../../assets/style.css">
+  <!-- order: branding -> score helper -> this game's metadata -> the game -->
+  <script src="../../arcade.config.js"></script>
+  <script src="../../assets/scores.js"></script>
+  <script src="metadata.js"></script>
+  <style>
+    .game-wrap { max-width: 520px; margin: 0 auto; padding: 1rem; text-align: center; }
+    .game-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: .6rem; gap: .5rem; flex-wrap: wrap; }
+    .hud { display: flex; gap: 1rem; font-weight: 800; font-size: 1.1rem; }
+    .hud .label { opacity: .7; font-weight: 600; font-size: .85rem; }
+    #game {
+      width: 100%; max-width: 480px; aspect-ratio: 3 / 4; background: var(--card);
+      border-radius: 18px; touch-action: none; display: block; margin: 0 auto;
+      box-shadow: 0 8px 28px rgba(0,0,0,.35); cursor: pointer;
+    }
+    .hint { opacity: .7; margin-top: .8rem; font-size: .9rem; }
+  </style>
+</head>
+<body>
+  <div class="game-wrap">
+    <div class="game-top">
+      <a class="back-link" href="../../index.html">⬅️ Arcade</a>
+      <div class="hud">
+        <div><span class="label">Score</span> <span id="score">0</span></div>
+        <div><span class="label">Best</span> <span id="best">0</span></div>
+        <div><span class="label">Lives</span> <span id="lives">❤️❤️❤️</span></div>
+      </div>
+    </div>
+    <canvas id="game" width="480" height="640"></canvas>
+    <p class="hint">Move with your mouse, finger, or the ⬅️ ➡️ arrow keys. Catch the stars, don't drop them!</p>
+  </div>
+  <script src="game.js"></script>
+</body>
+</html>
