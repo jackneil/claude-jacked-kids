@@ -11,3 +11,12 @@ npm-debug.log*
 # Local-only kid files the skills create in a kid's own project (never here, but just in case)
 .claude/player-profile.json
 .game-backups/
+
+# Secrets — NEVER commit (defense in depth; this repo has none, but just in case)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+settings.local.json
+.claude/settings.local.json
