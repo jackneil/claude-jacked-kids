@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--
+  for-grownups.html — explainer for a parent/guardian about how the
+  claude-jacked-kids buddy helps their child learn while building games.
+  The about-me skill copies this into <arcade>/.jacked-kids/ and fills the
+  {{PLACEHOLDERS}}. Opens offline in any browser.
+-->
+<title>For Grown-Ups — How {{KID_FIRST_NAME}}'s buddy helps them learn</title>
+<style>
+  :root {
+    --fg:#1f2937; --muted:#5b6675; --bg:#f7f9fc; --card:#fff; --accent:#2563eb;
+    --accent-bg:#e8f0fe; --ok:#15803d; --ok-bg:#e7f6ec; --warn:#b45309; --warn-bg:#fdf3e3;
+    --border:#dde3ec; --radius:12px; --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --fg:#e7eaf0; --muted:#a3acba; --bg:#14171c; --card:#1d2127; --accent:#6aa3f5;
+      --accent-bg:#1a2740; --ok:#5fcc88; --ok-bg:#143226; --warn:#e0a85b; --warn-bg:#352a16; --border:#2c3138; }
+  }
+  *{box-sizing:border-box;} body{font-family:var(--sans);background:var(--bg);color:var(--fg);line-height:1.6;margin:0;padding:2rem 1rem;}
+  .wrap{max-width:760px;margin:0 auto;}
+  h1{font-size:1.7rem;margin:.2rem 0;} h2{font-size:1.2rem;margin:2rem 0 .5rem;}
+  p{margin:.5rem 0 1rem;} .lead{color:var(--muted);font-size:1.05rem;}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem 1.3rem;margin:1rem 0;}
+  table{width:100%;border-collapse:collapse;margin:.5rem 0;} th,td{text-align:left;padding:.5rem .6rem;border-bottom:1px solid var(--border);vertical-align:top;font-size:.95rem;}
+  th{font-size:.85rem;color:var(--muted);} code{background:var(--accent-bg);color:var(--accent);padding:.1em .4em;border-radius:5px;font-size:.9em;}
+  .pill{display:inline-block;background:var(--accent-bg);color:var(--accent);border-radius:99px;padding:.15rem .7rem;font-size:.85rem;font-weight:600;}
+  .ok{background:var(--ok-bg);border-left:4px solid var(--ok);border-radius:0 var(--radius) var(--radius) 0;padding:.8rem 1.1rem;margin:1rem 0;}
+  .warn{background:var(--warn-bg);border-left:4px solid var(--warn);border-radius:0 var(--radius) var(--radius) 0;padding:.8rem 1.1rem;margin:1rem 0;}
+  ul{margin:.3rem 0 1rem;} li{margin:.25rem 0;}
+  .foot{color:var(--muted);font-size:.85rem;text-align:center;margin-top:2.5rem;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>👋 Hi! A quick note for {{KID_FIRST_NAME}}'s grown-up</h1>
+<p class="lead">Your kid is building real games with a friendly buddy. While it builds, the buddy also <strong>teaches a little and checks that they got it</strong> — so they're learning, not just watching. Here's how that works and how you control it.</p>
+
+<h2>What "learning checks" do</h2>
+<div class="card">
+  <p>When the buddy adds something new to a game (say, a way to remember high scores), it explains the idea in one kid-sized sentence, then asks a simple question — usually an <em>either/or</em> like <em>"Does the memory box remember your scores, or forget them?"</em> — before it builds the <strong>next</strong> thing your kid asks for.</p>
+  <p>It's gentle by design:</p>
+  <ul>
+    <li>The game your kid already has is <strong>never taken away or blocked</strong> — a check only ever sits in front of the <em>next</em> new addition, and your kid gets that addition <strong>either way</strong> (answer it, or skip — they still get it).</li>
+    <li>If they get it wrong, the buddy explains a different way, gives a hint, and finally says the answer <em>together</em> — so they're <strong>never stuck</strong>.</li>
+    <li>They can say "skip" or "just build it" anytime, with zero penalty.</li>
+    <li>Getting it right earns <span class="pill">🧠 Brain Points</span> and a sticker on their "Things I Learned" wall — kept totally separate from in-game points.</li>
+  </ul>
+</div>
+
+<h2>You're in control — the dial</h2>
+<p>Right now learning checks are set to: <span class="pill">{{STRICTNESS}}</span></p>
+<table>
+  <tr><th>Setting</th><th>What happens</th></tr>
+  <tr><td><code>off</code></td><td>No checks. The buddy still drops fun facts, but never asks a question.</td></tr>
+  <tr><td><code>light</code></td><td>Only the biggest new idea gets a check, now and then. Very low-key.</td></tr>
+  <tr><td><code>normal</code></td><td>Each genuinely-new idea gets one quick check. <em>(The default.)</em></td></tr>
+  <tr><td><code>strict</code></td><td>Every new idea is checked, and the buddy occasionally revisits an older one. Still never blocks the game.</td></tr>
+</table>
+<p><strong>To change it, just tell the buddy</strong> in the chat: <em>"I'm the grown-up — set learning checks to light"</em> (or off / normal / strict). The buddy asks a child to get a grown-up before changing the saved setting.</p>
+<div class="warn">
+  <strong>Honest note:</strong> this setting is saved in a plain text file on this computer (<code>.jacked-kids/player-card.json</code>). A tech-savvy older child could open and edit it. This is a speed bump, not a lock — it stops casual changes, not a determined kid.
+</div>
+
+<h2>Privacy &amp; safety</h2>
+<div class="ok">
+  <ul>
+    <li><strong>Everything stays on this computer.</strong> Nothing about your child is sent anywhere or put online by this learning system.</li>
+    <li><strong>We store almost nothing</strong> — your child's first name, age, a few interests, which ideas they've learned, and a streak. <strong>Never</strong> a last name, address, school, phone, photos, or anything they type in an answer.</li>
+    <li><strong>If your child types something upsetting</strong> in an answer, the buddy stops the learning game, stays calm and kind, and encourages them to talk to a grown-up they trust. It does not record what they said, and it does not create any hidden "alert" for you — we don't surveil kids.</li>
+    <li><strong>To erase all of it:</strong> delete the <code>.jacked-kids</code> folder in your child's game folder. That's everything.</li>
+  </ul>
+</div>
+<p>The buddy can't do high-stakes things on its own — putting a game on the internet, spending money, or making new accounts all need a grown-up. For anything serious your child might share with the buddy, please be their safe person.</p>
+
+<p class="foot">Made by the claude-jacked-kids buddy · this page lives only on your computer · edit or delete it anytime</p>
+</div>
+</body>
+</html>

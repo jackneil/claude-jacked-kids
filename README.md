@@ -32,24 +32,44 @@ Because the plugin is *only* prompts/skills, an update **can never break a kid's
 
 ```
 claude-jacked-kids/
-├── .claude-plugin/marketplace.json     # makes this repo an installable marketplace
+├── .claude-plugin/marketplace.json         # makes this repo an installable marketplace
+├── docs/teach-and-check-design.html        # design spec for the learn-as-you-build gate
 └── plugins/claude-jacked-kids/
-    ├── .claude-plugin/plugin.json      # the plugin (no version → SHA = version → push = update)
-    ├── settings.json                   # { "agent": "kid-buddy" } — always-on kid persona
-    ├── agents/kid-buddy.md             # the warm, kid-safe main-thread persona (tone + safety)
-    ├── skills/                         # the game-building playbooks (see roadmap)
-    └── hooks/                          # session-start "new version available" notice (planned)
+    ├── .claude-plugin/plugin.json          # the plugin (no version → SHA = version → push = update)
+    ├── settings.json                       # { "agent": "kid-buddy" } — always-on kid persona
+    ├── agents/kid-buddy.md                 # the warm, kid-safe main-thread persona (tone + safety)
+    └── skills/
+        ├── about-me/                       # the local "Player Card": name, age, interests + "Things I Learned" wall
+        └── teach-and-check/                # learn-as-you-build gate: teach an idea, check they got it, earn Brain Points
 ```
 
 **The persona** (`kid-buddy`) is set as the main-thread agent, so every turn is gentle, jargon-free, fun-first, and safe — and it explicitly overrides any global "be blunt / roast the user" developer tone, because that's for grown-ups, not kids.
 
+## 🧠 Learns while they build
+
+The buddy doesn't just build — it teaches, and makes sure the idea landed. When a new concept shows up in a kid's game (a way to remember scores, a loop, putting it online), the buddy explains it in one kid-sized sentence, then asks a quick **either/or** question before unlocking the *next* thing the kid wants:
+
+> *"YES, a laser cannon! 😎 Quick — to earn it: does the memory box **remember** your scores, or **forget** them?"*
+
+- **It's an unlock, never a wall.** The game they already have is built and playable first; a check never blocks, removes, or stalls a game. Get it wrong and the buddy re-explains a different way, hints, and finally says the answer *together* — so a kid is **never stuck**.
+- **Right answers earn 🧠 Brain Points** and stickers on a private "Things I Learned" wall (kept separate from in-game points), with a rank that grows as they learn.
+- **It adapts to the kid** — gentler, more concrete questions for little ones; "say it in your own words" and "why" questions for older kids. Answers are judged by *meaning*, so talking to the buddy (voice-to-text) works fine.
+- **Grown-ups hold a dial** — `off / light / normal / strict` — set by just telling the buddy. Everything stays on the family's computer; nothing about the child is stored beyond a first name, age, interests, and which ideas they've learned. (See the design spec in `docs/` for the full pedagogy + safety model.)
+
 ## Roadmap (skills, ported + generalized from the Hank's Hits framework)
 
-The behavioral core ships now. The game-building skills are being added next:
+The behavioral core ships now, and so does the learning system. The game-building skills are being added next:
 
-- [ ] **`build-my-arcade`** — the from-scratch recipe: in an empty folder, build the whole kid game platform (hub, game registry + discovery, dashboard, opt-in leaderboards/cloud-save, local run, deploy, branding). Claude builds it; this skill is the recipe.
-- [ ] **`make-a-game`**, **`change-a-game`**, **`remix-a-game`**, **`play-my-game`**, **`put-it-online`** (with the under-13 grown-up gate + identity scrub), **`my-creations`**, **`oops-go-back`** (undo)
-- [ ] **`getting-started`**, **`about-me`** (the local "Player Card"), **`game-ideas`**
+**Shipped:**
+
+- [x] **`about-me`** — the local "Player Card" (first name, age, interests) plus the "Things I Learned" wall, Brain Points, rank, and the grown-up learning dial.
+- [x] **`teach-and-check`** — the learn-as-you-build gate: teach a new idea, check the kid got it before unlocking the next thing, earn Brain Points. Age-adaptive, voice-to-text friendly, never blocks a game. (Full design: `docs/teach-and-check-design.html`.)
+
+**Next:**
+
+- [ ] **`build-my-arcade`** — the from-scratch recipe: in an empty folder, build the whole kid game platform (hub, game registry + discovery, dashboard, opt-in leaderboards/cloud-save, local run, deploy, branding). Claude builds it; this skill is the recipe. Seeds the Player Card and renders the wall in the hub.
+- [ ] **`make-a-game`**, **`change-a-game`**, **`remix-a-game`**, **`play-my-game`**, **`put-it-online`** (with the under-13 grown-up gate + identity scrub), **`my-creations`**, **`oops-go-back`** (undo) — each invokes `teach-and-check` at the seam where a new concept appears.
+- [ ] **`getting-started`**, **`game-ideas`**
 - [ ] A SessionStart hook that surfaces a friendly "new powers are ready!" update notice
 
 These are generalized from [Hank's Hits](https://github.com/jackneil/hanks-hits), where they were built and battle-tested against a real codebase — retargeted at the conventions `build-my-arcade` establishes, so they work for any kid's arcade, not just Hank's.

@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teach-and-Check Learning Gate — Design Spec</title>
+
+<meta name="jacked:type" content="spec">
+<meta name="jacked:status" content="approved">
+<meta name="jacked:branch" content="main">
+<meta name="jacked:date" content="2026-06-27">
+<meta name="jacked:project" content="claude-jacked-kids">
+
+<style>
+  :root {
+    --fg: #1a1a1a; --fg-muted: #555; --bg: #fafaf7; --bg-card: #fff;
+    --accent: #2266aa; --accent-bg: #e7f0fa; --warn: #b3681c; --warn-bg: #fcf3e7;
+    --danger: #b32424; --danger-bg: #fbe9e7; --ok: #1f7a3f; --ok-bg: #e8f4ec;
+    --border: #d8d4cc; --code-bg: #f3efe8; --shadow: 0 1px 3px rgba(0,0,0,.06); --radius: 6px;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --fg: #e8e6e1; --fg-muted: #a8a5a0; --bg: #161616; --bg-card: #1f1f1f;
+      --accent: #6aa8e8; --accent-bg: #1a2935; --warn: #e0a85b; --warn-bg: #3a2d18;
+      --danger: #ea7670; --danger-bg: #3a1f1c; --ok: #6acd8e; --ok-bg: #1c3327;
+      --border: #2e2e2e; --code-bg: #232323; --shadow: 0 1px 3px rgba(0,0,0,.3);
+    }
+  }
+  * { box-sizing: border-box; }
+  body { font-family: var(--sans); font-size: 16px; line-height: 1.6; color: var(--fg); background: var(--bg); margin: 0; padding: 2rem 1rem; }
+  .wrap { max-width: 880px; margin: 0 auto; }
+  h1 { font-size: 2rem; margin: 0 0 .25rem; line-height: 1.2; }
+  h2 { font-size: 1.4rem; margin: 2.5rem 0 .75rem; padding-bottom: .35rem; border-bottom: 1px solid var(--border); }
+  h3 { font-size: 1.1rem; margin: 1.5rem 0 .5rem; color: var(--fg-muted); }
+  p { margin: .5rem 0 1rem; }
+  a { color: var(--accent); }
+  .meta { display: flex; flex-wrap: wrap; gap: .5rem 1rem; margin: .5rem 0 2rem; padding: .75rem 1rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); font-size: .9rem; }
+  .meta .kv { display: flex; gap: .35rem; }
+  .meta .k { color: var(--fg-muted); }
+  .meta .v { font-family: var(--mono); }
+  .badge { display: inline-block; padding: .15rem .6rem; border-radius: 99px; font-size: .8rem; font-weight: 500; line-height: 1.4; }
+  .badge.ok { background: var(--ok-bg); color: var(--ok); }
+  .badge.warn { background: var(--warn-bg); color: var(--warn); }
+  .badge.danger { background: var(--danger-bg); color: var(--danger); }
+  .badge.info { background: var(--accent-bg); color: var(--accent); }
+  nav.toc { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1.25rem; margin-bottom: 2rem; box-shadow: var(--shadow); }
+  nav.toc h2 { margin: 0 0 .5rem; font-size: .9rem; text-transform: uppercase; letter-spacing: .05em; color: var(--fg-muted); border: none; padding: 0; }
+  nav.toc ol { margin: 0; padding-left: 1.5rem; }
+  nav.toc li { margin: .15rem 0; }
+  aside.callout { margin: 1rem 0; padding: .9rem 1.1rem; border-left: 4px solid var(--accent); background: var(--accent-bg); border-radius: 0 var(--radius) var(--radius) 0; }
+  aside.callout.warn { border-color: var(--warn); background: var(--warn-bg); }
+  aside.callout.danger { border-color: var(--danger); background: var(--danger-bg); }
+  aside.callout.ok { border-color: var(--ok); background: var(--ok-bg); }
+  aside.callout > :first-child { margin-top: 0; }
+  aside.callout > :last-child { margin-bottom: 0; }
+  code { font-family: var(--mono); font-size: .92em; background: var(--code-bg); padding: .12em .35em; border-radius: 3px; }
+  pre { font-family: var(--mono); font-size: .88rem; background: var(--code-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: .9rem 1rem; overflow-x: auto; line-height: 1.45; }
+  pre code { background: transparent; padding: 0; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; background: var(--bg-card); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
+  th, td { text-align: left; padding: .55rem .8rem; border-bottom: 1px solid var(--border); vertical-align: top; font-size: .92rem; }
+  th { background: var(--code-bg); font-weight: 600; font-size: .85rem; }
+  tr:last-child td { border-bottom: none; }
+  blockquote { border-left: 3px solid var(--border); padding: .2rem 1rem; margin: 1rem 0; color: var(--fg-muted); font-style: italic; }
+  hr { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
+  .diagram { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; margin: 1rem 0; text-align: center; overflow-x: auto; }
+  .diagram pre.mermaid-source { text-align: left; display: none; }
+  .diagram.failed pre.mermaid-source { display: block; }
+  .diagram.failed svg { display: none; }
+  @media print {
+    body { background: white; color: black; padding: 0; }
+    .wrap { max-width: none; }
+    nav.toc, h2, h3, pre, table, aside.callout, .diagram { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Teach-and-Check Learning Gate</h1>
+<p style="color: var(--fg-muted); margin-top: 0;">Design spec for the <code>claude-jacked-kids</code> plugin — the learn-as-you-build comprehension gate.</p>
+
+<div class="meta">
+  <div class="kv"><span class="k">Status:</span><span class="v"><span class="badge ok">approved</span></span></div>
+  <div class="kv"><span class="k">Date:</span><span class="v">2026-06-27</span></div>
+  <div class="kv"><span class="k">Branch:</span><span class="v">main</span></div>
+  <div class="kv"><span class="k">Type:</span><span class="v">spec</span></div>
+</div>
+
+<nav class="toc">
+  <h2>Contents</h2>
+  <ol>
+    <li><a href="#goal">Goal &amp; locked decisions</a></li>
+    <li><a href="#model">Interaction model (read first)</a></li>
+    <li><a href="#flow">How the gate works — the flow + the ladder</a></li>
+    <li><a href="#concepts">What counts as a concept worth gating + catalog</a></li>
+    <li><a href="#difficulty">Age + competence difficulty model</a></li>
+    <li><a href="#judging">Answer-judging rubric</a></li>
+    <li><a href="#brainpoints">Brain Points economy</a></li>
+    <li><a href="#dial">The parent dial</a></li>
+    <li><a href="#schema">Player Card schema</a></li>
+    <li><a href="#safety">Safety rails</a></li>
+    <li><a href="#persona">Persona reconciliation</a></li>
+    <li><a href="#files">File-level build plan</a></li>
+    <li><a href="#risks">Open risks</a></li>
+  </ol>
+</nav>
+
+<h2 id="goal">Goal &amp; locked decisions</h2>
+<p>Make learning a built-in part of how a kid uses the buddy: as the buddy builds the kid's game, every genuinely-new idea becomes a tiny <strong>Brain Boost</strong> — the buddy teaches it in one kid-sized bite tied to what's on screen, then asks a simple question the kid must engage with to unlock the <em>next</em> thing they want. It's a carrot taped to the side of the fun, not a fence in front of it.</p>
+
+<aside class="callout">
+  <strong>Locked product decisions (do not relitigate):</strong>
+  <ul>
+    <li><strong>Strictness:</strong> ON by default at <code>normal</code>; parent dial with four levels — <code>off / light / normal / strict</code>.</li>
+    <li><strong>What's gated:</strong> every genuinely-new concept gets one short teach + one check, tied to the current build step.</li>
+    <li><strong>Rewards:</strong> a <strong>separate</strong> "Brain Points" economy + a "Things I Learned" wall, kept distinct from in-game coins/XP.</li>
+    <li><strong>Teeth:</strong> <em>gate the next upgrade</em>. The kid keeps everything already built &amp; playable; the check is the toll for the <em>next</em> new addition. Never blocks, removes, or stalls what exists.</li>
+    <li><strong>Answer channel:</strong> the kid answers <em>in Claude Code</em>, usually by <strong>voice-to-text</strong> (OS dictation into the CLI). No quiz UI is rendered inside the games.</li>
+  </ul>
+</aside>
+
+<aside class="callout warn">
+  <strong>The honest tension, resolved.</strong> "Semi-refuse until they answer correctly" and "never hard-block a child" can't both be absolute. <strong>Never-block wins</strong> (it's the safety floor and a persona requirement). So the gate has real teeth — it's the framed, expected path to the next thing the kid wants, and the never-stuck ladder <em>always</em> ends in a win — but a kid who actively refuses or melts down is waved through (taught, no Brain Points). The gate can never make the game itself conditional on an answer.
+</aside>
+
+<aside class="callout ok">
+  <strong>Refined after adversarial review (2026-06-27).</strong> A multi-lens DCR pass hardened the build beyond this spec's first draft. Net changes, now reflected in the shipped skills: (1) <strong>silence/overwhelm always releases</strong> — a quiet kid is never re-quizzed, and the co-answer step builds even with no reply; (2) reward is <strong>engagement-based</strong> — a kid who genuinely struggled and co-answered still earns, while "just tell me"/"idk" earns nothing; (3) the distress protocol is <strong>hoisted into the always-on persona</strong> so it covers every turn, not just check answers; (4) <strong>about-me is the sole writer</strong> of the Player Card, <strong>verifies every wall write</strong>, and creates the card on a kid's first earn; (5) <code>strict</code> reinforces an old concept on a <em>separate</em> seam, never stacking two checks; (6) the exemption is the <em>first game per conversation</em>. The shipped <code>teach-and-check</code> and <code>about-me</code> skills are the operative source of truth.
+</aside>
+
+<h2 id="model">Interaction model (read first — it's load-bearing)</h2>
+<ul>
+  <li><strong>It's a text chat.</strong> The games render in a browser; the kid talks to the buddy through the Claude Code command line.</li>
+  <li><strong>The kid answers by voice.</strong> Per the product owner, the primary channel is OS voice-to-text dictation into the CLI. Answers therefore arrive as <em>text with voice-transcription noise</em> — homophones, dropped words, run-ons, no punctuation, very short. We forgive all of it and judge by meaning.</li>
+  <li><strong>Very young / non-readers:</strong> a grown-up or older sibling is often at the keyboard and can read the question and relay the spoken answer. If a child genuinely can't engage, the never-block floor means they simply keep playing — the gate never traps them. We do <strong>not</strong> render in-game quiz buttons (explicitly out of scope per the product owner).</li>
+  <li><strong>Default check shape:</strong> an <strong>either/or</strong> question ("Does the memory box <em>remember</em> your stars or <em>forget</em> them?"). It's persona-compliant, works read aloud or spoken, and can't be defeated by spelling. An open "say it in your own words" question is an <em>optional upgrade</em> for older / clearly-competent kids only.</li>
+</ul>
+
+<h2 id="flow">How the gate works — the flow + the ladder</h2>
+
+<h3>When a check fires: at the seam, gating the next upgrade</h3>
+<p>Checks <strong>never interrupt a build mid-stream</strong> (a 6-year-old won't sit waiting on a half-built truck). The buddy builds the whole thing, tests it, shows it, lets the kid play. A check fires at the <strong>seam</strong> — when the kid asks for the <em>next</em> new thing that introduces a new gateable concept:</p>
+<blockquote>"YES, a laser cannon! 😎 Quick though — to earn this one you gotta tell me one thing first… [teach + check] … Nailed it! 🎉 +10 Brain Points. Building your laser cannon now! 🔧"</blockquote>
+<p>During the build itself the buddy still narrates ideas as one-sentence nuggets (no question, no waiting). The check is the toll for the next increment, not for anything already delivered.</p>
+
+<div class="diagram">
+  <pre class="mermaid">
+flowchart TD
+    A[Kid asks for the next new thing] --> B{New, gateable concept?}
+    B -->|no| Z[Just build it]
+    B -->|yes| C[TEACH: one kid-sized sentence, kid-name not jargon]
+    C --> D[CHECK: one either/or question]
+    D --> E{Shows understanding?}
+    E -->|yes| W[Celebrate + Brain Points + wall sticker]
+    E -->|no| F[RE-TEACH a DIFFERENT way]
+    F --> G{Got it?}
+    G -->|yes| W
+    G -->|no| H[HINT: smallest nudge]
+    H --> I{Got it?}
+    I -->|yes| W
+    I -->|no| J[ANSWER IT TOGETHER: guaranteed win]
+    J --> W
+    D -.->|kid refuses / melts down| K[Teach together, NO points]
+    W --> Y[Build the upgrade]
+    K --> Y
+  </pre>
+  <pre class="mermaid-source">
+flowchart TD
+    A[Kid asks for the next new thing] --> B{New, gateable concept?}
+    B -->|no| Z[Just build it]
+    B -->|yes| C[TEACH]
+    C --> D[CHECK either/or]
+    D --> E{Understands?}
+    E -->|yes| W[Brain Points + sticker]
+    E -->|no| F[RE-TEACH differently]
+    F --> H[HINT]
+    H --> J[ANSWER TOGETHER guaranteed win]
+    J --> W
+    D -.->|refuse/melt| K[Teach together, no points]
+    W --> Y[Build the upgrade]
+    K --> Y
+  </pre>
+</div>
+
+<h3>The five-rung "no answer left hanging" ladder</h3>
+<ol>
+  <li><strong>TEACH</strong> — one concrete sentence tied to <em>their</em> game, under the kid-name. <em>"A memory box keeps your high scores safe even after you turn the game off."</em></li>
+  <li><strong>CHECK</strong> — one either/or question. Right → celebrate + Brain Points + wall sticker, done.</li>
+  <li><strong>RE-TEACH a different way</strong> (only if missed) — a <em>new</em> analogy, never the same words; offer a choice for autonomy ("want the toy-box version or the LEGO version?").</li>
+  <li><strong>HINT</strong> (still missed) — the smallest nudge: a sentence stem or "it KEEPS your stuff — so keep or lose?"</li>
+  <li><strong>ANSWER IT TOGETHER</strong> (the guaranteed win) — <em>"Say it with me: the memory box KEEPS my scores! Boom. 💪"</em> Any echo or "yeah" counts — and if the kid says nothing at all, you still say it, build the upgrade, and move on. Silence is always a release, never a loop.</li>
+</ol>
+<aside class="callout ok"><strong>Never a sixth rung of nothing.</strong> The upgrade gets built either way. The gate always opens.</aside>
+
+<h3>Reward only follows genuine engagement</h3>
+<p>Reward follows <strong>genuine engagement, not correctness.</strong> A kid earns the sticker + Brain Points if they (a) picked the right side themselves, OR (b) engaged honestly — gave real tries on the earlier rungs — and then needed the answer said together. A kid who did <strong>not</strong> engage — escaped ("just build it" / "skip" / "boring"), gave two non-answers ("idk idk"), begged "just tell me" without trying, or only parroted — gets the upgrade built warmly but <strong>no sticker, no points</strong> (marked <em>taught, not yet earned</em>, may be re-offered). Skipping or begging is painless but never <em>paid</em>, which kills the "idk / 'just tell me' → free points" exploit while still rewarding a kid who genuinely struggled.</p>
+
+<h3>Escape hatches (any one ends the current check, builds anyway, no penalty)</h3>
+<ul>
+  <li>Escape words: <code>skip</code>, <code>stop</code>, <code>next</code>, <code>just build it</code>, <code>no</code>, <code>boring</code>, <code>I'm done</code>, <code>play</code>, <code>just tell me</code>, <code>tell me the answer</code>, <code>tell me</code>.</li>
+  <li>Two non-answers in a row (blank, <code>?</code>, <code>idk</code>, emoji-only).</li>
+  <li>Frustration / self-deprecation signals (see Safety).</li>
+  <li>Dial = <code>off</code>.</li>
+</ul>
+
+<h2 id="concepts">What counts as a concept worth gating</h2>
+<h3>The 4-test gate (all four must be true)</h3>
+<ol>
+  <li><strong>New to this kid</strong> — not already on their wall, not already checked this conversation.</li>
+  <li><strong>Load-bearing right now</strong> — it powers something the kid can SEE in their game.</li>
+  <li><strong>Nameable</strong> in one kid-word (memory box, loop, score).</li>
+  <li><strong>Explainable</strong> in one concrete sentence at the kid's level.</li>
+</ol>
+<p>Fails any test → teach as a nugget, no check. <strong>Never gate</strong> cosmetic choices (truck color), tool mechanics, trivia, or anything already learned. On a reappearance of a learned concept, name it as a reward instead: <em>"Another loop — you already KNOW these, training wheels off! 🚲💨"</em></p>
+
+<h3>Jargon rule: teach/check the kid-name, never demand the jargon</h3>
+<p>Per persona line 13, the kid is <strong>never</strong> required to produce a tech word to pass. Each concept has a <code>kidName</code> (taught &amp; checked) and a <code>realName</code> (mentioned as a fun bonus, never required). <em>"I added a <strong>memory box</strong> — grown-ups call that a 'database.' Does it remember or forget your scores?"</em> ✅ &nbsp; <em>"What is a database?"</em> ❌ (open + jargon-first, both banned for young kids; fine to use the real term for ages 11+).</p>
+
+<h3>The concept catalog (ships as one <code>concept-cards.json</code>)</h3>
+<p>Each card: <code>id</code>, <code>kidName</code>, <code>realName</code>, <code>teach</code>, either/or <code>check</code>, <code>reteach</code> (different analogy), <code>hint</code>, <code>coAnswer</code>, <code>mustHaveIdea</code> (core meaning for judging the optional open question), <code>olderCheck</code> (optional open question, 11+), and <code>acceptExamples</code> (messy-but-correct, for judge calibration).</p>
+<table>
+  <thead><tr><th>#</th><th>kidName (realName)</th><th>Teach (one sentence)</th><th>Either/or check (default)</th><th>Core idea = PASS</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td><strong>memory box</strong> (database)</td><td>"It remembers your high scores even after the game's off."</td><td>"Does the memory box <em>remember</em> or <em>forget</em> your scores?"</td><td>keeps/stores info; survives restart</td></tr>
+    <tr><td>2</td><td><strong>remember-number</strong> (variable)</td><td>"A sticky note that holds one number, like your lives."</td><td>"Does it hold <em>one</em> number, or <em>all</em> the pictures?"</td><td>holds one changeable value</td></tr>
+    <tr><td>3</td><td><strong>score</strong> (score)</td><td>"The number that goes UP when you do something good."</td><td>"Does the score go <em>up</em> or <em>down</em> when you grab a coin?"</td><td>a number that counts points</td></tr>
+    <tr><td>4</td><td><strong>do-it-again</strong> (loop)</td><td>"Telling the computer: do this over and over!"</td><td>"Does a loop do it <em>once</em> or <em>again and again</em>?"</td><td>repeats many times</td></tr>
+    <tr><td>5</td><td><strong>rule</strong> (if-then)</td><td>"A rule: IF you touch the spike, THEN you lose a life."</td><td>"Does the rule run <em>always</em>, or <em>only when</em> you touch the spike?"</td><td>does something only when a condition is true</td></tr>
+    <tr><td>6</td><td><strong>bump</strong> (collision detection)</td><td>"When two things touch — like the car hitting the ramp!"</td><td>"Did the car <em>bump</em> the ramp or <em>miss</em> it?"</td><td>two things touching/overlapping</td></tr>
+    <tr><td>7</td><td><strong>where-it-is</strong> (coordinates)</td><td>"X and Y are the address of where your guy stands."</td><td>"Is X <em>across</em>, or <em>up and down</em>?"</td><td>a thing's position on screen</td></tr>
+    <tr><td>8</td><td><strong>picture-that-moves</strong> (sprite)</td><td>"The picture of your character that moves around."</td><td>"Is the sprite the <em>background</em> or the <em>thing that moves</em>?"</td><td>the graphic of a game object</td></tr>
+    <tr><td>9</td><td><strong>game-sound</strong> (SFX)</td><td>"The sound that plays when you jump — boing!"</td><td>"Should the coin go <em>ding</em>, or stay <em>silent</em>?"</td><td>a sound tied to an event</td></tr>
+    <tr><td>10</td><td><strong>clock</strong> (timer)</td><td>"A clock that counts so the game can be a race!"</td><td>"Does the timer <em>count</em>, or <em>paint</em>?"</td><td>counts time up/down</td></tr>
+    <tr><td>11</td><td><strong>win/lose rule</strong> (win condition)</td><td>"The rule that says when you WIN or LOSE."</td><td>"Do you win at <em>10 coins</em> or <em>0 coins</em>?"</td><td>the rule that ends the game</td></tr>
+    <tr><td>12</td><td><strong>save</strong> (save file)</td><td>"Writing your stuff down so it's there tomorrow."</td><td>"After we save, is your level here <em>tomorrow</em> — yes or no?"</td><td>keeps progress after closing</td></tr>
+    <tr><td>13</td><td><strong>put-it-online</strong> (deploy)</td><td>"Putting your game on the internet so friends can play!"</td><td>"Does online mean <em>only you</em> play, or <em>friends too</em>?"</td><td>makes the game playable by others online</td></tr>
+    <tr><td>14</td><td><strong>dice-roll</strong> (random)</td><td>"The computer rolls dice so it's different each time!"</td><td>"Does random mean the <em>same</em> every time, or <em>different</em>?"</td><td>unpredictable / different each time</td></tr>
+    <tr><td>15</td><td><strong>list</strong> (array)</td><td>"A list that holds lots of things, like all your coins."</td><td>"Does a list hold <em>one</em> thing or <em>many</em>?"</td><td>holds many things together</td></tr>
+    <tr><td>16</td><td><strong>game-mode</strong> (state)</td><td>"Is the game PLAYING, PAUSED, or OVER? That's its mode."</td><td>"Right now is the game <em>playing</em> or <em>paused</em>?"</td><td>the current mode the game is in</td></tr>
+  </tbody>
+</table>
+<p>Catalog is extensible — add a card whenever a new reusable, nameable concept recurs.</p>
+
+<h3>Clustering &amp; rhythm</h3>
+<ul>
+  <li>Max <strong>1 check per upgrade seam</strong>; if one request introduces several new ideas, check only the single most load-bearing and teach the rest as nuggets.</li>
+  <li><strong>First game in a conversation:</strong> no check — let the kid just see a game appear. Gating starts when they ask for the <em>next</em> new thing that sitting. (If you can't tell whether you've already built something this conversation, skip the check.)</li>
+  <li><strong>Never check a concept twice</strong> — name it as a "you already know this!" reward instead.</li>
+</ul>
+
+<h2 id="difficulty">Age + competence difficulty model</h2>
+<p>Two axes, but only one is persisted (to dodge LLM counter-drift):</p>
+<ul>
+  <li><strong>AGE is persisted</strong> (<code>kid.age</code> → derived <code>ageBand</code>). Sets vocabulary, concreteness, answer-length expectation, and whether the open upgrade is offered. The only persisted difficulty axis.</li>
+  <li><strong>COMPETENCE is handled live, in-conversation, not persisted.</strong> Within the current chat the buddy nudges difficulty from how the last couple checks went ("nailed two — I'll offer the open version"). Qualitative in-context judgment, which the model does well. No stored offset, rolling window, or counter.</li>
+</ul>
+<table>
+  <thead><tr><th>Band</th><th>Ages</th><th>Default check</th><th>Optional upgrade</th><th>Ceiling (never exceed)</th><th>Concreteness</th></tr></thead>
+  <tbody>
+    <tr><td>A</td><td>5–7</td><td>either/or</td><td>—</td><td>repeat-back</td><td>100% concrete, the on-screen object; expect a grown-up reading aloud</td></tr>
+    <tr><td>B</td><td>8–10</td><td>either/or</td><td>"say it in your own words"</td><td>own-words</td><td>concrete analogy, the kid's game objects</td></tr>
+    <tr><td>C</td><td>11–12</td><td>either/or + open</td><td>concrete-anchored "why"</td><td>one abstract idea, anchored</td><td>one abstract idea bolted to a concrete anchor</td></tr>
+    <tr><td>D</td><td>13–14</td><td>open / "why"</td><td>compare two options</td><td>full why/tradeoff</td><td>abstract OK, ground at least one option</td></tr>
+  </tbody>
+</table>
+<aside class="callout warn"><strong>Hard clamp:</strong> never ask a "why/tradeoff" question below Band C — it just manufactures failure. No dial setting, including <code>strict</code>, can exceed a band's ceiling. A parent cannot dial a 6-year-old into abstraction their brain can't do yet.</aside>
+<p><strong>Unknown age:</strong> behave at the gentlest level (either/or, concrete, short — no harder than Band A; you can't over-frustrate there), and the <code>about-me</code> skill warmly asks the kid's age early to calibrate. Tone stays neutral, never babyish, so an unknown-age 11-year-old isn't condescended to.</p>
+<p><strong>Reward framing scales with age:</strong> young kids get emoji stickers + "Brain Points" + kid-names; older kids (C/D) get a <strong>skills list using real terms</strong> ("Databases ✓, Loops ✓, Collision detection ✓") framed as a portfolio of things they actually know.</p>
+
+<h2 id="judging">Answer-judging rubric</h2>
+<h3>Either/or (the default path)</h3>
+<p>The kid picks a side. Match by <strong>meaning, not spelling</strong>: "remember," "remembr," "it remembrs them," "the first one," "keep" all map to the <em>remember</em> option. Voice-transcription noise (homophones, dropped words, run-ons, one-word answers) <strong>never</strong> counts against them. Ambiguous/off-topic → treat as a miss, advance the ladder (re-teach), never say "wrong."</p>
+<h3>Open upgrade (Band C/D, or competent B) — named verdicts, never a score</h3>
+<p>Judge with <strong>GOT_IT / CLOSE / NOT_YET</strong> after a one-line reason, matching against the card's <code>mustHaveIdea</code> by meaning. No 1–10 scale (LLM numbers drift). Synonyms and partials count.</p>
+<aside class="callout"><strong>Forgiveness instruction (verbatim in the skill):</strong> "This answer was spoken by (or for) a young child via voice-to-text. Expect homophones, dropped/duplicated words, run-ons, no punctuation, and very short answers. Judge ONLY whether the core idea is present. NEVER penalize spelling, grammar, length, or brevity. When unsure, do ONE gentle clarifying re-ask before deciding NOT_YET. A false NOT_YET (frustrating a kid who understood) is the worst error — bias toward GOT_IT."</aside>
+<h3>Anti-gaming, honestly bounded</h3>
+<ul>
+  <li><strong>idk / escape</strong> → completes the teach, earns nothing. Exploit defused by removing the reward, not by punishing.</li>
+  <li><strong>Parroting</strong> → the either/or can't be parroted into a correct pick without at least a 50/50 guess; the re-teach catches non-understanding. For the open upgrade, add "say it a different way than I did."</li>
+  <li><strong>Honest caveat:</strong> a determined kid can guess an either/or 50/50. Acceptable — this is light exposure + retrieval, not high-stakes assessment. Don't claim the judge "ensures" comprehension.</li>
+</ul>
+
+<h2 id="brainpoints">Brain Points economy (simple, LLM-feasible)</h2>
+<p>The whole economy in three rules — no running counters the model would drift on:</p>
+<ol>
+  <li><strong>One wall sticker per concept genuinely learned</strong> (engaged + got it). Append-only. Never removed, never decays.</li>
+  <li><strong>Brain Points = (number of wall stickers) × 10, computed at render time.</strong> Never accumulated turn-by-turn. "130 Brain Points" just means 13 stickers, recomputed whenever shown.</li>
+  <li><strong>Rank = derived from sticker count</strong> at render time.</li>
+</ol>
+<table>
+  <thead><tr><th>Rank</th><th>Stickers (distinct concepts)</th></tr></thead>
+  <tbody>
+    <tr><td>🐻 Curious Cub</td><td>0</td></tr>
+    <tr><td>✨ Spark Scout</td><td>3</td></tr>
+    <tr><td>🔭 Idea Explorer</td><td>7</td></tr>
+    <tr><td>🛠️ Brain Builder</td><td>12</td></tr>
+    <tr><td>🧙 Idea Wizard</td><td>20</td></tr>
+    <tr><td>🌟 Mastermind</td><td>30+</td></tr>
+  </tbody>
+</table>
+<p><strong>The "Things I Learned" wall</strong> stores only structured fields: <code>{ conceptId, kidName, realName, fromGame, dateLearned, firstTry }</code>. It renders the <strong>canonical kid-definition from the concept card</strong>, never the kid's typed words — which removes the entire PII-leak class. The wall only ever grows.</p>
+<p><strong>Streak</strong> — one date field, updated once per session at start: <code>lastDate == yesterday</code> → <code>current++</code>; <code>== today</code> → unchanged; older → <code>current = 1</code> with a warm zero-shame welcome-back (<code>best</code> preserved forever). A miss never breaks the streak — it counts <em>showing up</em>, not correctness.</p>
+<aside class="callout"><strong>Cut for v1 (YAGNI):</strong> competence state machines, exact-BP accumulation, a second rank ladder, family badges, growth-chips, combos, Brain Freezes, a cosmetic shop, spaced-callback counters. None survive a forgetful LLM cleanly and none are needed. <strong>Brain Points never buy in-game power</strong> — there's nothing to buy; the reward is the visible record of what the kid knows. No leaderboards, no peer comparison, ever.</aside>
+
+<h2 id="dial">The parent dial</h2>
+<p>Four levels change <em>how much is checked</em>, never <em>how hard to pass</em> (the lenient judge can't reliably deliver a stricter bar). All four use the same never-block floor and the same band ceiling clamp.</p>
+<table>
+  <thead><tr><th>Level</th><th>What gets checked</th><th>Re-teach depth</th><th>Open upgrade?</th></tr></thead>
+  <tbody>
+    <tr><td><code>off</code></td><td>nothing — teach nuggets only, auto-continue. Wall doesn't grow.</td><td>—</td><td>no</td></tr>
+    <tr><td><code>light</code></td><td>only the biggest concept, occasionally</td><td>1 re-teach → co-answer</td><td>no</td></tr>
+    <tr><td><code>normal</code> <span class="badge info">default</span></td><td>every new gateable concept at its seam (1 per upgrade)</td><td>full ladder</td><td>only to clearly-competent C/D kids</td></tr>
+    <tr><td><code>strict</code></td><td>the most load-bearing new concept — plus, on a <em>separate later</em> seam, a no-stakes "still got it?" reinforcement of one already-learned concept (never two checks on one seam, never a new sticker, never a gate)</td><td>full ladder + one extra re-teach beat</td><td>yes, to B/C/D</td></tr>
+  </tbody>
+</table>
+<p><strong>Who can change it:</strong> a grown-up via chat ("I'm the grown-up — set learning checks to light") writes <code>grownups.strictness</code>. A kid can switch checks off <em>for the current chat only</em>; changing the persistent default needs a grown-up to confirm (same speed-bump pattern as the publish gate). <strong>Honest limitation</strong> (stated in the explainer): the setting is a plain text file on the family's own device; a tech-savvy older child could edit it. We do not claim a real lock — the threat model is a child casually re-tuning their own learning, not an attacker.</p>
+<p><strong>Grown-up explainer:</strong> <code>&lt;arcade&gt;/.jacked-kids/for-grownups.html</code>, generated by the <code>about-me</code> skill from a template <strong>shipped inside the plugin</strong> (not from any per-machine personal template). One screen: what teach-and-check is, the dial table, how to change it, the safety posture, what's stored vs not, "erase all learning data = delete the <code>.jacked-kids/</code> folder," and the honest plain-text-file note.</p>
+
+<h2 id="schema">Player Card schema (one file, one layout)</h2>
+<p><strong>Location:</strong> <code>&lt;kid-arcade&gt;/.jacked-kids/player-card.json</code>. Created/owned by <code>about-me</code>; written by <code>teach-and-check</code>. <code>.jacked-kids/</code> is git-ignored and excluded from every publish/deploy path (PII never leaves the device). Filenames kebab-case, JSON keys camelCase.</p>
+<pre><code>{
+  "version": 1,
+  "kid": {
+    "firstName": "Sam",          // first name only (persona rule #2)
+    "age": 9,
+    "ageBand": "B",              // derived from age each session: A 5-7, B 8-10, C 11-12, D 13-14
+    "interests": ["dinosaurs", "monster trucks"]
+  },
+  "grownups": {
+    "strictness": "normal",      // off | light | normal | strict (default normal)
+    "lastChanged": "2026-06-27"
+  },
+  "learning": {
+    "streak": { "current": 4, "best": 9, "lastDate": "2026-06-27" },
+    "wall": [
+      { "conceptId": "database", "kidName": "memory box", "realName": "database",
+        "fromGame": "Dino Dash", "dateLearned": "2026-06-20", "firstTry": true },
+      { "conceptId": "loop", "kidName": "do-it-again", "realName": "loop",
+        "fromGame": "Truck Jump", "dateLearned": "2026-06-22", "firstTry": false }
+    ]
+  }
+}</code></pre>
+<p><strong>Derived, never stored:</strong> <code>brainPoints = wall.length * 10</code>; <code>rank</code> from the ladder. <strong>Never stored anywhere:</strong> raw answer text, PII, distress content, per-concept BP, competence counters. <code>wall</code> is append-only.</p>
+
+<h2 id="safety">Safety rails</h2>
+<h3>Never-block (structural)</h3>
+<p>Skill rule, verbatim: <em>"Un-passed concepts NEVER block play, save, share, or publish. The wall is a brag sheet, never a key. A kid with zero stickers can build, play, and (with a grown-up) publish everything. No dial value, including strict, can block, delay, or revoke a game or feature. If you ever make a game conditional on an answer, you've violated the core rule — stop and just build it."</em></p>
+<h3>Safety order-of-operations on every free-text answer (first hit wins)</h3>
+<ol>
+  <li><strong>Distress scan</strong> (highest priority).</li>
+  <li><strong>PII scan.</strong></li>
+  <li><strong>Frustration / escape scan.</strong></li>
+  <li><strong>Meaning judge</strong> — only if 1–3 are clean.</li>
+</ol>
+<h3>Upsetting input</h3>
+<p>If an answer signals fear/harm/abuse/self-harm: drop the gate entirely, no judging, no points. Stay calm (no shock), believe and affirm, don't interrogate, never promise secrecy, route to <strong>a trusted grown-up the child chooses</strong>, store nothing, never create a hidden "your kid said something scary" parent flag. Two tiers: mild upset → warm acknowledgment + offer a break; safety-relevant → calm affirmation + trusted-adult handoff, then stop the learning flow. See Open Risks for the limit of this posture.</p>
+<h3>Frustration backoff</h3>
+<p>Signals: two short/blank answers, "this is boring/dumb," all-caps, repeated punctuation, and <strong>self-deprecation</strong> ("I'm dumb," "I can't" — immediate, no second sign needed). Response: drop to the simplest either/or, reframe any miss as "Not yet — let's try it another way!" (the words <em>wrong, fail, quiz, test, nope, incorrect, "try again"</em> are banned in kid copy), and on a second signal stop the check, co-answer warmly, build the thing. After any backoff, the next concept is taught with no check to rebuild confidence.</p>
+<h3>Identity / COPPA in free-text</h3>
+<p>If an answer contains PII (last name, address, town, school, phone, email, full name, precise location, photo refs): do not store it, do not repeat it, scrub locally, warm redirect ("You don't need to tell me that here — just tell me about the memory box! 😊"), treat as a normal slip. Combined with the wall storing only canonical card text, no kid-typed PII ever reaches a file. Logging is structured-only.</p>
+
+<h2 id="persona">Persona reconciliation (exact edit to <code>kid-buddy.md</code>)</h2>
+<p>One line changes (line 43, the "Get to know your buddy" paragraph). The new wording makes the gate the <em>enforcement</em> of "never withhold help," not its violation: the game is already built and playable, every hint gives <em>more</em> help, and the buddy always ends by saying the answer together. It points at the <code>teach-and-check</code> skill and the dial. The other persona rules (line 13 no-jargon, line 18 either/or, lines 21–22 show-don't-tell, lines 28–31 build-then-show) are already respected by design and need no edit.</p>
+
+<h2 id="files">File-level build plan (in build order)</h2>
+<p>All prompt/skill/JSON. No app code.</p>
+<table>
+  <thead><tr><th>#</th><th>File</th><th>Action</th><th>Responsibility</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td><code>skills/about-me/SKILL.md</code></td><td>create</td><td>Foundation. Create/read/update the Player Card to the schema; warmly collect first name + age + interests; derive <code>ageBand</code>; render the "Things I Learned" wall (age-scaled); generate <code>for-grownups.html</code>; let a grown-up set the dial. Owns the file.</td></tr>
+    <tr><td>2</td><td><code>skills/about-me/for-grownups-template.html</code></td><td>create</td><td>The grown-up explainer template shipped <em>inside the plugin</em> (self-contained — kids won't have personal templates). <code>about-me</code> copies it into the kid's arcade.</td></tr>
+    <tr><td>3</td><td><code>skills/teach-and-check/SKILL.md</code></td><td>create</td><td>The feature: seam timing + gate-the-next-upgrade, the 5-rung ladder, engagement-gated reward, the 4-test gate, jargon rule, age model + unknown-age default + in-context competence, either/or + open-upgrade judging + forgiveness + anti-gaming, Brain Points (stickers×10) + one rank ladder + simple streak, the dial mapping, safety order-of-operations + never-block. Writes only structured fields.</td></tr>
+    <tr><td>4</td><td><code>skills/teach-and-check/concept-cards.json</code></td><td>create</td><td>The 16-card catalog, extensible.</td></tr>
+    <tr><td>5</td><td><code>skills/teach-and-check/reference/judging-and-safety.md</code></td><td>create</td><td>Detailed judge rubric, few-shot accept/reject examples per pilot concept (database, score, loop), and the full safety protocols (distress tiers, PII scrub, frustration backoff, forbidden-actions list). Markdown — Claude-read instruction file.</td></tr>
+    <tr><td>6</td><td><code>agents/kid-buddy.md</code></td><td>edit</td><td>The single line-43 change.</td></tr>
+    <tr><td>7</td><td><code>README.md</code></td><td>edit</td><td>Mark <code>teach-and-check</code> + <code>about-me</code> shipped; fix the "What's inside" tree to match reality (it currently lists <code>skills/</code> and <code>hooks/</code> dirs that don't exist).</td></tr>
+  </tbody>
+</table>
+<p><strong>Integration contracts</strong> (documented now, wired when the roadmap game skills get built): <code>build-my-arcade</code> seeds the Player Card + generates the explainer + adds <code>.jacked-kids/</code> to gitignore &amp; the deploy-ignore + renders the wall in the hub; <code>make-a-game</code>/<code>change-a-game</code>/<code>remix-a-game</code> run the 4-test gate at each upgrade seam and invoke teach-and-check; <code>put-it-online</code> hard-excludes <code>.jacked-kids/</code> from anything published; <code>play-my-game</code>/<code>my-creations</code> surface rank + wall read-only and fire no checks.</p>
+
+<h2 id="risks">Open risks / things to watch</h2>
+<ol>
+  <li><strong>The gate is "semi," not absolute.</strong> The never-block floor means a determined kid can skip. The buddy nudges and rewards but cannot compel comprehension. <span class="badge ok">PO signed off</span> — this is the accepted consequence of the never-block requirement.</li>
+  <li><strong>Abuse disclosure where the trusted adult IS the abuser.</strong> Our posture ("tell a grown-up you trust," store nothing) is reasonable but is <strong>not</strong> a full safeguarding solution. <span class="badge ok">Owner decided 2026-06-27</span> — ship the gentle trusted-adult handoff as-is; age-appropriate crisis resources were considered and deliberately deferred (no specifics invented). Revisit before this is in front of real kids at scale.</li>
+  <li><strong>Parent dial is a plain text file.</strong> A literate older kid can edit it. Stated honestly in the explainer rather than claiming a lock.</li>
+  <li><strong>Either/or is 50/50 guessable.</strong> The wall proves <em>engagement + exposure</em>, not mastery. Don't market it as proof of mastery; the optional open upgrade is the only real-recall path.</li>
+  <li><strong>LLM judge error (~1 in 4–5 even calibrated).</strong> Tuned toward GOT_IT to avoid false-NOT_YET tears. The either/or default + re-teach beat are the mitigations; the few-shot cards are the lever.</li>
+  <li><strong>In-context competence resets each session.</strong> Deliberate (no brittle state). A strong kid re-proves nothing carries over beyond the wall. Acceptable for v1.</li>
+</ol>
+
+<hr>
+<p style="color: var(--fg-muted); font-size: .85rem; text-align: center;">
+  claude-jacked-kids — teach-and-check design spec. Grounded in an 11-agent research + multi-lens design + adversarial-critique pass (2026-06-27).
+</p>
+
+</div>
+<script type="module">
+  try {
+    const mermaid = (await import("https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs")).default;
+    mermaid.initialize({ startOnLoad: true, theme: window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "default", flowchart: { curve: "basis" }, securityLevel: "loose" });
+  } catch (err) {
+    document.querySelectorAll(".diagram").forEach(d => d.classList.add("failed"));
+    console.warn("mermaid load failed, diagrams shown as source:", err);
+  }
+</script>
+</body>
+</html>
