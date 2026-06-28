@@ -7,9 +7,9 @@
 ### Just say what you want. Your buddy builds it. ✨
 
 🎮 *"Make a monster truck that jumps over school buses!"*
-🏈 *"Build me an app that shows off all my football touchdowns this season!"*
+⏰ *"An app that counts down to the new dinosaur movie!"*
 🐱 *"A cat that catches falling fish!"* &nbsp;·&nbsp; 🚀 *"A rocket that dodges asteroids!"*
-⚾ *"Track my baseball stats and grab them from where my league posts them!"*
+🧹 *"A chore chart for me and my brother!"* &nbsp;·&nbsp; ⚾ *"A page to keep score of my baseball season!"*
 
 **You talk. It builds. You play it, use it, and show it off.** No code. No hard stuff. 🎉
 
@@ -22,7 +22,7 @@
 A **friendly buddy** that lives inside an app called **Claude Code**. You tell it what you want — in your own words — and it builds the whole thing and shows it on your screen. It's not just games:
 
 - 🎮 **Games** — monster trucks, cats catching fish, rockets, dragons… whatever you dream up.
-- 🛠️ **Apps & tools that do real stuff** — a tracker for your touchdowns, a page that pulls your baseball stats from where your league posts them, a "how good an athlete am I?" scoreboard to show your friends, a chore chart, a quiz, a money-saver… real things that help *you*.
+- 🛠️ **Apps & tools that do real stuff** — a countdown to movie night, a tracker where you keep your touchdowns, a chore chart, a flashcard quiz for your spelling words, a "rate my sandwich" picker, a money-saver… real things that help *you*. (You type your own stuff in — your buddy makes it look awesome and remembers it for you.)
 
 Then you can play it, use it, change it, and (with a grown-up) put it on the internet to share.
 
@@ -167,8 +167,8 @@ No Claude Code yet? That's okay — we'll go nice and slow. (Got the prerequisit
 Type (or **talk** — see below) stuff like:
 
 - 🎨 *"Make a game where a dragon flies through caves!"*
-- 🏈 *"Build an app that lists my touchdowns and shows my best game."*
-- ⚾ *"Pull my baseball stats from the league website and make a cool stats page."*
+- 🏈 *"Build an app where I list my touchdowns and it shows my best game."*
+- ⏰ *"Make an app that counts down to summer break!"* &nbsp;·&nbsp; 🧠 *"A quiz for my spelling words!"*
 - 🔧 *"Make my truck jump higher!"* &nbsp;·&nbsp; 🏆 *"Add a high score!"*
 - ▶️ *"Let me play it now!"* &nbsp;·&nbsp; 🌈 *"Make it nighttime with stars!"*
 

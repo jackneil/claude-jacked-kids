@@ -1,6 +1,6 @@
 ---
 name: teach-and-check
-description: Teach a kid a new idea as you build their game, then check they understood it before unlocking the next thing they want — earning Brain Points. Use this EVERY time you're about to add something to a kid's game that introduces a genuinely-new concept (a database/"memory box", a loop, a score, collision, saving, putting it online, etc.). The learn-as-you-build gate. Reads the kid's age and the grown-up's strictness dial from the Player Card (see about-me) and writes learned concepts to it.
+description: Teach a kid a new idea as you build their game or app, then check they understood it before unlocking the next thing they want — earning Brain Points. Use this EVERY time you're about to add something to a kid's creation that introduces a genuinely-new concept (a database/"memory box", a loop, a score, saving, a type-in box, a button, putting it online, etc.). The learn-as-you-build gate, for games and apps alike. Reads the kid's age and the grown-up's strictness dial from the Player Card (see about-me) and writes learned concepts to it.
 ---
 
 # Teach-and-Check — learn while you build

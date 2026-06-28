@@ -1,6 +1,6 @@
 ---
 name: build-my-arcade
-description: Build a kid their whole game arcade from scratch in an empty folder — a hub that lists their games, plays them, and shows their Brain Wall, working offline by default. Use when a kid is starting out, is in an empty/new folder, or says "make me an arcade", "set up my games", "I want to make games", "build my game website", or asks for their first game with nowhere to put it. Sets up the structure every other game skill (make-a-game, change-a-game, play-my-game, put-it-online) builds on. Can later deploy to the web and grow into a full logins+leaderboards platform.
+description: Build a kid their whole creations hub from scratch in an empty folder — a home page that lists their games AND their apps/tools, opens any of them with one click, and shows their Brain Wall, working offline by default. Use when a kid is starting out, is in an empty/new folder, or says "make me an arcade", "set up my games", "I want to make games", "I want to make an app", "build my own website", or asks for their first game OR app with nowhere to put it. Sets up the structure every other building skill (make-a-game, make-an-app, change-it, play-it, put-it-online) builds on, and writes the project's CLAUDE.md. Can later deploy to the web and grow into a full logins+leaderboards platform.
 ---
 
 # Build My Arcade — the kid's game platform, from scratch
