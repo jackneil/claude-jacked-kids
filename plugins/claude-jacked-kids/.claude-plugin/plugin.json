@@ -1,10 +1,10 @@
 {
   "name": "claude-jacked-kids",
-  "description": "Turns Claude Code into a warm, kid-safe game-building buddy. A kid describes a game in plain words; Claude builds, tests, shows, and (with a grown-up) publishes it. Companion to claude-jacked — for kids, installed separately.",
+  "description": "Turns Claude Code into a warm, kid-safe building buddy. A kid describes anything they want in plain words — a game, or any app, tool, or toy — and Claude builds, tests, shows, and (with a grown-up) publishes it. Companion to claude-jacked — for kids, installed separately.",
   "author": {
     "name": "Jack Neil",
     "email": "jack.neil@hank.ai"
   },
   "homepage": "https://github.com/jackneil/claude-jacked-kids",
-  "keywords": ["kids", "games", "kid-friendly", "education", "game-making"]
+  "keywords": ["kids", "games", "apps", "kid-friendly", "education", "game-making", "app-making", "no-code"]
 }
