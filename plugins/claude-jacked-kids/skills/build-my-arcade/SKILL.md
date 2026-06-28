@@ -1,13 +1,13 @@
 ---
 name: build-my-arcade
-description: Build a kid their whole game arcade from scratch in an empty folder — a hub that lists their games, plays them, and shows their Brain Wall, working offline by default. Use when a kid is starting out, is in an empty/new folder, or says "make me an arcade", "set up my games", "I want to make games", "build my game website", or asks for their first game with nowhere to put it. Sets up the structure every other game skill (make-a-game, change-a-game, play-my-game, put-it-online) builds on. Can later deploy to the web and grow into a full logins+leaderboards platform.
+description: Build a kid their whole creations hub from scratch in an empty folder — a home page that lists their games AND their apps/tools, opens any of them with one click, and shows their Brain Wall, working offline by default. Use when a kid is starting out, is in an empty/new folder, or says "make me an arcade", "set up my games", "I want to make games", "I want to make an app", "build my own website", or asks for their first game OR app with nowhere to put it. Sets up the structure every other building skill (make-a-game, make-an-app, change-it, play-it, put-it-online) builds on, and writes the project's CLAUDE.md. Can later deploy to the web and grow into a full logins+leaderboards platform.
 ---
 
-# Build My Arcade — the kid's game platform, from scratch
+# Build My Arcade — the kid's creations platform, from scratch
 
-When a kid is in an empty folder and wants to make games, this is the recipe to build their whole **arcade**: a friendly home page (the "hub") that shows their games, lets them play with one click, and shows off their Brain Wall — and it works **offline**, right away, with no internet and nothing to install.
+When a kid is in an empty folder and wants to start making things, this is the recipe to build their whole **arcade** (their creations home): a friendly home page (the "hub") that shows their **games AND their apps & tools**, opens any of them with one click, and shows off their Brain Wall — and it works **offline**, right away, with no internet and nothing to install.
 
-You (the buddy) build all of it. The kid just talks to you.
+"Arcade" is just the affectionate name for the hub — it holds whatever the kid makes, a jumping-truck game or a movie countdown alike. You (the buddy) build all of it. The kid just talks to you.
 
 ## Three tiers — start tiny, grow only if they want to
 
@@ -56,33 +56,36 @@ While you build *with* the kid, run the zero-dependency **`dev-server.js`** (fro
 
 ```
 <arcade>/
-  index.html              # the hub (opens offline)
+  index.html              # the hub (opens offline) — shows games AND apps
+  CLAUDE.md               # project file the buddy writes: tone + layout + which-skill-when + safety floor
   arcade.config.js        # the ONE branding knob (name, owner, emoji, theme colors)
   dev-server.js           # (build-time only) zero-dep live-reload server; NOT needed to just play
   assets/
     style.css             # the look
     games-manifest.js     # window.GAMES = [...]  — the list of games the hub shows
+    apps-manifest.js      # window.APPS = [...]   — the list of apps/tools the hub shows
     scores.js             # window.ArcadeScores — localStorage high scores (use IndexedDB for richer saves)
+    store.js              # window.AppStore — localStorage data box for apps (use IndexedDB for richer saves)
+    theme.js              # paints an app island in the kid's chosen colors (apps have no canvas to recolor)
     brain-wall.js         # window.BRAIN_WALL = {...} — written by about-me; LOCAL ONLY
   vendor/                 # (optional) a vendored game engine for richer games
   games/
-    <game-id>/
-      index.html          # the game page (self-contained "island")
-      game.js             # the game's code
-      metadata.js         # window.GAME_META = {...} for this game
+    <game-id>/            # a game island: index.html + game.js + metadata.js (window.GAME_META)
+  apps/
+    <app-id>/             # an app island: index.html + app.js + metadata.js (window.APP_META)
   .jacked-kids/           # the Player Card + grown-up page (from about-me) — PRIVATE, never deployed
   .gitignore
 ```
 
-Copy the starter files from this skill's `templates/` folder and customize them — don't hand-write the hub from memory each time. The detailed shapes (the manifest, a game island, the hub, the score helper, the categories) are in [[reference/arcade-conventions]] — read it before you build.
+Copy the starter files from this skill's `templates/` folder and customize them — don't hand-write the hub from memory each time. The detailed shapes (both manifests, a game island, an app island, the hub, the score/data helpers, the categories, and the idempotent retrofit of an older games-only hub) are in [[reference/arcade-conventions]] — read it before you build. The lean project `CLAUDE.md` you write into the arcade is specified in [[reference/project-claude-md]].
 
 ### Build steps
 
 1. **Get excited and learn who they are.** Use the [[about-me]] skill: warmly get their first name + age + a few interests, which creates the Player Card in `.jacked-kids/`. (Age sets how you talk and how tricky the learning checks are.)
 2. **Name the arcade with them.** "What should we call your arcade? 'Sam's Game Zone'? 'Dino Land'?" Put the name, their first name, a favorite emoji, and a color they like into `arcade.config.js`. That one file rebrands the whole hub.
-3. **Lay down the structure** from `templates/` — the hub, `arcade.config.js`, `assets/`, an empty `games/`, the `.gitignore` (which **must** ignore `.jacked-kids/`).
-4. **Build their first game** with the [[make-a-game]] flow (or, if that skill isn't available yet, build a complete self-contained game island following [[reference/arcade-conventions]]). Add it to `games-manifest.js` so the hub shows it. Teach a concept with a Brain Boost the way [[teach-and-check]] says (remember: the **first** game in a conversation gets no check — let them just see it appear).
-5. **Show them — automatically.** Open the hub in their browser and bring it to the front. Click into the game so they SEE it work. (Use the [[play-my-game]] skill if available.)
+3. **Lay down the structure** from `templates/` — the hub, `arcade.config.js`, `assets/` (including `apps-manifest.js` and `store.js`), an empty `games/`, an empty `apps/`, the `.gitignore` (which **must** ignore `.jacked-kids/`). Then **write the project `CLAUDE.md`** per [[reference/project-claude-md]] (merge, never clobber). *(If the kid already has an older games-only arcade, run the idempotent retrofit in [[reference/arcade-conventions]] instead of laying down a fresh one.)*
+4. **Build their first creation** — a game with the [[make-a-game]] flow, or an app/tool with the [[make-an-app]] flow, matching what they asked for (if those skills aren't available yet, build a complete self-contained island following [[reference/arcade-conventions]]). Add it to the matching manifest (`games-manifest.js` or `apps-manifest.js`) so the hub shows it. Teach a concept with a Brain Boost the way [[teach-and-check]] says (remember: the **first** creation in a conversation gets no check — let them just see it appear).
+5. **Show them — automatically.** Open the hub in their browser and bring it to the front. Click into the new game/app so they SEE it work. (Use the [[play-it]] skill if available.)
 6. **Celebrate**, then offer the next step: another game, make this one better, or (with a grown-up) put it online.
 
 ### Privacy (never break this)
@@ -119,5 +122,5 @@ When a grown-up opts in, follow the **clone & adapt checklist** in [[reference/a
 ## How this fits the other skills
 
 - [[about-me]] — creates/owns the Player Card in `.jacked-kids/` and writes `assets/brain-wall.js` so the hub shows the Brain Wall offline.
-- [[teach-and-check]] — runs Brain Boost learning checks at the seams while you build games here.
-- **make-a-game / change-a-game / remix-a-game / play-my-game / my-creations / put-it-online / oops-go-back** — all operate on the structure this skill establishes. When they're available, use them; until then, follow [[reference/arcade-conventions]] to do the same work by hand.
+- [[teach-and-check]] — runs Brain Boost learning checks at the seams while you build games and apps here.
+- **make-a-game / make-an-app / change-it / play-it / my-creations / put-it-online / oops-go-back** — all operate on the structure this skill establishes (games *and* apps). When they're available, use them; until then, follow [[reference/arcade-conventions]] to do the same work by hand.

@@ -7,11 +7,13 @@
 ### Just say what you want. Your buddy builds it. ✨
 
 🎮 *"Make a monster truck that jumps over school buses!"*
-🏈 *"Build me an app that shows off all my football touchdowns this season!"*
+⏰ *"An app that counts down to the new dinosaur movie!"*
 🐱 *"A cat that catches falling fish!"* &nbsp;·&nbsp; 🚀 *"A rocket that dodges asteroids!"*
-⚾ *"Track my baseball stats and grab them from where my league posts them!"*
+🧹 *"A chore chart for me and my brother!"* &nbsp;·&nbsp; ⚾ *"A page to keep score of my baseball season!"*
 
 **You talk. It builds. You play it, use it, and show it off.** No code. No hard stuff. 🎉
+
+#### 🎧 Can't read this yet? [**Listen — what to do (1 min)** ▶️](docs/audio/kid-start.mp3) &nbsp;·&nbsp; <sub>[read the words](docs/audio/transcript.md) · AI voice</sub>
 
 </div>
 
@@ -22,7 +24,7 @@
 A **friendly buddy** that lives inside an app called **Claude Code**. You tell it what you want — in your own words — and it builds the whole thing and shows it on your screen. It's not just games:
 
 - 🎮 **Games** — monster trucks, cats catching fish, rockets, dragons… whatever you dream up.
-- 🛠️ **Apps & tools that do real stuff** — a tracker for your touchdowns, a page that pulls your baseball stats from where your league posts them, a "how good an athlete am I?" scoreboard to show your friends, a chore chart, a quiz, a money-saver… real things that help *you*.
+- 🛠️ **Apps & tools that do real stuff** — a countdown to movie night, a tracker where you keep your touchdowns, a chore chart, a flashcard quiz for your spelling words, a "rate my sandwich" picker, a money-saver… real things that help *you*. (You type your own stuff in — your buddy makes it look awesome and remembers it for you.)
 
 Then you can play it, use it, change it, and (with a grown-up) put it on the internet to share.
 
@@ -35,6 +37,9 @@ It also **teaches you cool stuff while it builds**, and gives you 🧠 **Brain P
 ## 👨‍👩‍👧 Parents: what you need to do first
 
 Your kid will talk to a friendly AI buddy that builds their games and apps. **You just set a few things up once** — no tech knowledge required. Here's the whole list, in order:
+
+> 🎧 **Rather listen?** [**Setup guide (audio)** ▶️](docs/audio/grownup-setup.mp3) &nbsp;·&nbsp; [transcript](docs/audio/transcript.md) <sub>· AI voice</sub>
+
 
 1. **💻 A computer — a Mac is best.** Minimum: a **[MacBook Neo](https://www.apple.com/macbook-neo/)** (~$599, Apple's budget MacBook). Better: a **MacBook Air with 16GB of RAM**. Windows works, but isn't quite as good for this.
 2. **💵 A Claude plan (~$20/month).** This powers the buddy — get **Pro** at [claude.com/pricing](https://claude.com/pricing). (There's no free version.)
@@ -50,6 +55,9 @@ Your kid will talk to a friendly AI buddy that builds their games and apps. **Yo
 ## 🚀 Already have Claude Code open? Do THIS (the magic words)
 
 If a grown-up already set up Claude Code and it's open and waiting for you, just **paste these magic words** to your buddy and press Enter:
+
+> 🎧 **Reading tricky? [Listen to what to do (1 min) ▶️](docs/audio/kid-start.mp3)** &nbsp;·&nbsp; <sub>[read the words](docs/audio/transcript.md) · AI voice</sub>
+
 
 ```text
 Hi Claude! I'm a kid and I want to make my own games and apps. Please set up my
@@ -167,8 +175,8 @@ No Claude Code yet? That's okay — we'll go nice and slow. (Got the prerequisit
 Type (or **talk** — see below) stuff like:
 
 - 🎨 *"Make a game where a dragon flies through caves!"*
-- 🏈 *"Build an app that lists my touchdowns and shows my best game."*
-- ⚾ *"Pull my baseball stats from the league website and make a cool stats page."*
+- 🏈 *"Build an app where I list my touchdowns and it shows my best game."*
+- ⏰ *"Make an app that counts down to summer break!"* &nbsp;·&nbsp; 🧠 *"A quiz for my spelling words!"*
 - 🔧 *"Make my truck jump higher!"* &nbsp;·&nbsp; 🏆 *"Add a high score!"*
 - ▶️ *"Let me play it now!"* &nbsp;·&nbsp; 🌈 *"Make it nighttime with stars!"*
 
@@ -199,7 +207,7 @@ Your buddy isn't just a builder — it's a little teacher, and it makes learning
 - 💵 **Cost:** Claude Code needs a paid **Claude plan** — a **Pro** plan (~**$20/month**) includes it; **Max** starts at ~$100/month for heavy use. The free Claude.ai chat tier does **not** include Claude Code. Check current prices at [claude.com/pricing](https://claude.com/pricing).
 - 💻 **Computer:** a **Mac** is best. Minimum a **[MacBook Neo](https://www.apple.com/macbook-neo/)** (~$599); a **MacBook Air with 16GB RAM** is better. Windows works but isn't quite as good for this, in our opinion.
 - 🎙️ **Voice typing (Wispr Flow):** kids talk way faster than they type. Set up a **[Wispr Flow](https://wisprflow.ai)** account so they can hold the 🌐 globe key on a Mac and just speak. **Bonus: one account works across all your devices** — sign your kid in on theirs, then sign in *yourself* on your phone and laptop, and you get voice-typing everywhere too. (Parents usually end up using it more than the kid.)
-- 🔒 **Privacy:** everything stays **on your computer**. The buddy keeps only a first name, age, a few interests, and which ideas the child has learned — **never** a last name, address, school, phone, or photos. Delete it all by removing the `.jacked-kids` folder in the child's creations folder.
+- 🔒 **Privacy:** everything your kid **makes** stays **on your computer**, and so does the little the buddy remembers about them — only a first name, age, a few interests, and which ideas they've learned, **never** a last name, address, school, phone, or photos. (Like any AI app, the buddy *does* talk to Claude over the internet to build things — but nothing your kid makes is shared or put online unless you choose to.) Delete it all by removing the `.jacked-kids` folder in the child's creations folder.
 - 🌍 **Going online is a grown-up step.** Creations run locally by default. Publishing to the internet needs a grown-up (under-13), and personal info is scrubbed first.
 - 🎚️ **You hold a learning dial.** Tell the buddy: *"I'm the grown-up — set learning checks to off / light / normal / strict."*
 - 🔁 **Staying updated (automatic):** turn it on once — `/plugin` → Marketplaces → `claude-jacked-kids` → **Enable auto-update**. Because the plugin is only prompts/skills, an update **can never break something your kid already made** — it just refreshes the buddy's know-how.
@@ -220,13 +228,21 @@ A **Claude Code plugin**: pure skills + a kid-safe persona. It ships **no applic
 ```
 claude-jacked-kids/
 ├── .claude-plugin/marketplace.json         # makes this repo an installable marketplace
+├── docs/audio/                             # 🎧 listen-instead onboarding (kid + grown-up) + transcript
 ├── docs/teach-and-check-design.html        # design spec for the learn-as-you-build gate
 └── plugins/claude-jacked-kids/
     ├── .claude-plugin/plugin.json          # the plugin (no version → SHA = version → push = update)
     ├── settings.json                       # { "agent": "kid-buddy" } — always-on kid persona
     ├── agents/kid-buddy.md                 # the warm, kid-safe main-thread persona (tone + safety)
     └── skills/
-        ├── build-my-arcade/                # from-scratch recipe: the kid's offline-first creations hub (games + apps)
+        ├── build-my-arcade/                # from-scratch recipe: the kid's offline-first creations hub (games + apps) + project CLAUDE.md
+        ├── make-a-game/                    # build one self-contained game island
+        ├── make-an-app/                    # build one app/tool/toy island (generic "make me a thing that…")
+        ├── change-it/                      # edit / fix / remix any game or app — the main teach-and-check seam
+        ├── play-it/                        # open the hub or a creation on screen (auto-runs after every build)
+        ├── my-creations/                   # gallery of everything made (games + apps) + Brain Wall
+        ├── put-it-online/                  # grown-up-gated publish with the identity scrub (deploys via deploy-to-railway)
+        ├── oops-go-back/                   # undo the last change (never touches saved progress)
         ├── about-me/                       # local "Player Card": name, age, interests + "Things I Learned" wall
         └── teach-and-check/                # learn-as-you-build gate: teach, check, earn Brain Points
 ```
@@ -235,9 +251,9 @@ The persona (`kid-buddy`) is the main-thread agent, so every turn is gentle, jar
 
 ### Roadmap
 
-**Shipped:** `build-my-arcade` (offline-first hub for games + apps; optional Railway deploy; optional clone-of-Hank's-Hits for logins+leaderboards), `about-me` (Player Card + Brain Wall + parent dial), `teach-and-check` (the learn-as-you-build gate — full design in `docs/`).
+**Shipped:** the full building roster — `build-my-arcade` (offline-first hub for games *and* apps; writes a per-project `CLAUDE.md`; optional Railway deploy; optional clone-of-Hank's-Hits for logins+leaderboards), `make-a-game`, `make-an-app` (generic "build me a thing that…"), `change-it`, `play-it`, `my-creations`, `put-it-online` (under-13 grown-up gate + identity scrub), `oops-go-back`, plus `about-me` (Player Card + Brain Wall + parent dial) and `teach-and-check` (the learn-as-you-build gate — full design in `docs/`). Apps mirror games as `apps/<id>/` islands (`window.APPS` + `window.AppStore`).
 
-**Next:** `make-a-game` / `make-an-app`, `change-it`, `remix-it`, `play-it`, `put-it-online` (under-13 grown-up gate + identity scrub), `my-creations`, `oops-go-back`, `getting-started`, `idea-helper`, and a SessionStart "new powers are ready!" notice. Each builds on `build-my-arcade`'s conventions and fires `teach-and-check` at the seams.
+**Next:** a SessionStart "new powers are ready!" notice; optional `getting-started` / `idea-helper` warm-ups; and continued depth on the roster. Every skill builds on `build-my-arcade`'s conventions and fires `teach-and-check` at the seams.
 
 Generalized from [Hank's Hits](https://github.com/jackneil/hanks-hits), retargeted at the conventions `build-my-arcade` establishes so they work for any kid's creations hub.
 

@@ -7,7 +7,9 @@
   <link rel="stylesheet" href="assets/style.css">
   <!-- Plain scripts so the hub works offline straight from a file. Order matters. -->
   <script src="arcade.config.js"></script>
+  <script src="assets/theme.js"></script>
   <script src="assets/games-manifest.js"></script>
+  <script src="assets/apps-manifest.js"></script>
   <script src="assets/brain-wall.js"></script>
 </head>
 <body>
@@ -21,21 +23,18 @@
 
     <section id="brainPanel"></section>
     <main id="gameSections"></main>
-    <p class="empty" id="emptyState" style="display:none">No games yet — tell your buddy what game to make! 🚀</p>
+    <p class="empty" id="emptyState" style="display:none">Nothing here yet — tell your buddy what to make! A game? An app? 🚀</p>
   </div>
 
   <script>
   (function () {
     var ARCADE = window.ARCADE || {};
     var GAMES = window.GAMES || [];
+    var APPS = window.APPS || [];
     var BRAIN = window.BRAIN_WALL || null;
 
-    // --- theme (from arcade.config.js) ---
-    var theme = ARCADE.theme || {};
-    var root = document.documentElement;
-    ["bg", "card", "accent", "accent2", "text"].forEach(function (k) {
-      if (theme[k]) root.style.setProperty("--" + k, theme[k]);
-    });
+    // --- theme is applied by assets/theme.js (loaded in <head>), so the hub
+    //     and every app island share one source of truth for the colors. ---
 
     // --- header ---
     if (ARCADE.emoji) document.getElementById("hubEmoji").textContent = ARCADE.emoji;
@@ -78,7 +77,7 @@
     ];
     var container = document.getElementById("gameSections");
 
-    if (!GAMES.length) {
+    if (!GAMES.length && !APPS.length) {
       document.getElementById("emptyState").style.display = "block";
       return;
     }
@@ -115,6 +114,16 @@
       var grid = document.createElement("div"); grid.className = "game-grid";
       leftover.forEach(function (g) { grid.appendChild(makeCard(g)); });
       sec.appendChild(grid); container.appendChild(sec);
+    }
+
+    // --- My Apps & Tools (the peer zone to games; same card shape) ---
+    if (APPS.length) {
+      var asec = document.createElement("section"); asec.className = "cat-section";
+      var ah = document.createElement("h2"); ah.className = "cat-title";
+      ah.textContent = "🛠️ My Apps & Tools"; asec.appendChild(ah);
+      var agrid = document.createElement("div"); agrid.className = "game-grid";
+      APPS.forEach(function (a) { agrid.appendChild(makeCard(a)); });
+      asec.appendChild(agrid); container.appendChild(asec);
     }
   })();
   </script>

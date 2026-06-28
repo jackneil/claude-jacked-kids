@@ -8,7 +8,7 @@
     {
       "name": "claude-jacked-kids",
       "source": "./plugins/claude-jacked-kids",
-      "description": "Turns Claude Code into a warm, kid-safe game-building buddy. A kid describes a game; Claude builds the whole thing."
+      "description": "Turns Claude Code into a warm, kid-safe building buddy. A kid describes anything — a game, or any app, tool, or toy — and Claude builds the whole thing."
     }
   ]
 }

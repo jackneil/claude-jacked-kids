@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>claude-jacked-kids — Coverage Matrix Analysis (re-anchored)</title>
+<style>
+  :root{
+    --bg:#0f1117; --surface:#1a1d27; --surface2:#21252f; --border:#2c3140;
+    --fg:#e4e6ed; --muted:#9aa0ad; --accent:#3df0e0; --accent2:#6aa8e8; --warn:#e0a85b; --good:#7ee0a8;
+    --s0:#7f1d1d; --s1:#7f1d1d; --s2:#9a3412; --s3:#b45309; --s4:#a16207;
+    --s5:#777f1a; --s6:#4d7c2f; --s7:#15803d; --s8:#0f766e; --s9:#0e7490; --s10:#1d4ed8;
+    --radius:10px; --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; --mono:ui-monospace,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);line-height:1.6;font-size:16px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  @media print{.wrap{max-width:none}h2{break-after:avoid}table,.lever,.phase,.comp,aside{break-inside:avoid}}
+  .wrap{max-width:1080px;margin:0 auto;padding:2rem 1.2rem 5rem}
+  h1{font-size:1.95rem;margin:.2rem 0 .3rem;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  h2{font-size:1.4rem;margin:2.6rem 0 .8rem;padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+  h3{font-size:1.1rem;margin:1.4rem 0 .4rem}
+  p{margin:.5rem 0 1rem}
+  a{color:var(--accent2);text-decoration:none}a:hover{text-decoration:underline}
+  code{font-family:var(--mono);font-size:.88em;background:var(--surface2);padding:.1em .35em;border-radius:4px}
+  .muted{color:var(--muted)}
+  .meta{display:flex;gap:.6rem;flex-wrap:wrap;margin:.8rem 0 1.4rem}
+  .chip{background:var(--surface);border:1px solid var(--border);border-radius:99px;padding:.3rem .8rem;font-size:.82rem;color:var(--muted)}
+  .topgrid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.2rem 0 1.6rem}
+  @media(max-width:760px){.topgrid{grid-template-columns:1fr}}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem 1.3rem}
+  .badges{display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
+  .badge{display:flex;flex-direction:column;align-items:center;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:.7rem 1.1rem;min-width:96px}
+  .badge .n{font-size:1.9rem;font-weight:800;line-height:1}
+  .badge .d{font-size:.72rem;color:var(--muted);margin-top:.15rem}
+  .badge .l{font-size:.72rem;color:var(--muted);margin-top:.25rem;text-align:center}
+  .outcomes table{width:100%;border-collapse:collapse;font-size:.92rem}
+  .outcomes td,.outcomes th{padding:.35rem .5rem;border-bottom:1px solid var(--border);text-align:left}
+  .outcomes .cur{color:var(--warn);font-family:var(--mono)} .outcomes .tgt{color:var(--accent);font-weight:700;font-family:var(--mono)}
+  table.data{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.9rem}
+  table.data th,table.data td{border:1px solid var(--border);padding:.45rem .55rem;text-align:left;vertical-align:top}
+  table.data th{background:var(--surface2);font-size:.8rem}
+  table.heat{width:100%;border-collapse:separate;border-spacing:3px;margin:1rem 0;font-size:.82rem}
+  table.heat th{background:var(--surface2);padding:.45rem .4rem;font-size:.72rem;text-align:center;border-radius:6px;color:var(--muted)}
+  table.heat th.role{text-align:left;min-width:130px}
+  table.heat td{text-align:center;padding:.5rem .3rem;border-radius:6px;font-weight:700;color:#fff;min-width:42px}
+  table.heat td.role{text-align:left;background:var(--surface2);color:var(--fg);font-weight:600;font-size:.8rem}
+  table.heat tr.avg td{background:#11141c;color:var(--accent);font-weight:800}
+  table.heat td.avg,table.heat th.avg{background:#11141c;color:var(--accent);font-weight:800}
+  .s0{background:var(--s0)}.s1{background:var(--s1)}.s2{background:var(--s2)}.s3{background:var(--s3)}.s4{background:var(--s4)}
+  .s5{background:var(--s5)}.s6{background:var(--s6)}.s7{background:var(--s7)}.s8{background:var(--s8)}.s9{background:var(--s9)}.s10{background:var(--s10)}
+  .legend{display:flex;gap:2px;flex-wrap:wrap;margin:.4rem 0 1rem;font-size:.7rem}
+  .legend span{padding:.2rem .45rem;color:#fff;border-radius:3px}
+  aside{margin:1.1rem 0;padding:.8rem 1.1rem;border-left:4px solid var(--accent);background:var(--surface);border-radius:0 var(--radius) var(--radius) 0}
+  aside.warn{border-color:var(--warn)} aside.good{border-color:var(--good)}
+  aside>:first-child{margin-top:0}aside>:last-child{margin-bottom:0}
+  ol.toc{columns:2;font-size:.92rem;color:var(--muted)}@media(max-width:600px){ol.toc{columns:1}}
+  .pipeline{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;margin:1rem 0}
+  .stage{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.5rem .7rem;font-size:.82rem}
+  .arrow{color:var(--muted)}
+  .lever{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--accent2);border-radius:var(--radius);padding:.9rem 1.1rem;margin:.7rem 0}
+  .lever.shipped{border-left-color:var(--good)}
+  .lever .hd{display:flex;justify-content:space-between;gap:.6rem;flex-wrap:wrap;align-items:baseline}
+  .lever .rank{font-weight:800;color:var(--accent)}
+  .pill{font-size:.7rem;padding:.15rem .5rem;border-radius:99px;border:1px solid var(--border);color:var(--muted);background:var(--surface2)}
+  .pill.hi{color:var(--good);border-color:#1c5a39}.pill.med{color:var(--warn);border-color:#5a431c}
+  .pill.ship{color:var(--good);border-color:#1c5a39;background:#13241a}
+  .phase{border-left:4px solid var(--accent);background:var(--surface);border-radius:var(--radius);padding:1rem 1.2rem;margin:.9rem 0}
+  .phase.next{border-left-color:var(--accent2)} .phase.later{border-left-color:var(--muted)}
+  .horizon{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .comp{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:.9rem 1.1rem;margin:.6rem 0}
+  .comp .tier{font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:var(--accent)}
+  .refs{font-size:.82rem;color:var(--muted)} .refs li{margin:.2rem 0;word-break:break-word}
+  .refcat{color:var(--fg);font-weight:700;margin-top:1rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>claude-jacked-kids — Coverage Matrix Analysis</h1>
+<div class="meta">
+  <span class="chip">v2 · re-anchored to the Claude Code substrate</span>
+  <span class="chip">2026-06-28</span>
+  <span class="chip">Scope: main + PR #11 + shipped audio</span>
+  <span class="chip">A Claude Code plugin (skills + prompts + persona + README)</span>
+</div>
+
+<aside class="warn"><p><strong>Frame correction (why this is v2):</strong> v1 scored this like a standalone kids' platform and docked it for "needs a terminal + a $20/mo plan vs Scratch's web instant-on." Wrong denominator. This is a <strong>Claude Code plugin</strong> — its job is to help a kid <em>build using Claude Code itself</em>. Claude Code is the <strong>given substrate</strong> (like Windows is for a Windows app). The right bar is "best kid experience <em>on</em> the substrate," and the real competitor is <strong>raw Claude Code with no plugin</strong>. Re-anchoring lifts overall <strong>4.56 → 5.17</strong> and points the roadmap at the <em>real</em> gaps.</p></aside>
+
+<div class="topgrid">
+  <div class="card">
+    <h3 style="margin-top:0">Coverage (re-anchored)</h3>
+    <div class="badges">
+      <div class="badge"><span class="n" style="color:var(--s5)">5.2</span><span class="d">was 4.6</span><span class="l">overall / 10</span></div>
+      <div class="badge"><span class="n" style="color:var(--s6)">5.6</span><span class="d">was 5.0</span><span class="l">in-market</span></div>
+      <div class="badge"><span class="n" style="color:var(--s6)">6.4</span><span class="d">was 5.9</span><span class="l">sweet spot<br>(Mid Kid)</span></div>
+    </div>
+  </div>
+  <div class="card outcomes">
+    <h3 style="margin-top:0">🎯 Target outcomes</h3>
+    <table>
+      <tr><th>Outcome</th><th>Now</th><th>Target</th></tr>
+      <tr><td>Time-to-first-creation</td><td class="cur">?</td><td class="tgt">&lt;10 min</td></tr>
+      <tr><td>First-creation unassisted</td><td class="cur">?</td><td class="tgt">≥80%</td></tr>
+      <tr><td>Repeat creations / kid / week</td><td class="cur">?</td><td class="tgt">≥3</td></tr>
+    </table>
+    <p class="muted" style="font-size:.78rem;margin:.4rem 0 0">Unmeasured — the product is deliberately zero-telemetry. <em>That gap is itself a finding.</em></p>
+  </div>
+</div>
+
+<aside class="good"><p>🎧 <strong>Shipped this session:</strong> an <strong>audio onboarding companion</strong> — warm OpenAI-TTS "Listen instead" guides for a kid (who can't read the README yet) and a grown-up (60s setup), wired into the README + a persona backstop. Static <code>.mp3</code>s generated once; the kid's machine never calls a voice service (offline-first intact). This was the #3-ranked lever and directly lifts the weakest in-market row.</p></aside>
+
+<h2>Contents</h2>
+<ol class="toc">
+  <li><a href="#pipeline">Product pipeline</a></li>
+  <li><a href="#matrix">The heatmap matrix</a></li>
+  <li><a href="#obs">Key observations</a></li>
+  <li><a href="#exp">Workflow experience</a></li>
+  <li><a href="#comp">Competitive position</a></li>
+  <li><a href="#levers">Cross-cutting levers</a></li>
+  <li><a href="#road">Phased roadmap</a></li>
+  <li><a href="#target">Target matrix</a></li>
+  <li><a href="#strat">Strategic recommendations</a></li>
+  <li><a href="#profiles">Profiles</a></li>
+  <li><a href="#sources">Sources</a></li>
+</ol>
+
+<h2 id="pipeline">Product pipeline</h2>
+<div class="pipeline">
+  <span class="stage" style="border-color:var(--s6)">① Setup &amp; Onboard</span><span class="arrow">→</span>
+  <span class="stage" style="border-color:var(--s6)">② Make (game / app)</span><span class="arrow">→</span>
+  <span class="stage" style="border-color:var(--s7)">③ Learn-at-the-seam</span><span class="arrow">→</span>
+  <span class="stage" style="border-color:var(--s6)">④ Change / Remix / Fix</span><span class="arrow">→</span>
+  <span class="stage" style="border-color:var(--s5)">⑤ Play &amp; Show</span><span class="arrow">→</span>
+  <span class="stage" style="border-color:var(--s4)">⑥ Publish &amp; Share</span><span class="arrow">→</span>
+  <span class="stage" style="border-color:var(--s6)">⑦ Manage &amp; Recover</span>
+</div>
+<p class="muted" style="font-size:.82rem">Re-anchored: Setup is no longer the cold gate (the substrate is a given); Manage warms up (Claude Code's built-in <code>/rewind</code>+git). The remaining cool stages are Play &amp; Show and Publish — the "show a friend" motivation loop.</p>
+
+<h2 id="matrix">The heatmap matrix</h2>
+<div class="legend">
+  <span class="s2">2 barely</span><span class="s3">3 basic</span><span class="s4">4 gaps</span><span class="s5">5 works, fights it</span><span class="s6">6 notable gaps</span><span class="s7">7 good</span><span class="s8">8 strong</span><span class="s9">9 excellent</span><span class="s10">10 best-in-class</span>
+</div>
+<table class="heat">
+<tr><th class="role">Role \ Domain</th><th>Setup</th><th>Game</th><th>App</th><th>Change</th><th>Play</th><th>Learn</th><th>Identity</th><th>Publish</th><th>Manage</th><th class="avg">Avg</th></tr>
+<tr><td class="role">Young Kid (5–7)</td><td class="s4">4</td><td class="s4">4</td><td class="s3">3</td><td class="s3">3</td><td class="s4">4</td><td class="s4">4</td><td class="s4">4</td><td class="s3">3</td><td class="s4">4</td><td class="avg">3.7</td></tr>
+<tr><td class="role">Mid Kid (8–10)</td><td class="s6">6</td><td class="s8">8</td><td class="s7">7</td><td class="s7">7</td><td class="s6">6</td><td class="s8">8</td><td class="s6">6</td><td class="s4">4</td><td class="s6">6</td><td class="avg">6.4</td></tr>
+<tr><td class="role">Tween (11–12)</td><td class="s7">7</td><td class="s7">7</td><td class="s7">7</td><td class="s7">7</td><td class="s5">5</td><td class="s7">7</td><td class="s5">5</td><td class="s5">5</td><td class="s6">6</td><td class="avg">6.2</td></tr>
+<tr><td class="role">Teen (13–14)</td><td class="s7">7</td><td class="s6">6</td><td class="s6">6</td><td class="s6">6</td><td class="s5">5</td><td class="s5">5</td><td class="s4">4</td><td class="s6">6</td><td class="s6">6</td><td class="avg">5.7</td></tr>
+<tr><td class="role">Parent / Grown-up</td><td class="s7">7</td><td class="s6">6</td><td class="s6">6</td><td class="s6">6</td><td class="s6">6</td><td class="s7">7</td><td class="s6">6</td><td class="s7">7</td><td class="s5">5</td><td class="avg">6.2</td></tr>
+<tr><td class="role">Educator / Classroom</td><td class="s2">2</td><td class="s3">3</td><td class="s3">3</td><td class="s3">3</td><td class="s3">3</td><td class="s4">4</td><td class="s2">2</td><td class="s2">2</td><td class="s3">3</td><td class="avg">2.8</td></tr>
+<tr class="avg"><td class="role">Avg</td><td>5.5</td><td>5.7</td><td>5.3</td><td>5.3</td><td>4.8</td><td>5.8</td><td>4.5</td><td>4.5</td><td>5.0</td><td>5.2</td></tr>
+</table>
+<p class="muted" style="font-size:.82rem">vs v1: Setup col <strong>2.3→5.5</strong> (substrate is a given), Manage <strong>3.2→5.0</strong> (CC's built-in <code>/rewind</code>+git), Publish <strong>4.0→4.5</strong>. Educator stays cold — classroom blockers (per-seat plans, no rostering/DPA) are real regardless of substrate. (Mid-Kid Setup/Publish scored to experienced value — 6/4 — per the §workflow table.)</p>
+
+<h2 id="obs">Key observations</h2>
+<aside class="good"><p><strong>The asset — and it's first-of-its-kind.</strong> Build+teach for the sweet-spot kid (Make-a-Game 8, Learn 8). Research found <strong>no kid-safe Claude Code plugin exists</strong>, and <em>no</em> agent on the substrate teaches CS while it builds. The one-liner: <strong>raw Claude Code, made warm, safe, teaching, and choreographed for a child.</strong></p></aside>
+<aside class="warn"><p><strong>The real competitor is raw Claude Code.</strong> Out of the box it's a software-engineering assistant — dev-toned, no kid-safety, no teaching, blank-prompt, permission-prompt friction; on this machine a global "be blunt / mildly profane" CLAUDE.md would even leak onto the kid (the <code>kid-buddy</code> persona explicitly neutralizes it). Everything this product adds is the missing <em>kid layer</em>; the engine is already there.</p></aside>
+<aside><p><strong>Lean on the substrate, don't reinvent it.</strong> Claude Code already ships the heaviest items v1 wanted built: <code>/rewind</code> checkpoints + git = the "Manage &amp; Recover" engine (v1's "build auto-checkpoint" was reinventing a built-in); SessionStart hooks = the "new powers" greeting; PreToolUse hooks = a deterministic safety gate; Output Styles = the jargon-strip. The work is <em>kid-skinning</em> these.</p></aside>
+<p><strong>The genuine remaining gaps</strong> (now that Setup is scored correctly): Play &amp; Show (4.8) + Publish (4.7) — the "show a friend" loop; Identity (4.5) — portfolio/badges; <strong>Young Kid (3.7)</strong> — pre-reader access (the shipped audio + a future voice-input mode); <strong>Teen (5.7)</strong> — a fade-to-real-code path so it doesn't feel babyish; <strong>Educator (2.8)</strong> — a separate product.</p>
+
+<h2 id="exp">Workflow experience — Mid Kid (8–10)</h2>
+<table class="data">
+<tr><th>Domain</th><th>Capability</th><th>Experience</th><th>Note</th></tr>
+<tr><td>Setup &amp; Onboarding</td><td>6</td><td>6</td><td>One-paste install + auto-settings is near-native for a CC plugin; a grown-up doing the first install is normal for any tool a 9-year-old uses — not a defect.</td></tr>
+<tr><td>Make-a-Game</td><td>9</td><td>8</td><td>Complete/playable/offline fast; ceiling = coolness vs Roblox, latency.</td></tr>
+<tr><td>Learn-as-you-build</td><td>8</td><td>8</td><td>The defensible wedge — no other agent teaches.</td></tr>
+<tr><td>Manage &amp; Recover</td><td>6</td><td>6</td><td>Leans on CC <code>/rewind</code>+git once <code>oops-go-back</code> is wired to it; app-DATA orphan-on-rename is the residual gap (PR #11 added guidance).</td></tr>
+<tr><td>Publish &amp; Share</td><td>7</td><td><strong style="color:var(--warn)">4</strong></td><td>Agent-driven deploy works; gated, not one-ask, no audience — the prime motivator throttled.</td></tr>
+</table>
+<p><strong>Ranked friction:</strong> ① no audience / not one-ask share → SHARE lever · ② blank-prompt + no first-run choreography → idea-helper/getting-started/SessionStart · ③ pre-reader access → <strong>audio (shipped)</strong> + voice-input · ④ <code>oops-go-back</code> not yet wired to <code>/rewind</code> → lever #1 · ⑤ unmeasurable (no telemetry) → opt-in local success signal.</p>
+
+<h2 id="comp">Competitive position (re-anchored)</h2>
+<table class="data">
+<tr><th>Tier</th><th>Who / role in the analysis</th></tr>
+<tr><td><strong style="color:var(--warn)">THE BAR</strong><br>raw Claude Code</td><td><strong>Claude Code with no plugin</strong> — the default a curious family hits. Capable engine; no kid persona, no safety, no teaching, blank-prompt, permission friction. Every cell is scored against this; the product beats it on warmth, safety, teaching, choreography.</td></tr>
+<tr><td><strong style="color:var(--accent)">Same substrate</strong><br>(ports, not rivals)</td><td>OpenAI <strong>Codex CLI</strong>, <strong>Gemini CLI</strong>, <strong>Cursor</strong> (IDE), <strong>Aider</strong> — same engine class, same <em>missing kid layer</em>. Relevant as future <strong>ports</strong> (the "someday Codex" goal), not competitors.</td></tr>
+<tr><td><span class="muted">Human substitute</span></td><td>A parent/older sibling who codes, in CC beside the kid — warmest+safest, doesn't scale, kid is a passenger. This product's edge: <strong>autonomy</strong>.</td></tr>
+<tr><td><span class="muted">The road not taken</span></td><td>Standalone kid platforms — Scratch/ScratchJr, Code.org, Tynker, MakeCode, Roblox, Rosebud AI. What a family might use <em>instead of the whole Claude-Code path</em>. They set expectations (web instant-on, remix community, an <strong>audience</strong>) but are <strong>not</strong> the per-cell bar. Their one real lesson: kids want an audience → the gated-share lever.</td></tr>
+</table>
+<aside><p><strong>First-mover.</strong> Searches of the CC plugin/marketplace ecosystem (alirezarezvani/claude-skills ~337 skills, aitmpl.com ~1367 skills, daymade/claude-code-skills) found <strong>no kid-safe building plugin</strong> — the one education pack is educator tooling. This is effectively <strong>first / alone</strong> in "kid-safe persona + teaching + build-anything plugin for Claude Code."</p></aside>
+<aside class="warn"><p><strong>Honest privacy caveat:</strong> "nothing leaves the machine" is true of creations + the Brain Wall + the audio file; the kid's <em>conversation still goes to Anthropic's API</em> to generate code. Market privacy as <em>local-storage-of-creations</em> best-in-class, not <em>zero-network</em>.</p></aside>
+<p class="muted"><strong>Portability (the "someday Codex" goal):</strong> <em>most</em> of the asset value (skill bodies, persona prose, README pedagogy) ports with light find-replace via the shared open Agent Skills <code>SKILL.md</code> standard (Codex adopted it in late 2025); the rest is per-CLI glue (manifests, persona-as-main-thread, hooks, the <code>/rewind</code> lean). Sequence: <strong>Codex first</strong>, Gemini second, Aider a stretch.</p>
+
+<h2 id="levers">Cross-cutting levers (re-ranked)</h2>
+<p class="muted">Ranked by <code>(cells × gain × confidence) / effort</code>. The top is cheap because the fixes are prompt-only skills or <em>leaning on Claude Code built-ins</em>.</p>
+<div class="lever"><div class="hd"><span><span class="rank">#1 · 10.8</span> &nbsp;Kid-skin Claude Code <code>/rewind</code> + git (save / undo / versions)</span><span><span class="pill">6 cells</span> <span class="pill">+2.0</span> <span class="pill hi">High</span> <span class="pill">S</span></span></div><p>Wire <code>oops-go-back</code> / "save my progress" to CC's built-in checkpoints + git, kid-skinned ("I saved a snapshot 📸"). <em>Lean on the built-in, don't reinvent a recovery system.</em> <strong>→ O3, O2.</strong></p></div>
+<div class="lever shipped"><div class="hd"><span><span class="rank">#2 · 10.8</span> &nbsp;Audio onboarding companion</span><span><span class="pill ship">✅ SHIPPED</span> <span class="pill">6 cells</span> <span class="pill">+2.0</span> <span class="pill hi">High</span> <span class="pill">S</span></span></div><p>Kid + grown-up "🎧 Listen" guides (OpenAI TTS), transcript, README links, persona backstop. Lifts the weakest in-market row (Young Kid). Ties lever #1 by formula; listed 2nd because it's already done. <strong>→ O2, pre-reader access.</strong></p></div>
+<div class="lever"><div class="hd"><span><span class="rank">#3 · 10.5</span> &nbsp;Idea discovery + first-win + SessionStart hook</span><span><span class="pill">10 cells</span> <span class="pill">+1.5</span> <span class="pill med">Med</span> <span class="pill">S</span></span></div><p><code>idea-helper</code> + <code>getting-started</code> + a "new powers" SessionStart greeting that offers 3 concrete ideas. Kills blank-prompt paralysis. <strong>→ O1, O2.</strong></p></div>
+<div class="lever"><div class="hd"><span><span class="rank">#4 · 5.6</span> &nbsp;CSTA tagging + parent/learner progress view</span><span><span class="pill">8 cells</span> <span class="pill">+1.0</span> <span class="pill med">Med</span> <span class="pill">S</span></span></div><p>Map Brain-Wall concepts to CSTA; a "what they made &amp; learned" panel. <strong>→ parent trust → O3, educator-credibility.</strong></p></div>
+<div class="lever"><div class="hd"><span><span class="rank">#5 · 4.7</span> &nbsp;Band-D fade-to-real-code / de-baby mode</span><span><span class="pill">9 cells</span> <span class="pill">+1.5</span> <span class="pill med">Med</span> <span class="pill">M</span></span></div><p>A path from "buddy builds it" to "I edit real code"; a less-childish skin for teens. <strong>→ age-range-up.</strong></p></div>
+<div class="lever"><div class="hd"><span><span class="rank">#6 · 4.2</span> &nbsp;Band-A voice-input + picture choices</span><span><span class="pill">8 cells</span> <span class="pill">+1.5</span> <span class="pill med">Med</span> <span class="pill">M</span></span></div><p>Voice-first prompts + picture either/or — the input complement to the shipped audio output. <strong>→ O2, age-range-down.</strong></p></div>
+<div class="lever"><div class="hd"><span><span class="rank">#7 · 3.5</span> &nbsp;First-run polish + a "did it work?" check</span><span><span class="pill">5 cells</span> <span class="pill">+1.0</span> <span class="pill med">Med</span> <span class="pill">S</span></span></div><p>Tighten the very first session so a non-technical grown-up sees it succeed. <strong>→ O1.</strong></p></div>
+<div class="lever"><div class="hd"><span><span class="rank">#8 · 3.5</span> &nbsp;Auto-juice + game/app breadth</span><span><span class="pill">10 cells</span> <span class="pill">+1.0</span> <span class="pill med">Med</span> <span class="pill">M</span></span></div><p>Screen-shake/particles/sound by default; wider genres. <strong>→ O3 (coolness).</strong></p></div>
+<div class="lever"><div class="hd"><span><span class="rank">#9 · 2.8</span> &nbsp;One-tap grown-up-gated safe share link</span><span><span class="pill">8 cells</span> <span class="pill">+2.0</span> <span class="pill med">Med</span> <span class="pill">L</span></span></div><p>PII-scrubbed play-only link near one ask (→ moderated gallery later). The audience gap. <strong>→ O3.</strong></p></div>
+<div class="lever"><div class="hd"><span><span class="rank">#10 · 2.8</span> &nbsp;Lean on CC affordances (PreToolUse gate + Output Styles)</span><span><span class="pill">8 cells</span> <span class="pill">+1.0</span> <span class="pill med">Med</span> <span class="pill">M</span></span></div><p>A deterministic safety hook (hard-block publish/network/deletes) + aligning the persona with Output Styles. <strong>→ safety floor, O2.</strong></p></div>
+<div class="lever"><div class="hd"><span><span class="rank">#11 · 2.8</span> &nbsp;Classroom edition</span><span><span class="pill">9 cells</span> <span class="pill">+3.5</span> <span class="pill med">Med</span> <span class="pill">XL</span></span></div><p>Rostering, dashboard, CSTA/ISTE reports, DPA, seat pricing. <strong>→ a different outcome (weekly-active-orgs)</strong> — a deliberate market choice, not a priority.</p></div>
+<p class="muted" style="font-size:.82rem"><strong>Dropped from v1:</strong> the "no-terminal hosted path" moonshot — it contradicts the corrected frame (the terminal <em>is</em> the substrate). <strong>Strategic (not cell-lifting):</strong> Codex/Gemini portability — a new substrate for reach, the "someday Codex" goal.</p>
+
+<h2 id="road">Phased roadmap</h2>
+<div class="phase"><span class="horizon">Now · this/next sprint — lean-on-substrate + prompt-native</span>
+<p><strong>#1</strong> wire <code>oops-go-back</code> to CC <code>/rewind</code>+git · <strong>#2 ✅ audio onboarding (shipped)</strong> · <strong>#3</strong> idea-helper/getting-started + SessionStart greeting.</p>
+<p class="muted"><strong>Outcome:</strong> O1/O2/O3. <strong>Deps:</strong> none (skills/hooks/built-ins). <strong>Capacity:</strong> all S — fits a sprint. <strong>Projected:</strong> 5.17 → ~5.6.</p></div>
+<div class="phase next"><span class="horizon">Next · this quarter — close the real gaps</span>
+<p><strong>#4</strong> CSTA tagging + progress view · <strong>#6</strong> Band-A voice-input (pairs with shipped audio) · <strong>#7</strong> first-run polish · <strong>#8</strong> auto-juice + breadth · <strong>#10</strong> PreToolUse safety gate + Output Styles.</p>
+<p class="muted"><strong>Outcome:</strong> O2/O3 + parent trust + age-range-down. <strong>Deps:</strong> CSTA builds on <code>concept-cards</code>. <strong>Capacity:</strong> don't co-schedule both M-safety and voice with infra. <strong>Projected:</strong> → ~6.2.</p></div>
+<div class="phase later"><span class="horizon">Later · beyond — age range, audience, substrate, market</span>
+<p><strong>#5</strong> Band-D fade-to-real-code · <strong>#9</strong> gated share link → moderated gallery · <strong>Codex/Gemini portability</strong> (the "someday Codex" goal) · <strong>#11</strong> classroom edition (different product/outcome).</p>
+<p class="muted"><strong>Deps/capacity:</strong> gallery needs moderation infra; portability + classroom are each multi-quarter — sequence, don't parallelize. <strong>Projected:</strong> → ~7.0.</p></div>
+
+<h2 id="target">Target matrix (projected column averages)</h2>
+<table class="data">
+<tr><th>Domain</th><th>Today (v2)</th><th>After Now</th><th>After Next</th><th>After Later</th></tr>
+<tr><td>Setup &amp; Onboarding</td><td>5.5</td><td>6.3</td><td>7.0</td><td>7.5</td></tr>
+<tr><td>Make-a-Game</td><td>5.7</td><td>5.9</td><td>6.5</td><td>7.3</td></tr>
+<tr><td>Make-an-App</td><td>5.3</td><td>5.5</td><td>6.2</td><td>7.0</td></tr>
+<tr><td>Change/Remix/Fix</td><td>5.3</td><td>5.6</td><td>6.0</td><td>6.8</td></tr>
+<tr><td>Play &amp; Show</td><td>4.8</td><td>5.0</td><td>5.6</td><td>6.8</td></tr>
+<tr><td>Learn-as-you-build</td><td>5.8</td><td>6.2</td><td>6.9</td><td>7.4</td></tr>
+<tr><td>Identity &amp; Progress</td><td>4.5</td><td>4.8</td><td>5.6</td><td>6.5</td></tr>
+<tr><td>Publish &amp; Share</td><td>4.5</td><td>4.7</td><td>5.4</td><td>6.6</td></tr>
+<tr><td>Manage &amp; Recover</td><td>5.0</td><td>6.6</td><td>6.8</td><td>7.2</td></tr>
+<tr style="font-weight:800;color:var(--accent)"><td>Overall (mean of columns)</td><td>5.2</td><td>5.6</td><td>6.2</td><td>7.0</td></tr>
+</table>
+
+<h2 id="strat">Strategic recommendations</h2>
+<aside class="good"><p><strong>Press the wedge:</strong> "the only AI that <em>builds your game/app AND teaches you while it does</em> — and keeps it all on your computer." First-of-its-kind on the Claude Code substrate. Lead with it; lean into <strong>Make-an-App for young kids</strong> (white space even beyond the substrate).</p></aside>
+<aside><p><strong>Don't reinvent the substrate.</strong> Skin <code>/rewind</code>+git, fire a SessionStart greeting, add a PreToolUse safety gate — free, native, and stronger than bespoke prompt-only versions.</p></aside>
+<aside class="warn"><p><strong>The audience gap is the one real lesson from the standalone platforms.</strong> Kids want someone to play their thing — close it with the gated share link (then a moderated opt-in gallery), inside the existing safety model.</p></aside>
+<aside class="warn"><p><strong>Two roles are different products:</strong> the Teen (needs fade-to-real-code so it isn't "cheating") and the Educator (seat pricing + rostering + DPA). Each a deliberate, separately-scoped bet.</p></aside>
+<aside><p><strong>Plan for portability</strong> so the pedagogy isn't Claude-Code-locked: keep skill bodies + persona + README tool-agnostic; isolate the CC-specific glue. Codex CLI is the natural first port.</p></aside>
+
+<h2 id="profiles">Profiles</h2>
+<div class="comp"><span class="tier">The bar</span><h3 style="margin:.2rem 0">Raw Claude Code (no plugin)</h3><p>Anthropic's terminal AI coding agent. It <em>will</em> build a working game/app from a plain prompt — but as a software-engineering assistant: dev tone, no kid-safety, no teaching, no first-win choreography, permission prompts. Output Styles are the documented way to strip the SWE tone; this plugin's persona does that + adds safety + teaching. <a href="https://code.claude.com/docs/en/output-styles" target="_blank" rel="noopener">Output Styles ↗</a> · <a href="https://code.claude.com/docs/en/checkpointing" target="_blank" rel="noopener">Checkpointing/Rewind ↗</a> · <a href="https://code.claude.com/docs/en/plugins" target="_blank" rel="noopener">Plugins ↗</a></p></div>
+<div class="comp"><span class="tier">Same substrate · port targets</span><h3 style="margin:.2rem 0">Codex CLI · Gemini CLI · Cursor · Aider</h3><p>Same engine class, same missing kid layer. <strong>Codex CLI</strong> shares the open Agent Skills <code>SKILL.md</code> standard (cleanest port). <strong>Gemini CLI</strong> uses extensions + <code>GEMINI.md</code>. <strong>Cursor</strong> is a full IDE (more surface for a young kid). <strong>Aider</strong> is a dev pair-programmer (worst kid-fit). <a href="https://developers.openai.com/codex/skills" target="_blank" rel="noopener">Codex Skills ↗</a> · <a href="https://google-gemini.github.io/gemini-cli/docs/extensions/" target="_blank" rel="noopener">Gemini extensions ↗</a> · <a href="https://agentskills.io/" target="_blank" rel="noopener">Open Agent Skills ↗</a></p></div>
+<div class="comp"><span class="tier">The road not taken · audience lesson</span><h3 style="margin:.2rem 0">Scratch · Code.org · Rosebud AI · Roblox</h3><p>Standalone kid platforms a family might use instead of the Claude-Code path. They set expectations — web instant-on, remix culture, and an <strong>audience/gallery</strong> (Scratch: 164M+ projects) — but aren't the per-cell bar for a CC plugin. The audience expectation is the one worth partly meeting. <a href="https://scratch.mit.edu/" target="_blank" rel="noopener">Scratch ↗</a> · <a href="https://code.org/" target="_blank" rel="noopener">Code.org ↗</a> · <a href="https://lab.rosebud.ai/coding-for-kids" target="_blank" rel="noopener">Rosebud AI ↗</a></p></div>
+<div class="comp"><span class="tier">Shipped feature · tooling</span><h3 style="margin:.2rem 0">Audio onboarding (OpenAI TTS)</h3><p>The "🎧 Listen instead" guides were generated with OpenAI <code>gpt-4o-mini-tts</code> (you own the output; ~1¢; steerable warm tone — OpenAI's terms require disclosing the voice is AI-generated, which the transcript + README links do). Higgsfield's "audio" is a separate voiceover product (reportedly ElevenLabs-backed), so ElevenLabs itself (paid) or OpenAI are the cleaner options; macOS <code>say</code> is the zero-dependency fallback. Generated once, committed as static <code>.mp3</code> — no runtime TTS, offline-first intact. <a href="https://developers.openai.com/api/docs/guides/text-to-speech" target="_blank" rel="noopener">OpenAI TTS ↗</a></p></div>
+
+<h2 id="sources">Sources &amp; references</h2>
+<ul class="refs">
+<li class="refcat">Claude Code substrate (the corrected bar + what to lean on)</li>
+<li>Plugins — https://code.claude.com/docs/en/plugins · Plugin marketplaces — https://code.claude.com/docs/en/plugin-marketplaces · Skills — https://code.claude.com/docs/en/skills · Subagents — https://code.claude.com/docs/en/sub-agents</li>
+<li>Output Styles (strip the SWE tone) — https://code.claude.com/docs/en/output-styles · Glossary — https://code.claude.com/docs/en/glossary · Hooks (SessionStart/PreToolUse) — https://code.claude.com/docs/en/agent-sdk/hooks</li>
+<li>Checkpointing / <code>/rewind</code> — https://code.claude.com/docs/en/checkpointing · File checkpointing — https://code.claude.com/docs/en/agent-sdk/file-checkpointing · How it works (snapshots before edits) — https://code.claude.com/docs/en/how-claude-code-works · Settings — https://code.claude.com/docs/en/settings · Best practices (CLAUDE.md, /rewind, git) — https://code.claude.com/docs/en/best-practices</li>
+<li class="refcat">Same-substrate alternatives / portability ("someday Codex")</li>
+<li>Codex Agent Skills — https://developers.openai.com/codex/skills · Codex AGENTS.md — https://developers.openai.com/codex/guides/agents-md · Codex hooks — https://developers.openai.com/codex/hooks · Open Agent Skills standard — https://agentskills.io/</li>
+<li>Gemini CLI extensions — https://google-gemini.github.io/gemini-cli/docs/extensions/ · Gemini CLI — https://github.com/google-gemini/gemini-cli · Aider — https://aider.chat/docs/ · Cursor — https://cursor.com/ · kid+Cursor anecdote — https://www.haihai.ai/emma/</li>
+<li class="refcat">First-mover search (no kid-safe CC plugin found)</li>
+<li>alirezarezvani/claude-skills — https://github.com/alirezarezvani/claude-skills · aitmpl.com — https://www.aitmpl.com/plugins/ · daymade/claude-code-skills — https://github.com/daymade/claude-code-skills · claude-education-skills (educator-facing) — https://skillsllm.com/skill/claude-education-skills · "Claude Code for Kids" classes (adjacent) — https://codewithus.com/topic/claude-code</li>
+<li class="refcat">The road not taken (expectations, not the bar)</li>
+<li>Scratch — https://scratch.mit.edu/ · stats — https://scratch.mit.edu/statistics/ · Code.org — https://code.org/ · App Lab — https://code.org/en-US/tools/app-lab · Rosebud AI (coding for kids) — https://lab.rosebud.ai/coding-for-kids · MakeCode Arcade — https://arcade.makecode.com/ · Tynker — https://www.tynker.com/ · Roblox content maturity — https://create.roblox.com/docs/production/promotion/content-maturity</li>
+<li class="refcat">Audio onboarding (feasibility, licensing)</li>
+<li>OpenAI TTS (gpt-4o-mini-tts, steerable) — https://developers.openai.com/api/docs/guides/text-to-speech · OpenAI Terms ("you own the Output") — https://openai.com/policies/row-terms-of-use/ · ElevenLabs output rights by plan — https://terms.law/ai-output-rights/elevenlabs/ · Higgsfield Audio (ElevenLabs-backed) — https://higgsfield.ai/audio · macOS <code>say</code> → mp3 — https://ss64.com/mac/say.html</li>
+<li class="refcat">Developmental / standards / privacy (per-role)</li>
+<li>NN/g Kids cognition — https://www.nngroup.com/articles/kids-cognition/ · Teens UX — https://www.nngroup.com/articles/usability-of-websites-for-teenagers/ · CSTA standards — https://csteachers.org/k12standards/ · ISTE — https://iste.org/standards/students · FTC COPPA — https://www.ftc.gov/business-guidance/privacy-security/childrens-privacy · 2025 COPPA changes — https://www.ftc.gov/news-events/news/press-releases/2025/01/ftc-finalizes-changes-childrens-privacy-rule-limiting-companies-ability-monetize-kids-data · FERPA — https://studentprivacy.ed.gov/ferpa · Resnick "wide walls" — https://mres.medium.com/designing-for-wide-walls-323bdb4e7277</li>
+<li class="refcat">Platform / cost</li>
+<li>Claude Code with Pro/Max — https://support.claude.com/en/articles/11145838-use-claude-code-with-your-pro-or-max-plan · pricing — https://www.finout.io/blog/claude-code-pricing-2026</li>
+</ul>
+<p class="muted" style="margin-top:2rem;font-size:.8rem">v2, re-anchored to the Claude Code substrate. Working spec: <code>COVERAGE_MATRIX_ANALYSIS.md</code>. Scores are an analyst's evidence-based estimate (the product collects no telemetry by design). Audio onboarding shipped this session.</p>
+
+</div>
+</body>
+</html>
