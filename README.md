@@ -32,6 +32,21 @@ It also **teaches you cool stuff while it builds**, and gives you 🧠 **Brain P
 
 ---
 
+## 👨‍👩‍👧 Parents: what you need to do first
+
+Your kid will talk to a friendly AI buddy that builds their games and apps. **You just set a few things up once** — no tech knowledge required. Here's the whole list, in order:
+
+1. **💻 A computer — a Mac is best.** Minimum: a **[MacBook Neo](https://www.apple.com/macbook-neo/)** (~$599, Apple's budget MacBook). Better: a **MacBook Air with 16GB of RAM**. Windows works, but isn't quite as good for this.
+2. **💵 A Claude plan (~$20/month).** This powers the buddy — get **Pro** at [claude.com/pricing](https://claude.com/pricing). (There's no free version.)
+3. **⬇️ Install Claude Code** — a free app from Anthropic that runs the buddy. One command does it (**click-by-click steps for Mac & Windows are in the next section**), then you sign in with your Claude plan.
+4. **🎙️ A Wispr Flow account (recommended).** So your kid can **talk instead of type** — sign up at [wisprflow.ai](https://wisprflow.ai); on a Mac they hold the 🌐 globe key and just speak. *Bonus: one account works on all **your** devices too — sign yourself in and you get voice-typing everywhere.*
+5. **🧩 Install the buddy** — two commands, or paste the "magic words" and it installs itself (**steps in the next section**).
+6. **🙌 Hand it to your kid.** Make a folder, start the buddy in it, and let them go: *"make me a game where…"* or *"build me an app that…"* 🎉
+
+> 🆕 **Never done any of this before?** That's exactly who the next section is for — the **full, click-by-click setup for 🍎 Mac and 🪟 Windows.** Follow it top to bottom and you'll be done.
+
+---
+
 ## 🚀 Already have Claude Code open? Do THIS (the magic words)
 
 If a grown-up already set up Claude Code and it's open and waiting for you, just **paste these magic words** to your buddy and press Enter:
@@ -55,11 +70,7 @@ Your buddy will set itself up, ask you to **close and re-open Claude Code**, and
 
 ## 🐣 Starting from nothing? Let's set it up together!
 
-No Claude Code yet? That's okay — we'll go nice and slow. **Grab a grown-up** for this part, then pick your computer:
-
-> 🧑 **Grown-ups, the honest bit first:** Claude Code needs a paid **Claude plan** (a **Pro** plan is about **$20/month**). There is **no free version** for this. One plan covers Claude everywhere. Prices can change — check [claude.com/pricing](https://claude.com/pricing).
-
-> 💻 **What computer?** A **Mac** is best for this. Minimum: a **[MacBook Neo](https://www.apple.com/macbook-neo/)** (~$599, Apple's new budget MacBook). Better: a **MacBook Air with 16GB of RAM** (pricier, but smoother). **Windows works too**, but honestly it's not quite as good for kids doing this, in our opinion.
+No Claude Code yet? That's okay — we'll go nice and slow. (Got the prerequisites from **👨‍👩‍👧 Parents: what you need to do first** above? Good.) **Grab a grown-up**, then pick your computer:
 
 > 🖥️ **We use Claude Code in a *terminal*** (a typing window you'll open in a minute) — **not** the Claude **Desktop** app. If you have the Claude Desktop app, leave it closed for this; it's a different thing.
 
