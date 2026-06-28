@@ -13,6 +13,8 @@
 
 **You talk. It builds. You play it, use it, and show it off.** No code. No hard stuff. 🎉
 
+#### 🎧 Can't read this yet? [**Listen — what to do (1 min)** ▶️](docs/audio/kid-start.mp3) &nbsp;·&nbsp; <sub>[read the words](docs/audio/transcript.md) · AI voice</sub>
+
 </div>
 
 ---
@@ -36,6 +38,9 @@ It also **teaches you cool stuff while it builds**, and gives you 🧠 **Brain P
 
 Your kid will talk to a friendly AI buddy that builds their games and apps. **You just set a few things up once** — no tech knowledge required. Here's the whole list, in order:
 
+> 🎧 **Rather listen?** [**Setup guide (audio)** ▶️](docs/audio/grownup-setup.mp3) &nbsp;·&nbsp; [transcript](docs/audio/transcript.md) <sub>· AI voice</sub>
+
+
 1. **💻 A computer — a Mac is best.** Minimum: a **[MacBook Neo](https://www.apple.com/macbook-neo/)** (~$599, Apple's budget MacBook). Better: a **MacBook Air with 16GB of RAM**. Windows works, but isn't quite as good for this.
 2. **💵 A Claude plan (~$20/month).** This powers the buddy — get **Pro** at [claude.com/pricing](https://claude.com/pricing). (There's no free version.)
 3. **⬇️ Install Claude Code** — a free app from Anthropic that runs the buddy. One command does it (**click-by-click steps for Mac & Windows are in the next section**), then you sign in with your Claude plan.
@@ -50,6 +55,9 @@ Your kid will talk to a friendly AI buddy that builds their games and apps. **Yo
 ## 🚀 Already have Claude Code open? Do THIS (the magic words)
 
 If a grown-up already set up Claude Code and it's open and waiting for you, just **paste these magic words** to your buddy and press Enter:
+
+> 🎧 **Reading tricky? [Listen to what to do (1 min) ▶️](docs/audio/kid-start.mp3)** &nbsp;·&nbsp; <sub>[read the words](docs/audio/transcript.md) · AI voice</sub>
+
 
 ```text
 Hi Claude! I'm a kid and I want to make my own games and apps. Please set up my
@@ -199,7 +207,7 @@ Your buddy isn't just a builder — it's a little teacher, and it makes learning
 - 💵 **Cost:** Claude Code needs a paid **Claude plan** — a **Pro** plan (~**$20/month**) includes it; **Max** starts at ~$100/month for heavy use. The free Claude.ai chat tier does **not** include Claude Code. Check current prices at [claude.com/pricing](https://claude.com/pricing).
 - 💻 **Computer:** a **Mac** is best. Minimum a **[MacBook Neo](https://www.apple.com/macbook-neo/)** (~$599); a **MacBook Air with 16GB RAM** is better. Windows works but isn't quite as good for this, in our opinion.
 - 🎙️ **Voice typing (Wispr Flow):** kids talk way faster than they type. Set up a **[Wispr Flow](https://wisprflow.ai)** account so they can hold the 🌐 globe key on a Mac and just speak. **Bonus: one account works across all your devices** — sign your kid in on theirs, then sign in *yourself* on your phone and laptop, and you get voice-typing everywhere too. (Parents usually end up using it more than the kid.)
-- 🔒 **Privacy:** everything stays **on your computer**. The buddy keeps only a first name, age, a few interests, and which ideas the child has learned — **never** a last name, address, school, phone, or photos. Delete it all by removing the `.jacked-kids` folder in the child's creations folder.
+- 🔒 **Privacy:** everything your kid **makes** stays **on your computer**, and so does the little the buddy remembers about them — only a first name, age, a few interests, and which ideas they've learned, **never** a last name, address, school, phone, or photos. (Like any AI app, the buddy *does* talk to Claude over the internet to build things — but nothing your kid makes is shared or put online unless you choose to.) Delete it all by removing the `.jacked-kids` folder in the child's creations folder.
 - 🌍 **Going online is a grown-up step.** Creations run locally by default. Publishing to the internet needs a grown-up (under-13), and personal info is scrubbed first.
 - 🎚️ **You hold a learning dial.** Tell the buddy: *"I'm the grown-up — set learning checks to off / light / normal / strict."*
 - 🔁 **Staying updated (automatic):** turn it on once — `/plugin` → Marketplaces → `claude-jacked-kids` → **Enable auto-update**. Because the plugin is only prompts/skills, an update **can never break something your kid already made** — it just refreshes the buddy's know-how.
@@ -220,6 +228,7 @@ A **Claude Code plugin**: pure skills + a kid-safe persona. It ships **no applic
 ```
 claude-jacked-kids/
 ├── .claude-plugin/marketplace.json         # makes this repo an installable marketplace
+├── docs/audio/                             # 🎧 listen-instead onboarding (kid + grown-up) + transcript
 ├── docs/teach-and-check-design.html        # design spec for the learn-as-you-build gate
 └── plugins/claude-jacked-kids/
     ├── .claude-plugin/plugin.json          # the plugin (no version → SHA = version → push = update)
