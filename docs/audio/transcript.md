@@ -1,12 +1,12 @@
 # 🎧 Listen-instead transcripts
 
-The audio guides in this folder are for anyone who'd rather **listen** than read — especially younger kids who are still learning to read. The words below are exactly what the audio says. (Re-record the `.mp3`s from this text if you ever tweak the wording, so the audio and transcript never drift.)
+The audio guides in this folder are for anyone who'd rather **listen** than read — especially younger kids who are still learning to read. The words below are exactly what the audio says, and the player page (`listen.html`) highlights each word as it's spoken. (Re-record the `.mp3`s from this text if you ever tweak the wording, so the audio and transcript never drift.)
 
-> Both clips were generated once with text-to-speech and saved as plain `.mp3` files. Nothing on the kid's computer ever calls a voice service — it just plays a local file. No internet, no tracking.
+> Both clips were generated once with text-to-speech and saved as plain `.mp3` files. Nothing on the kid's computer ever calls a voice service — it just plays a local file.
 
 ---
 
-## 🧒 For kids — `kid-start.mp3` (~60s)
+## 🧒 For kids — `kid-start.mp3` (~1 min)
 
 Hi there! I'm your building buddy.
 
@@ -28,20 +28,16 @@ So... what do you want to make first? Take your time. I'm right here. Let's buil
 
 ---
 
-## 🧑 For grown-ups — `grownup-setup.mp3` (~60s)
+## 🧑 For grown-ups — `grownup-setup.mp3` (~2 min)
 
-Hi! Here's everything you need to do — just a few things, one time.
+Hi! Here's the quick version of what your kid is about to get — and why it's different from the other "A.I. builds it for you" apps.
 
-Your kid is going to talk to a friendly A.I. buddy that builds their own games and apps. You set it up; they take it from there.
+Your child just talks to a friendly building buddy in plain words, and it builds the whole thing for them — your kid in the driver's seat, not you. A game, or any real app they dream up: a movie-night countdown, a chore chart, a spelling quiz. They say it, it builds it, it opens right on their screen, and they play it. No code, nothing to get stuck on.
 
-First, you'll need a Claude plan. That's about twenty dollars a month, and it's what powers the buddy.
+Here's the part most tools miss: it doesn't just build — it teaches. As it works, it explains the ideas — a loop, a score, a "memory box" for saving things — and at the big moments, it asks a quick, age-right question to make sure it landed: a simple this-or-that for little kids, a "why" for older ones. You can watch it click — the moment they get it, they earn Brain Points on their very own "Things I Learned" wall. It never blocks the fun, and it always ends with a win, so your kid never feels stuck or dumb. And you set a dial — off, light, normal, or strict — for how much it teaches.
 
-Next, install a free app called Claude Code. It runs on your computer — a Mac works best — and the written guide has simple, click-by-click steps.
+That's the thing I love: it's the only A.I. buddy I've found that does both — it builds real games and apps for them, and it teaches them to think like a maker.
 
-Then paste in the "magic words" — one short message that tells the buddy to set itself up. It even turns on the best settings automatically.
+On safety, you're in control. Everything your kid makes — and the little the buddy remembers — stays on your own computer: just a first name, an age, a few interests, and which ideas they've learned, never a last name, an address, or photos. Like any A.I. app, the buddy does talk to Claude over the internet to build things — but nothing your kid makes goes public unless you choose to. Putting something online is the one step that waits for you. And it stays gentle and kid-safe — no scary stuff, ever.
 
-If your kid is little and can't type yet, set up voice typing too — the guide shows you how — so they can just talk out loud instead.
-
-Now, the part you care about: it's safe for kids. The few things the buddy remembers about your child — just a first name, their age, and what they like — stay on your own computer, and so does everything they make. The buddy does talk to Claude over the internet to build things, the way any A.I. app does. But nothing your kid makes is shared or put online unless you say so. And it stays warm and kid-friendly, no matter what.
-
-That's it. Set it up once, hand it over, and let them build. Have fun!
+Setup is just a few one-time things, and a Mac works best: a Claude plan, about twenty dollars a month; a free app called Claude Code; and one paste of the "magic words." If your kid is little and can't type yet, turn on voice typing so they can just talk. Then hand it over — set it up once, and get out of the way — and let them build something they're really proud of.
