@@ -226,7 +226,14 @@ claude-jacked-kids/
     ├── settings.json                       # { "agent": "kid-buddy" } — always-on kid persona
     ├── agents/kid-buddy.md                 # the warm, kid-safe main-thread persona (tone + safety)
     └── skills/
-        ├── build-my-arcade/                # from-scratch recipe: the kid's offline-first creations hub (games + apps)
+        ├── build-my-arcade/                # from-scratch recipe: the kid's offline-first creations hub (games + apps) + project CLAUDE.md
+        ├── make-a-game/                    # build one self-contained game island
+        ├── make-an-app/                    # build one app/tool/toy island (generic "make me a thing that…")
+        ├── change-it/                      # edit / fix / remix any game or app — the main teach-and-check seam
+        ├── play-it/                        # open the hub or a creation on screen (auto-runs after every build)
+        ├── my-creations/                   # gallery of everything made (games + apps) + Brain Wall
+        ├── put-it-online/                  # grown-up-gated publish with the identity scrub (deploys via deploy-to-railway)
+        ├── oops-go-back/                   # undo the last change (never touches saved progress)
         ├── about-me/                       # local "Player Card": name, age, interests + "Things I Learned" wall
         └── teach-and-check/                # learn-as-you-build gate: teach, check, earn Brain Points
 ```
@@ -235,9 +242,9 @@ The persona (`kid-buddy`) is the main-thread agent, so every turn is gentle, jar
 
 ### Roadmap
 
-**Shipped:** `build-my-arcade` (offline-first hub for games + apps; optional Railway deploy; optional clone-of-Hank's-Hits for logins+leaderboards), `about-me` (Player Card + Brain Wall + parent dial), `teach-and-check` (the learn-as-you-build gate — full design in `docs/`).
+**Shipped:** the full building roster — `build-my-arcade` (offline-first hub for games *and* apps; writes a per-project `CLAUDE.md`; optional Railway deploy; optional clone-of-Hank's-Hits for logins+leaderboards), `make-a-game`, `make-an-app` (generic "build me a thing that…"), `change-it`, `play-it`, `my-creations`, `put-it-online` (under-13 grown-up gate + identity scrub), `oops-go-back`, plus `about-me` (Player Card + Brain Wall + parent dial) and `teach-and-check` (the learn-as-you-build gate — full design in `docs/`). Apps mirror games as `apps/<id>/` islands (`window.APPS` + `window.AppStore`).
 
-**Next:** `make-a-game` / `make-an-app`, `change-it`, `remix-it`, `play-it`, `put-it-online` (under-13 grown-up gate + identity scrub), `my-creations`, `oops-go-back`, `getting-started`, `idea-helper`, and a SessionStart "new powers are ready!" notice. Each builds on `build-my-arcade`'s conventions and fires `teach-and-check` at the seams.
+**Next:** a SessionStart "new powers are ready!" notice; optional `getting-started` / `idea-helper` warm-ups; and continued depth on the roster. Every skill builds on `build-my-arcade`'s conventions and fires `teach-and-check` at the seams.
 
 Generalized from [Hank's Hits](https://github.com/jackneil/hanks-hits), retargeted at the conventions `build-my-arcade` establishes so they work for any kid's creations hub.
 
