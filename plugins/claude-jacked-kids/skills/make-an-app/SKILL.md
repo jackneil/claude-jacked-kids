@@ -28,7 +28,7 @@ Apps live on the kid's creations hub (their "arcade").
 2. **Ask 1–3 simple either/or questions** to shape it — never open-ended tech questions. *"Should the countdown show just the days left, or the hours and minutes too?"* / *"Should the chore chart be just for you, or for you and your brother?"* One question at a time.
 3. **Build the whole app island** — complete, tested, kid-friendly, and **delightful** (cheerful colors, big friendly buttons, a little celebration when something good happens). No half-finished apps.
 4. **Wire its data** with [[reference/arcade-conventions]]'s `window.AppStore` so it remembers things between visits (see "Saving an app's data" below).
-5. **Add it to `apps-manifest.js`** (`window.APPS`) so the hub shows it — this is the load-bearing step; the app won't appear on the hub without it.
+5. **Add it to `apps-manifest.js`** (`window.APPS`) so the hub shows it — this is the load-bearing step; the app won't appear on the hub without it. Then **refresh the project `CLAUDE.md`** creations list per [[reference/project-claude-md]] (just the derived inner block; merge, never clobber).
 6. **Test it yourself**, then **show them automatically** — open it on their screen and bring it to the front (use [[play-it]] if available).
 7. **Celebrate**, then offer the next step: change it, make another, or (with a grown-up) put it online.
 
