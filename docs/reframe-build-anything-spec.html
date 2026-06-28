@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reframe Spec — Build Anything (not just games)</title>
+<meta name="jacked:type" content="spec">
+<meta name="jacked:status" content="ready-for-goal">
+<meta name="jacked:date" content="2026-06-28">
+<meta name="jacked:project" content="claude-jacked-kids">
+<style>
+  :root{--fg:#1a1a1a;--muted:#555;--bg:#fafaf7;--card:#fff;--accent:#2266aa;--accent-bg:#e7f0fa;--warn:#b3681c;--warn-bg:#fcf3e7;--ok:#1f7a3f;--ok-bg:#e8f4ec;--border:#d8d4cc;--code:#f3efe8;--radius:6px;--sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;--mono:ui-monospace,Menlo,Consolas,monospace;}
+  @media (prefers-color-scheme:dark){:root{--fg:#e8e6e1;--muted:#a8a5a0;--bg:#161616;--card:#1f1f1f;--accent:#6aa8e8;--accent-bg:#1a2935;--warn:#e0a85b;--warn-bg:#3a2d18;--ok:#6acd8e;--ok-bg:#1c3327;--border:#2e2e2e;--code:#232323;}}
+  *{box-sizing:border-box}body{font-family:var(--sans);font-size:16px;line-height:1.6;color:var(--fg);background:var(--bg);margin:0;padding:2rem 1rem}
+  .wrap{max-width:860px;margin:0 auto}h1{font-size:1.9rem;margin:0 0 .2rem}h2{font-size:1.3rem;margin:2rem 0 .6rem;padding-bottom:.3rem;border-bottom:1px solid var(--border)}h3{font-size:1.05rem;color:var(--muted);margin:1.2rem 0 .4rem}
+  p{margin:.5rem 0 1rem}code{font-family:var(--mono);font-size:.92em;background:var(--code);padding:.1em .35em;border-radius:3px}
+  pre{font-family:var(--mono);font-size:.85rem;background:var(--code);border:1px solid var(--border);border-radius:var(--radius);padding:.8rem 1rem;overflow-x:auto}
+  table{width:100%;border-collapse:collapse;margin:1rem 0;background:var(--card);border-radius:var(--radius);overflow:hidden;font-size:.92rem}th,td{text-align:left;padding:.5rem .7rem;border-bottom:1px solid var(--border);vertical-align:top}th{background:var(--code);font-weight:600;font-size:.85rem}tr:last-child td{border-bottom:none}
+  aside{margin:1rem 0;padding:.8rem 1.1rem;border-left:4px solid var(--accent);background:var(--accent-bg);border-radius:0 var(--radius) var(--radius) 0}aside.warn{border-color:var(--warn);background:var(--warn-bg)}aside.ok{border-color:var(--ok);background:var(--ok-bg)}aside>:first-child{margin-top:0}aside>:last-child{margin-bottom:0}
+  .meta{display:flex;gap:1rem;flex-wrap:wrap;margin:.5rem 0 1.5rem;padding:.6rem 1rem;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);font-size:.85rem;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Reframe: from "games" to "build anything" 🎮 → 🛠️</h1>
+<div class="meta"><span>Project: claude-jacked-kids</span><span>Date: 2026-06-28</span><span>Status: ready for /goal</span></div>
+
+<aside class="ok">
+<strong>Vision.</strong> A warm, kid-safe <strong>building buddy</strong> for children ~5–14. A kid describes <em>anything</em> they want — a game, <em>or</em> any app/tool/toy they dream up (a movie-release countdown, a chore chart, a flashcard quiz, a drawing toy, a tracker, a clock, a "rate my sandwich" picker — whatever random thing) — and the buddy builds the whole thing, shows it on screen, teaches a little along the way, and keeps it safe. <strong>Not games-only.</strong>
+</aside>
+
+<aside class="warn">
+<strong>Scope discipline (the lesson that shaped this spec).</strong> We are <strong>not</strong> building feature-specific skills (no "pull my sports stats" skill, no validating a kid's idea). The skills stay <strong>generic</strong>: they help a kid build <em>whatever</em> they ask for and teach them as they go. Examples in this doc (movie countdown, stats tracker, etc.) are illustrations of the <em>range</em>, never features to implement individually.
+</aside>
+
+<h2>1. Principles</h2>
+<ul>
+  <li><strong>Additive — zero breakage.</strong> Keep <code>build-my-arcade</code> and every internal symbol (<code>window.GAMES</code>, <code>games/&lt;id&gt;/</code>, <code>GAME_META</code>, <code>ArcadeScores</code>, the skill names). Add <strong>apps as a parallel structure</strong> next to games. Reframe only the kid-<em>facing</em> words.</li>
+  <li><strong>"App" = any non-game creation</strong> (tool, tracker, dashboard, toy, list, quiz…). One generic <code>make-an-app</code> skill builds them all from the kid's plain-words request.</li>
+  <li><strong>Teach along the way.</strong> The existing <code>teach-and-check</code> Brain-Boost gate works for apps too (its concepts — variable, loop, save, list — are universal); add a few app-flavored concept cards.</li>
+  <li><strong>Safety unchanged, applied to apps.</strong> Local-first; first-name only; never store/publish last name, address, school, phone, photos; under-13 needs a grown-up to publish; scrub identifying info before publishing. If a creation holds personal info, it stays local and isn't published with identifying details. <em>(No domain-specific machinery — the existing identity rules cover it.)</em></li>
+  <li><strong>Per-project <code>CLAUDE.md</code> (the owner's idea).</strong> The buddy writes a lean <code>CLAUDE.md</code> into the kid's creations folder so the skills cohere — and so even a fresh chat (or a friend's plain Claude Code with no plugin) honors the warm tone, the folder conventions, which skill to use when, and the privacy floor.</li>
+</ul>
+
+<h2>2. Skill map (generic; additive)</h2>
+<table>
+<thead><tr><th>Skill</th><th>Status</th><th>Generic responsibility</th></tr></thead>
+<tbody>
+<tr><td><code>agents/kid-buddy.md</code></td><td>reframe words</td><td>Always-on "building buddy" persona — games + apps + tools; varied examples, not just games.</td></tr>
+<tr><td><code>build-my-arcade</code></td><td>keep id, reframe</td><td>Scaffold the creations hub (games <em>and</em> apps) from an empty folder; write the project <code>CLAUDE.md</code>; build the first creation inline.</td></tr>
+<tr><td><code>make-a-game</code></td><td>new</td><td>Build one self-contained game island.</td></tr>
+<tr><td><code>make-an-app</code></td><td>new</td><td>Build one app/tool/toy island — <strong>generic</strong> ("make me a thing that…"). Saves data with a simple local store when needed.</td></tr>
+<tr><td><code>change-it</code></td><td>new</td><td>Edit/fix/remix any game OR app; the main teach-and-check seam.</td></tr>
+<tr><td><code>play-it</code></td><td>new</td><td>Open the hub or one creation in the browser and bring it to front; auto-runs after every build.</td></tr>
+<tr><td><code>my-creations</code></td><td>new</td><td>Gallery of everything the kid made (games ∪ apps).</td></tr>
+<tr><td><code>put-it-online</code></td><td>new</td><td>Grown-up-gated publish with the identity scrub; deploys via <code>deploy-to-railway</code>.</td></tr>
+<tr><td><code>oops-go-back</code></td><td>new</td><td>Undo the last change; never touches saved progress.</td></tr>
+</tbody>
+</table>
+
+<h2>3. Apps as a parallel structure</h2>
+<p>Mirror the proven game-island pattern so nothing about games changes:</p>
+<pre>&lt;arcade&gt;/
+  index.html            # hub — now lists a "Games" zone AND a "My Apps &amp; Tools" zone
+  CLAUDE.md             # NEW: the project file the buddy writes (tone + rules + which skill when)
+  assets/
+    games-manifest.js   # window.GAMES  (unchanged)
+    apps-manifest.js    # window.APPS   (new, peer)
+    scores.js           # window.ArcadeScores (unchanged)
+    store.js            # window.AppStore — tiny localStorage helper for app data (new, peer)
+  games/&lt;id&gt;/           # unchanged
+  apps/&lt;id&gt;/            # new, peer: index.html + app.js + metadata.js (window.APP_META)
+  .jacked-kids/         # Player Card etc. — local-only, gitignored (unchanged)</pre>
+<p>A pre-existing (games-only) hub is <strong>idempotently retrofitted</strong> on first app: inject the apps render zone, create an empty <code>apps-manifest.js</code> + <code>store.js</code> + <code>apps/</code>, add the <code>CLAUDE.md</code> if missing. Offline-first rules are unchanged (script-globals not <code>fetch</code>, opens from a file; the dev/play server for anything that needs serving).</p>
+
+<h2>4. The per-project <code>CLAUDE.md</code></h2>
+<p>Written/updated by <code>build-my-arcade</code> and the make/change skills into <code>&lt;arcade&gt;/CLAUDE.md</code>. Lean and self-honest — no routing table that can rot, no impossible self-updating. It contains:</p>
+<ul>
+  <li><strong>Tone:</strong> talk like the warm kid buddy (so even a no-plugin Claude Code behaves).</li>
+  <li><strong>What's here:</strong> a short, derived list of the kid's games + apps and the folder layout.</li>
+  <li><strong>Which skill when:</strong> plain pointers ("to make a new thing → make-a-game / make-an-app; to change one → change-it; to show it → play-it").</li>
+  <li><strong>The safety floor:</strong> local-first; first-name only / no PII; a grown-up publishes. Stated inline so it can't go stale by naming a skill that might change.</li>
+  <li><strong>Merge, never clobber</strong> an existing <code>CLAUDE.md</code>.</li>
+</ul>
+
+<h2>5. Safety &amp; privacy (existing rules, now covering apps)</h2>
+<p>No new machinery — just make sure the established rules apply to apps the same as games:</p>
+<ul>
+  <li>Everything runs <strong>locally</strong>; nothing about the kid leaves the device unless a grown-up publishes.</li>
+  <li><strong>First name max</strong> — never last name, address, school, phone, email, photos — in anything stored or shared.</li>
+  <li>An app that holds personal info (a tracker, a journal) stays <strong>local</strong>; publishing is a <strong>grown-up step</strong> (under-13) and scrubs identifying details first (a handle/nickname + the content, never identity).</li>
+  <li><code>.jacked-kids/</code> stays gitignored and out of every publish path.</li>
+</ul>
+
+<h2>6. Phased milestone plan (additive-first; each ships independently and green)</h2>
+<table>
+<thead><tr><th>#</th><th>Milestone</th><th>Acceptance</th></tr></thead>
+<tbody>
+<tr><td>M1</td><td><strong>Word reframe.</strong> Persona + README + skill descriptions: "games" → "build anything (games + apps)". Varied examples (movie countdown, chore chart, quiz, tracker…). Fix the README line that over-promised auto-pulling league stats.</td><td>No game flow changed; persona + README + the dev "what's inside" read as build-anything; examples span apps, not just games.</td></tr>
+<tr><td>M2</td><td><strong>App island structure.</strong> <code>apps/</code> islands + <code>apps-manifest.js</code> (<code>window.APPS</code>) + <code>store.js</code> (<code>window.AppStore</code>) + a hub "My Apps &amp; Tools" zone + a working sample app + idempotent retrofit of a pre-apps hub.</td><td>Browser-tested: hub shows games zone AND apps zone; the sample app opens offline, saves + reloads data; a games-only hub upgrades cleanly.</td></tr>
+<tr><td>M3</td><td><strong><code>make-an-app</code> skill</strong> (generic build-a-thing) + a few app/tool concept cards for <code>teach-and-check</code>.</td><td>"Make me an app that counts down to a movie" produces a real app island listed on the hub; a Brain Boost fires at the right seam.</td></tr>
+<tr><td>M4</td><td><strong>Per-project <code>CLAUDE.md</code> generator</strong> (reference doc + a build step in build-my-arcade/make-*). Merges with any existing one.</td><td>A built arcade has a sensible <code>CLAUDE.md</code>; a fresh Claude session in that folder honors tone + rules; re-running doesn't clobber.</td></tr>
+<tr><td>M5</td><td><strong>Complete the skill roster:</strong> make-a-game, change-it, play-it, my-creations, put-it-online, oops-go-back — all generic over games + apps. Resolve dangling references.</td><td>Every skill referenced by the persona/other skills exists; no dangling <code>[[wikilinks]]</code>.</td></tr>
+<tr><td>M6</td><td><strong>Privacy-for-apps pass.</strong> Ensure the existing identity/publish rules + the project <code>CLAUDE.md</code> + <code>put-it-online</code> scrub cover apps that hold personal info.</td><td>Publishing an app with personal data is grown-up-gated and scrubbed; an app's local data never reaches git/deploy.</td></tr>
+<tr><td>M7</td><td><strong>Verification + consistency sweep.</strong> Browser-test a game AND an app; structure/JSON checks; README + dev tree match reality; DCR.</td><td>Clean DCR; an app and a game both build + run offline; docs consistent.</td></tr>
+</tbody>
+</table>
+
+<h2>7. Explicitly cut (was over-engineering)</h2>
+<p>Dropped from the first design pass because it over-literaled one example: the sports-stats data ladder, ESPN/league snapshots, roster-CSV import, the two-zone identity system, the allowlist publish-scrubber, and any feature-specific stats skill. Generic "build the thing + existing safety + local-first" covers the real intent. If a kid wants to pull data into a creation, the generic <code>make-an-app</code> helps them figure it out in the moment — no bespoke skill.</p>
+
+<h2>8. Risks</h2>
+<ul>
+  <li><code>file://</code> storage quirks (Safari) — bias to the play-server + visible save failures + export/import; verify on Safari in M7.</li>
+  <li><code>CLAUDE.md</code> staleness — keep it lean + inline-safety; the build step regenerates the derived part.</li>
+  <li>Folder-sharing bypasses git/deploy scrubs — documented residual risk; the for-grownups note is the mitigation.</li>
+  <li>Scope creep — keep skills generic; resist building feature-specific helpers.</li>
+</ul>
+
+</div>
+</body>
+</html>
