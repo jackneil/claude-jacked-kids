@@ -1,34 +1,167 @@
-# 🎮 claude-jacked-kids
+<div align="center">
 
-**Turn Claude Code into a warm, kid-safe game-building buddy.** A kid describes a game in plain words — *"a monster truck that jumps over school buses"* — and Claude builds the whole thing, shows it on their screen, and (with a grown-up) can put it on the internet. The kid never touches code.
+# 🎮 Make Your Own Video Games! 🎮
 
-This is the **kids** companion to [`claude-jacked`](https://github.com/jackneil/claude-jacked). claude-jacked is for grown-up developers (blunt tone, security gatekeeper, PR tools). **This is separate, and for kids** — warm, simple, safe.
+### Just say what you want. Your buddy builds it. ✨
 
-It's a **Claude Code plugin**: pure skills + a kid-friendly persona + guidance. It ships **no application code** — the skills hold the know-how, and Claude builds the kid's game arcade from scratch in their own folder (runs locally, can deploy, has a hub/dashboard/leaderboards if they want).
+*"Make a monster truck that jumps over school buses!"* 🚚💥
+*"A cat that catches falling fish!"* 🐱🐟
+*"A rocket that dodges asteroids!"* 🚀☄️
+
+**You talk. It builds. You play.** No code. No hard stuff. 🎉
+
+</div>
 
 ---
 
-## Install (one line — paste once)
+## 🎈 What is this?
 
-```bash
-claude plugin marketplace add jackneil/claude-jacked-kids && claude plugin install claude-jacked-kids@claude-jacked-kids
+This is a **friendly buddy** that lives inside an app called **Claude Code**. You tell it what game you want — in your own words — and it builds the whole game and shows it to you on your screen. Then you can play it, change it, and (with a grown-up) even put it on the internet for friends.
+
+It also **teaches you cool stuff while it builds**, and gives you 🧠 **Brain Points** when you figure things out. (More on that down below.)
+
+> 🧑 **Grown-ups:** this is a plugin for **Claude Code** (Anthropic's AI coding tool). It's warm, jargon-free, and safe for kids — it ignores any "be blunt" developer settings. Setup + cost details are in the **🧑 For grown-ups** section further down. Short version: you'll need Claude Code installed and a Claude plan (about **$20/month**).
+
+---
+
+## 🚀 Already have Claude Code open? Do THIS (the magic words)
+
+If a grown-up already set up Claude Code and it's open and waiting for you, just **paste these magic words** to your buddy and press Enter:
+
+```text
+Hi Claude! I'm a kid and I want to make my own video games. Please set up my
+game-building buddy for me. Run these two things for me:
+
+claude plugin marketplace add jackneil/claude-jacked-kids
+claude plugin install claude-jacked-kids@claude-jacked-kids
+
+Then tell me to close Claude Code and open it again. After that, help me make
+my very first game — and explain everything in fun, simple words! 🎮
 ```
 
-Then **restart Claude Code** (or run `/reload-plugins` in a session) so the buddy persona + skills load. That's it — no Python, no extra downloads. Installs globally (works in every folder).
+Your buddy will set itself up, ask you to **close and re-open Claude Code**, and then help you make your first game. **That's it!** 🎉
 
-> Inside a Claude Code session you can instead type the two commands as slash commands: `/plugin marketplace add jackneil/claude-jacked-kids` then `/plugin install claude-jacked-kids@claude-jacked-kids`, then `/reload-plugins`.
-
-## Staying up to date (basically automatic)
-
-- This plugin **omits the `version` field on purpose** — so every push to this repo *is* a new version. No version-bump ritual.
-- Turn on auto-update **once**: `/plugin` → Marketplaces → `claude-jacked-kids` → **Enable auto-update**. (Third-party plugins default to off, so this one toggle is what makes updates automatic at startup.)
-- Manual refresh anytime: `claude plugin update claude-jacked-kids@claude-jacked-kids`.
-
-Because the plugin is *only* prompts/skills, an update **can never break a kid's built game** — it only ever refreshes the buddy's know-how.
+*(A grown-up might need to tap "yes/allow" a couple of times — that's normal.)*
 
 ---
 
-## What's inside
+## 🐣 Starting from nothing? Let's set it up together!
+
+No Claude Code yet? That's okay — we'll go nice and slow. **Grab a grown-up** for this part, then pick your computer:
+
+> 🧑 **Grown-ups, the honest bit first:** Claude Code needs a paid **Claude plan** (a **Pro** plan is about **$20/month**). There is **no free version** for this. One plan covers Claude everywhere. Prices can change — check [claude.com/pricing](https://claude.com/pricing).
+
+<details>
+<summary><h3>🍎 I have a Mac — tap here</h3></summary>
+
+**Do these in order. The 🧑 steps are for a grown-up.**
+
+1. 🧑 **Get a Claude plan** (about $20/month) at [claude.com/pricing](https://claude.com/pricing). You'll sign in with it in a minute.
+
+2. **Open the typing window** (it's called the "Terminal"):
+   - Hold **Command (⌘)** and tap **Spacebar**. A little search box pops up. 🔎
+   - Type **`Terminal`** and press **Enter**.
+   - A plain window with a blinking cursor opens. That's it — don't be scared, it's just a place to type. 😊
+
+3. **Install Claude Code.** Copy the line below, click in the Terminal window, paste it (**⌘ + V**), and press **Enter**. Then wait a minute while it works:
+   ```bash
+   curl -fsSL https://claude.ai/install.sh | bash
+   ```
+
+4. **Start it up.** Type this and press Enter:
+   ```bash
+   claude
+   ```
+   The first time, your **web browser pops open to sign in** — 🧑 a grown-up signs in with the Claude plan from step 1. ✅
+
+5. **Say the magic words!** Scroll up to the **🚀 magic words** near the top of this page, copy them, paste them into the window (**⌘ + V**), and press Enter. 🎉
+
+6. When your buddy says to **close and re-open Claude Code**, just close the window, do step 4 again (`claude`), and say: **"Let's make a game!"**
+
+> 🧑 *No-terminal option:* you can instead download the Claude desktop app at [claude.com/download](https://claude.com/download), install it, sign in, then use the magic words inside it.
+
+</details>
+
+<details>
+<summary><h3>🪟 I have a Windows computer — tap here</h3></summary>
+
+**Do these in order. The 🧑 steps are for a grown-up.**
+
+1. 🧑 **Get a Claude plan** (about $20/month) at [claude.com/pricing](https://claude.com/pricing). You'll sign in with it in a minute.
+
+2. **Open the typing window** (called "PowerShell"):
+   - Hold the **Windows key** and tap **X**. A menu pops up.
+   - Click **Windows PowerShell** (or **Terminal**).
+   - A window opens. ✅ You're in the right one if you see **`PS C:\Users\...`** at the start. *(If it doesn't say `PS`, close it and pick **PowerShell**.)*
+
+3. **Install Claude Code.** Copy the line below, click in the window, paste it (**Ctrl + V** or right-click), and press **Enter**. Then wait a minute:
+   ```powershell
+   irm https://claude.ai/install.ps1 | iex
+   ```
+
+4. **Start it up.** Type this and press Enter:
+   ```powershell
+   claude
+   ```
+   The first time, your **web browser pops open to sign in** — 🧑 a grown-up signs in with the Claude plan from step 1. ✅
+
+5. **Say the magic words!** Scroll up to the **🚀 magic words** near the top of this page, copy them, paste them in (**Ctrl + V** or right-click), and press Enter. 🎉
+
+6. When your buddy says to **close and re-open Claude Code**, just close the window, do step 4 again (`claude`), and say: **"Let's make a game!"**
+
+> 🧑 *No-terminal option:* you can instead download the Claude desktop app at [claude.com/download](https://claude.com/download), install it, sign in, then use the magic words inside it.
+> *Optional:* installing [Git for Windows](https://git-scm.com/downloads/win) (click Next on every screen) gives Claude Code a smoother experience, but it's **not required**.
+
+</details>
+
+---
+
+## 🕹️ Now what? Just talk to your buddy!
+
+Type stuff like:
+
+- 🎨 *"Make a game where a dragon flies through caves!"*
+- 🔧 *"Make my truck jump higher!"*
+- 🏆 *"Add a high score!"*
+- ▶️ *"Let me play it now!"*
+- 🌈 *"Make it nighttime with stars!"*
+
+Your buddy builds it, opens it on your screen, and cheers you on. The more you make, the bigger your **Brain Wall** grows. 🧠
+
+---
+
+## 🧠 It teaches you while you build
+
+Your buddy isn't just a builder — it's a little teacher, and it makes learning a **game**:
+
+> *"YES, a laser cannon! 😎 Quick — to earn it: does the memory box **remember** your scores, or **forget** them?"*
+
+- ✅ **It's an unlock, never a wall.** You always keep the game you made. A question only stands in front of the *next* cool thing — and if you're not sure, your buddy explains it a different way, gives a hint, and finally says the answer *with* you. **You never get stuck.**
+- 🧠 **Right answers earn Brain Points** and stickers on your own "Things I Learned" wall, with a rank that grows as you learn (Curious Cub → Spark Scout → … → Mastermind!).
+- 🎚️ **It fits you.** Little kids get easy either/or questions; bigger kids get "say it in your own words" and "why" questions. You can answer by **talking** (voice-to-text) — spelling doesn't matter.
+
+---
+
+## 🧑 For grown-ups (please read)
+
+- 💵 **Cost:** Claude Code needs a paid **Claude plan** — a **Pro** plan (~**$20/month**) includes it; **Max** starts at ~$100/month for heavy use. The free Claude.ai chat tier does **not** include Claude Code. Check current prices at [claude.com/pricing](https://claude.com/pricing).
+- 🔒 **Privacy:** everything stays **on your computer**. The buddy keeps only a first name, age, a few interests, and which ideas the child has learned — **never** a last name, address, school, phone, or photos. Delete it all by removing the `.jacked-kids` folder in the child's game folder.
+- 🌍 **Going online is a grown-up step.** Games run locally by default. Publishing to the internet needs a grown-up (under-13), and personal info is scrubbed first.
+- 🎚️ **You hold a learning dial.** Tell the buddy: *"I'm the grown-up — set learning checks to off / light / normal / strict."*
+- 🔁 **Staying updated (automatic):** turn it on once — `/plugin` → Marketplaces → `claude-jacked-kids` → **Enable auto-update**. Because the plugin is only prompts/skills, an update **can never break a game your kid already made** — it just refreshes the buddy's know-how.
+- 🛠️ **Prefer the terminal?** The whole install is two lines:
+  ```bash
+  claude plugin marketplace add jackneil/claude-jacked-kids
+  claude plugin install claude-jacked-kids@claude-jacked-kids
+  ```
+  then restart Claude Code (or `/reload-plugins`). In a session you can also use `/plugin`.
+
+---
+
+<details>
+<summary><h2>🧰 For developers (what's inside)</h2></summary>
+
+A **Claude Code plugin**: pure skills + a kid-safe persona. It ships **no application code** — the skills hold the know-how, and Claude builds each kid's game arcade from scratch in their own folder (offline-first; can deploy; can grow into a logins+leaderboards platform). Companion to the grown-up [`claude-jacked`](https://github.com/jackneil/claude-jacked).
 
 ```
 claude-jacked-kids/
@@ -39,42 +172,27 @@ claude-jacked-kids/
     ├── settings.json                       # { "agent": "kid-buddy" } — always-on kid persona
     ├── agents/kid-buddy.md                 # the warm, kid-safe main-thread persona (tone + safety)
     └── skills/
-        ├── build-my-arcade/                # the from-scratch recipe: builds the kid's whole offline-first arcade
-        ├── about-me/                       # the local "Player Card": name, age, interests + "Things I Learned" wall
-        └── teach-and-check/                # learn-as-you-build gate: teach an idea, check they got it, earn Brain Points
+        ├── build-my-arcade/                # from-scratch recipe: the kid's whole offline-first arcade
+        ├── about-me/                       # local "Player Card": name, age, interests + "Things I Learned" wall
+        └── teach-and-check/                # learn-as-you-build gate: teach, check, earn Brain Points
 ```
 
-**The persona** (`kid-buddy`) is set as the main-thread agent, so every turn is gentle, jargon-free, fun-first, and safe — and it explicitly overrides any global "be blunt / roast the user" developer tone, because that's for grown-ups, not kids.
+The persona (`kid-buddy`) is the main-thread agent, so every turn is gentle, jargon-free, and safe — and it explicitly overrides any global "be blunt / roast the user" developer tone. The plugin **omits the `version` field on purpose**, so every push to this repo *is* a new version.
 
-## 🧠 Learns while they build
+### Roadmap
 
-The buddy doesn't just build — it teaches, and makes sure the idea landed. When a new concept shows up in a kid's game (a way to remember scores, a loop, putting it online), the buddy explains it in one kid-sized sentence, then asks a quick **either/or** question before unlocking the *next* thing the kid wants:
+**Shipped:** `build-my-arcade` (offline-first arcade; optional Railway deploy; optional clone-of-Hank's-Hits for logins+leaderboards), `about-me` (Player Card + Brain Wall + parent dial), `teach-and-check` (the learn-as-you-build gate — full design in `docs/`).
 
-> *"YES, a laser cannon! 😎 Quick — to earn it: does the memory box **remember** your scores, or **forget** them?"*
+**Next:** `make-a-game`, `change-a-game`, `remix-a-game`, `play-my-game`, `put-it-online` (under-13 grown-up gate + identity scrub), `my-creations`, `oops-go-back`, `getting-started`, `game-ideas`, and a SessionStart "new powers are ready!" notice. Each builds on `build-my-arcade`'s conventions and fires `teach-and-check` at the seams.
 
-- **It's an unlock, never a wall.** The game they already have is built and playable first; a check never blocks, removes, or stalls a game. Get it wrong and the buddy re-explains a different way, hints, and finally says the answer *together* — so a kid is **never stuck**.
-- **Right answers earn 🧠 Brain Points** and stickers on a private "Things I Learned" wall (kept separate from in-game points), with a rank that grows as they learn.
-- **It adapts to the kid** — gentler, more concrete questions for little ones; "say it in your own words" and "why" questions for older kids. Answers are judged by *meaning*, so talking to the buddy (voice-to-text) works fine.
-- **Grown-ups hold a dial** — `off / light / normal / strict` — set by just telling the buddy. Everything stays on the family's computer; nothing about the child is stored beyond a first name, age, interests, and which ideas they've learned. (See the design spec in `docs/` for the full pedagogy + safety model.)
+Generalized from [Hank's Hits](https://github.com/jackneil/hanks-hits), retargeted at the conventions `build-my-arcade` establishes so they work for any kid's arcade.
 
-## Roadmap (skills, ported + generalized from the Hank's Hits framework)
-
-The behavioral core ships now, and so does the learning system. The game-building skills are being added next:
-
-**Shipped:**
-
-- [x] **`build-my-arcade`** — the from-scratch recipe: in an empty folder, build the kid's whole game platform — an **offline-first** static arcade (hub, game registry, the Brain Wall, local high scores) that opens with no internet and no install. Grows only on a grown-up's say-so: deploy to Railway (Tier 2), or clone & adapt the full Hank's Hits logins+leaderboards platform (Tier 3). Ships working starter templates + a zero-dependency live-reload dev server.
-- [x] **`about-me`** — the local "Player Card" (first name, age, interests) plus the "Things I Learned" wall, Brain Points, rank, and the grown-up learning dial.
-- [x] **`teach-and-check`** — the learn-as-you-build gate: teach a new idea, check the kid got it before unlocking the next thing, earn Brain Points. Age-adaptive, voice-to-text friendly, never blocks a game. (Full design: `docs/teach-and-check-design.html`.)
-
-**Next:**
-
-- [ ] **`make-a-game`**, **`change-a-game`**, **`remix-a-game`**, **`play-my-game`**, **`put-it-online`** (with the under-13 grown-up gate + identity scrub), **`my-creations`**, **`oops-go-back`** (undo) — each invokes `teach-and-check` at the seam where a new concept appears.
-- [ ] **`getting-started`**, **`game-ideas`**
-- [ ] A SessionStart hook that surfaces a friendly "new powers are ready!" update notice
-
-These are generalized from [Hank's Hits](https://github.com/jackneil/hanks-hits), where they were built and battle-tested against a real codebase — retargeted at the conventions `build-my-arcade` establishes, so they work for any kid's arcade, not just Hank's.
+</details>
 
 ---
 
-*Made so any kid can dream up a game and watch it get built. 🎈*
+<div align="center">
+
+*Made so any kid can dream up a game and watch it get built.* 🎈
+
+</div>
