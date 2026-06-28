@@ -104,7 +104,7 @@ apps/<id>/
 
 The app peer of `scores.js`. `window.AppStore.load(appId, fallback)` / `save(appId, data)` / `clear(appId)` over `localStorage` (offline-safe), JSON-serialized so `data` can be a number, string, array, or object. Namespaced key `appdata:<appId>`. For a richer app (many records, big saves) use **IndexedDB** inside the app instead (DB name `app:<appId>`).
 
-**Privacy by construction:** app data lives in `localStorage` on the kid's own machine — it is never a committed file and never deployed. An app that holds personal info (a journal, a tracker) keeps that info local automatically. If an app genuinely needs to persist a *file* (rare), write it under the already-gitignored `.jacked-kids/` so it stays private and out of every publish — never a committed path.
+**Privacy by construction:** app data lives in `localStorage` on the kid's own machine — it is never a committed file and never deployed. An app that holds personal info (a journal, a tracker) keeps that info local automatically. If an app genuinely needs to persist a *file* (rare), write it under the gitignored **`app-data/`** folder so it stays private and out of every publish — never a committed path.
 
 ### The hub shows both zones
 
@@ -143,15 +143,16 @@ For **deploying** the arcade (Tier 2), use the separate **`server.js`** (also in
 Must include at least:
 ```
 .jacked-kids/
+app-data/
 assets/brain-wall.js
 .DS_Store
 node_modules/
 ```
-`.jacked-kids/` (the Player Card + grown-up page) and `brain-wall.js` (first-name personalization) must **never** be committed or deployed.
+`.jacked-kids/` (the Player Card + grown-up page) and `brain-wall.js` (first-name personalization) must **never** be committed or deployed. `app-data/` holds anything an app saves to a *file* (rare — most apps use `AppStore`/localStorage, which is never a file); it's local-only and out of every publish, so personal app data can't leak.
 
 ## Deploy scrub (Tier 2)
 
-Before any deploy/publish, produce the served copy WITHOUT `.jacked-kids/` and `dev-server.js`; **overwrite `assets/brain-wall.js` with its null stub (`window.BRAIN_WALL = null;`) rather than deleting it** — deleting leaves the hub's `<script src="assets/brain-wall.js">` 404ing; and set `arcade.config.js` `owner` to a generic value (or drop the greeting). Serve with `server.js` (never `dev-server.js`). A first name is the most that may ever appear publicly, and prefer none. Use the [[put-it-online]] skill's scrub if available — **and note `put-it-online` / `deploy-to-railway` may not be built yet, so until then do this scrub by hand and check `git status` before any push.**
+Before any deploy/publish, produce the served copy WITHOUT `.jacked-kids/`, `app-data/`, and `dev-server.js`; **overwrite `assets/brain-wall.js` with its null stub (`window.BRAIN_WALL = null;`) rather than deleting it** — deleting leaves the hub's `<script src="assets/brain-wall.js">` 404ing; and set `arcade.config.js` `owner` to a generic value (or drop the greeting). Serve with `server.js` (never `dev-server.js`). A first name is the most that may ever appear publicly, and prefer none. Use the [[put-it-online]] skill's scrub if available — **and note `put-it-online` / `deploy-to-railway` may not be built yet, so until then do this scrub by hand and check `git status` before any push.**
 
 ---
 

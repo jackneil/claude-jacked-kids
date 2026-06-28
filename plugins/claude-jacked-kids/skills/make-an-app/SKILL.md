@@ -87,7 +87,7 @@ Run [[teach-and-check]] exactly as it says — it works for apps the same as gam
 
 - **Content stays kid-safe.** Same cartoony, age-right rule as games.
 - **First name is the most identifying thing that may ever appear** — never a last name, address, school, phone, email, or photos, in anything stored or shown.
-- **Apps that hold personal info stay local.** A tracker, journal, or chore chart keeps its data in `localStorage` on the kid's own machine by construction (`AppStore` never writes a committed file and nothing deploys it). If an app genuinely must persist a *file*, write it under the gitignored `.jacked-kids/` — never a committed path.
+- **Apps that hold personal info stay local.** A tracker, journal, or chore chart keeps its data in `localStorage` on the kid's own machine by construction (`AppStore` never writes a committed file and nothing deploys it). If an app genuinely must persist a *file* (rare), write it under the gitignored `app-data/` folder — never a committed path. Don't hardcode the kid's real info into the app's code, either.
 - **Publishing is a grown-up step** (under-13). Before anything goes online, [[put-it-online]] scrubs identifying info and excludes private data. Default to running locally.
 
 ## How this fits the other skills

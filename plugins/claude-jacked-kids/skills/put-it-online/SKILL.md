@@ -22,7 +22,7 @@ Produce the served copy **without** any personal data. Check every item:
 - **Genericize `arcade.config.js` `owner`** (set it to a generic value or drop the greeting) — a first name is the most that should *ever* appear publicly, and prefer none.
 - **Apps that hold personal info:** their data lives in `localStorage` on the kid's own machine (`AppStore`), so it **does not deploy** — only the app's code does. Confirm that:
   - the app reads its data from `AppStore`/`IndexedDB` at runtime and has **no personal data hardcoded** into `app.js`/`metadata.js`/`index.html`. If a kid seeded real info into the code (a journal entry, real names, an address), scrub it to a neutral placeholder before publishing.
-  - any app that persisted to a **file** under `.jacked-kids/` is already excluded by the first rule.
+  - **exclude the `app-data/` folder** (any app that persisted to a *file*) from the served copy — it's gitignored, but make sure it's not in the deploy bundle either.
 - **Scan for anything else identifying** across games, apps, and titles (a game/app named "Sam's House on Oak St" → publish as "Sam's House"). No last name, address, town, school, phone, email, or photos.
 - **`CLAUDE.md`** is a dev file with no kid PII (it lists creation titles only) — it's safe; it doesn't need to be served but won't leak anything if it is.
 - **Don't ship `dev-server.js`** — serve with the plain `server.js` (static, reads `PORT`), never the live-reload dev-server.

@@ -5,6 +5,11 @@
 # PRIVATE — never commit or deploy. Holds the Player Card + grown-up page.
 .jacked-kids/
 
+# App data that an app saves to a FILE (rare — most apps use the browser's
+# own storage via AppStore, which is never a file). Anything an app writes to
+# disk that could hold the kid's personal stuff goes here: local, never shared.
+app-data/
+
 # Personalization (has the kid's first name) — local only, never deployed.
 assets/brain-wall.js
 
