@@ -13,7 +13,7 @@
 
 **You talk. It builds. You play it, use it, and show it off.** No code. No hard stuff. 🎉
 
-#### 🎧 Can't read this yet? [**Listen — what to do (1 min)** ▶️](docs/audio/kid-start.mp3) &nbsp;·&nbsp; <sub>[read the words](docs/audio/transcript.md) · AI voice</sub>
+#### 🔊 New here? [**▶️ Press play — a 1-minute welcome**](https://jackneil.github.io/claude-jacked-kids/audio/listen.html) &nbsp;<sub>grown-ups: play it for your kid — great if they can't read yet</sub>
 
 </div>
 
@@ -38,7 +38,7 @@ It also **teaches you cool stuff while it builds**, and gives you 🧠 **Brain P
 
 Your kid will talk to a friendly AI buddy that builds their games and apps. **You just set a few things up once** — no tech knowledge required. Here's the whole list, in order:
 
-> 🎧 **Rather listen?** [**Setup guide (audio)** ▶️](docs/audio/grownup-setup.mp3) &nbsp;·&nbsp; [transcript](docs/audio/transcript.md) <sub>· AI voice</sub>
+> 🎧 **Rather listen?** [**▶️ Play the 1-minute setup guide**](https://jackneil.github.io/claude-jacked-kids/audio/listen.html) — the kid's welcome is on the same page. <sub>(AI voice)</sub>
 
 
 1. **💻 A computer — a Mac is best.** Minimum: a **[MacBook Neo](https://www.apple.com/macbook-neo/)** (~$599, Apple's budget MacBook). Better: a **MacBook Air with 16GB of RAM**. Windows works, but isn't quite as good for this.
@@ -56,7 +56,7 @@ Your kid will talk to a friendly AI buddy that builds their games and apps. **Yo
 
 If a grown-up already set up Claude Code and it's open and waiting for you, just **paste these magic words** to your buddy and press Enter:
 
-> 🎧 **Reading tricky? [Listen to what to do (1 min) ▶️](docs/audio/kid-start.mp3)** &nbsp;·&nbsp; <sub>[read the words](docs/audio/transcript.md) · AI voice</sub>
+> 🔊 **Want to hear what to do? [▶️ Press play](https://jackneil.github.io/claude-jacked-kids/audio/listen.html)** — a grown-up can press it for you. <sub>(AI voice)</sub>
 
 
 ```text
@@ -228,7 +228,7 @@ A **Claude Code plugin**: pure skills + a kid-safe persona. It ships **no applic
 ```
 claude-jacked-kids/
 ├── .claude-plugin/marketplace.json         # makes this repo an installable marketplace
-├── docs/audio/                             # 🎧 listen-instead onboarding (kid + grown-up) + transcript
+├── docs/audio/                             # 🎧 listen-instead onboarding: listen.html player (GitHub Pages) + kid/grown-up mp3s + transcript
 ├── docs/teach-and-check-design.html        # design spec for the learn-as-you-build gate
 └── plugins/claude-jacked-kids/
     ├── .claude-plugin/plugin.json          # the plugin (no version → SHA = version → push = update)

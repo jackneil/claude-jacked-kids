@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎧 Listen — Make Your Own Games & Apps</title>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,"Comic Sans MS",sans-serif;
+       background:linear-gradient(160deg,#1a0f3a,#0e1230 60%,#0a2233);color:#f3f0ff;min-height:100vh;
+       padding:1.4rem 1rem 4rem;text-align:center;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:680px;margin:0 auto}
+  h1{font-size:2rem;margin:.4rem 0 .2rem;line-height:1.15}
+  .tag{opacity:.8;font-size:1.05rem;margin:0 0 1.6rem}
+  .card{background:rgba(255,255,255,.06);border:2px solid rgba(255,255,255,.12);border-radius:24px;
+        padding:1.4rem 1.2rem 1.6rem;margin:1.2rem 0;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+  .card h2{font-size:1.5rem;margin:.2rem 0 .2rem}
+  .who{font-size:.95rem;opacity:.8;margin:0 0 1rem}
+  /* giant press-to-play button — a kid recognizes the ▶️ */
+  .play{display:inline-flex;align-items:center;gap:.7rem;border:none;cursor:pointer;
+        font-size:1.5rem;font-weight:800;color:#0a0a1a;border-radius:999px;padding:1.1rem 2rem;
+        min-height:84px;min-width:min(420px,86vw);justify-content:center;
+        box-shadow:0 8px 22px rgba(0,0,0,.4);transition:transform .12s ease}
+  .play:hover{transform:translateY(-3px)} .play:active{transform:scale(.96)}
+  .play.kid{background:linear-gradient(90deg,#ffd54a,#ff7eb3)}
+  .play.grown{background:linear-gradient(90deg,#5be0c6,#5aa6ff)}
+  .play .tri{font-size:2.1rem;line-height:1}
+  .play.playing .tri::before{content:"⏸️"} .play .tri::before{content:"▶️"}
+  audio{width:min(420px,86vw);margin:1rem auto 0;display:block}
+  details{margin:1rem auto 0;max-width:560px;text-align:left;background:rgba(0,0,0,.18);border-radius:14px;padding:.2rem 1rem}
+  details summary{cursor:pointer;padding:.7rem 0;font-weight:700;opacity:.9}
+  details p{opacity:.85;font-size:.95rem;line-height:1.55}
+  .foot{opacity:.6;font-size:.82rem;margin-top:2rem}
+  .foot a{color:#9ec5ff}
+  .aivoice{font-size:.78rem;opacity:.6;margin-top:.6rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🎧 Tap a big button to listen!</h1>
+  <p class="tag">Don't worry if reading is tricky — just press play. 🎮🛠️</p>
+
+  <div class="card">
+    <h2>👦 For kids</h2>
+    <p class="who">Press the big button and listen!</p>
+    <button class="play kid" id="kidBtn" aria-label="Play the kids guide">
+      <span class="tri" aria-hidden="true"></span><span>Press to listen</span>
+    </button>
+    <audio id="kidAudio" controls preload="none" src="kid-start.mp3"></audio>
+    <details>
+      <summary>📄 Read the words</summary>
+      <p>Hi there! I'm your building buddy. If reading is tricky right now, that's totally okay — just listen, and I'll tell you what to do. Here's the cool part: you can make your very own games and apps. Real ones! You just say what you want, and I build it for you. Then you get to play it. A grown-up helps set me up the very first time. After that, it's all you. When you're ready, here's the magic: just talk to me, or type, and say — "Make me a game where..." — and then say anything you want! Like — "Make me a game where a cat catches falling tacos!" Or — "Make me an app that counts down to my birthday!" Whatever you dream up, I'll build it. And if you want to change something, just tell me — say "make it faster," or "add a puppy" — and I'll fix it. You can't break anything, and there are no wrong answers. If you ever get stuck, just say "help." So... what do you want to make first? Take your time. I'm right here. Let's build something awesome!</p>
+    </details>
+  </div>
+
+  <div class="card">
+    <h2>🧑 For grown-ups</h2>
+    <p class="who">A 1-minute guide to setting it up.</p>
+    <button class="play grown" id="grownBtn" aria-label="Play the grown-ups setup guide">
+      <span class="tri" aria-hidden="true"></span><span>Play the setup guide</span>
+    </button>
+    <audio id="grownAudio" controls preload="none" src="grownup-setup.mp3"></audio>
+    <details>
+      <summary>📄 Read the words</summary>
+      <p>Hi! Here's everything you need to do — just a few things, one time. Your kid is going to talk to a friendly A.I. buddy that builds their own games and apps. You set it up; they take it from there. First, you'll need a Claude plan. That's about twenty dollars a month, and it's what powers the buddy. Next, install a free app called Claude Code. It runs on your computer — a Mac works best — and the written guide has simple, click-by-click steps. Then paste in the "magic words" — one short message that tells the buddy to set itself up. It even turns on the best settings automatically. If your kid is little and can't type yet, set up voice typing too — the guide shows you how — so they can just talk out loud instead. Now, the part you care about: it's safe for kids. The few things the buddy remembers about your child — just a first name, their age, and what they like — stay on your own computer, and so does everything they make. The buddy does talk to Claude over the internet to build things, the way any A.I. app does. But nothing your kid makes is shared or put online unless you say so. And it stays warm and kid-friendly, no matter what. That's it. Set it up once, hand it over, and let them build. Have fun!</p>
+    </details>
+  </div>
+
+  <p class="aivoice">🔊 These are A.I.-generated voices.</p>
+  <p class="foot">← Back to <a href="https://github.com/jackneil/claude-jacked-kids">the full guide on GitHub</a></p>
+</div>
+
+<script>
+  // One big button drives each clip; only one plays at a time.
+  function wire(btnId, audioId){
+    var btn = document.getElementById(btnId), au = document.getElementById(audioId);
+    btn.addEventListener("click", function(){
+      // stop the other clip
+      document.querySelectorAll("audio").forEach(function(a){ if(a!==au){ a.pause(); } });
+      if (au.paused) { au.play(); } else { au.pause(); }
+    });
+    au.addEventListener("play", function(){ btn.classList.add("playing"); });
+    au.addEventListener("pause", function(){ btn.classList.remove("playing"); });
+    au.addEventListener("ended", function(){ btn.classList.remove("playing"); });
+  }
+  wire("kidBtn","kidAudio");
+  wire("grownBtn","grownAudio");
+</script>
+</body>
+</html>
