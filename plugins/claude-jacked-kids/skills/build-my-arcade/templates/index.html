@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="assets/style.css">
   <!-- Plain scripts so the hub works offline straight from a file. Order matters. -->
   <script src="arcade.config.js"></script>
+  <script src="assets/theme.js"></script>
   <script src="assets/games-manifest.js"></script>
   <script src="assets/apps-manifest.js"></script>
   <script src="assets/brain-wall.js"></script>
@@ -32,12 +33,8 @@
     var APPS = window.APPS || [];
     var BRAIN = window.BRAIN_WALL || null;
 
-    // --- theme (from arcade.config.js) ---
-    var theme = ARCADE.theme || {};
-    var root = document.documentElement;
-    ["bg", "card", "accent", "accent2", "text"].forEach(function (k) {
-      if (theme[k]) root.style.setProperty("--" + k, theme[k]);
-    });
+    // --- theme is applied by assets/theme.js (loaded in <head>), so the hub
+    //     and every app island share one source of truth for the colors. ---
 
     // --- header ---
     if (ARCADE.emoji) document.getElementById("hubEmoji").textContent = ARCADE.emoji;

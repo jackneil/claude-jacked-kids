@@ -70,9 +70,8 @@
       del.addEventListener("click", function () {
         if (deleting) return;               // ignore an accidental double-tap
         deleting = true;
-        items.splice(i, 1);
-        save(); render();
-        setTimeout(function () { deleting = false; }, 350);
+        try { items.splice(i, 1); save(); render(); }
+        finally { setTimeout(function () { deleting = false; }, 350); }
       });
 
       li.appendChild(check);

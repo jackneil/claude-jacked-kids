@@ -62,11 +62,13 @@ a make/change skill adds or renames a creation (to refresh the derived list):
 
 5. **Malformed or duplicated markers → don't guess.** The tool's own flow can't
    produce these (rule 3 only appends when no `begin` exists), so they mean an
-   external hand-edit went wrong: a `begin` with no matching `end`, or two marker
-   blocks. Do **not** greedily replace across the ambiguous span — you could delete
-   a grown-up's content sitting between blocks. Instead leave the existing text
-   untouched and append one fresh, correctly-marked block at the end (or ask the
-   grown-up). Never blind-replace when the markers don't form one clean pair.
+   external hand-edit went wrong. Never greedily replace across an ambiguous span —
+   you could delete a grown-up's content sitting between markers. Handle by case:
+   - **A `begin` with no matching `end`** (an interrupted prior write) → leave the
+     existing text untouched and append one fresh, correctly-marked block at the end.
+   - **Two or more marker blocks** → do **not** append (that adds a third); leave
+     everything as-is and **ask the grown-up** which block to keep. Appending or
+     blind-replacing here only makes the duplication worse.
 
 ### Rendering the creations list
 

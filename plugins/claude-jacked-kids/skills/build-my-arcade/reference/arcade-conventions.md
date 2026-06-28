@@ -52,12 +52,12 @@ Each game is **self-contained** (copy `templates/games/sample-catcher/`):
 
 ```
 games/<id>/
-  index.html     # the game page — includes ../../arcade.config.js, ../../assets/scores.js, game.js
+  index.html     # the game page — includes ../../arcade.config.js, ../../assets/scores.js, metadata.js, game.js
   game.js        # the game logic
   metadata.js    # window.GAME_META = { id, name, emoji, category, description, madeByKid }
 ```
 
-- `index.html` is a complete page: a `<canvas>` (or DOM), the score/high-score UI, a "back to arcade" link to `../../index.html`, and `<script src>` includes (classic, in order: arcade.config.js → scores.js → game.js, plus `../../vendor/<engine>.js` first if the game uses one).
+- `index.html` is a complete page: a `<canvas>` (or DOM), the score/high-score UI, a "back to arcade" link to `../../index.html`, and `<script src>` includes (classic, in order: arcade.config.js → scores.js → metadata.js → game.js, plus `../../vendor/<engine>.js` first if the game uses one). `metadata.js` must load before `game.js`, which reads `window.GAME_META`.
 - `game.js` reads high score via `window.ArcadeScores.getHigh(GAME_META.id)` and saves with `setHigh`.
 - Keep each game's code inside its own folder. The only shared files a game touches are `assets/scores.js`, `arcade.config.js`, and (if used) a `vendor/` engine — never another game's code.
 
@@ -97,7 +97,7 @@ apps/<id>/
 ```
 
 - `index.html` is a complete page: the app's UI, a "back to home" link to `../../index.html`, and `<script src>` includes (classic, in order: arcade.config.js → **theme.js** → store.js → metadata.js → app.js). Same offline-safe rules as games.
-- **`theme.js` paints the app page in the kid's chosen colors.** Unlike a game (whose canvas is recolored in `game.js`), an app island has no canvas, so without `theme.js` the whole page would ignore a recolored arcade and fall back to the `style.css` defaults. Always include it in an app island.
+- **`theme.js` paints the page in the kid's chosen colors** (it reads `window.ARCADE.theme` and sets the CSS variables). Unlike a game (whose canvas is recolored in `game.js`), an app island has no canvas, so without `theme.js` the whole page would ignore a recolored arcade and fall back to the `style.css` defaults. Always include it in an app island. The **hub** loads `theme.js` too (in its `<head>`), so the hub and every app island share one source of truth for the colors.
 - `app.js` reads/writes its data with `window.AppStore.load(APP_META.id, fallback)` / `save(APP_META.id, data)`.
 - **The `id` is the save key (`appdata:<id>`).** Never change an app's `id` when renaming it — change `name`/`emoji`/`description`, keep the `id`. If the `id` genuinely must change, copy the saved data first (`appdata:<old>` → `appdata:<new>`), or the kid's data is silently orphaned. Same rule for a game's `id` and its high score (`arcade:highscore:<id>`).
 - Keep each app's code in its own folder. The only shared files an app touches are `assets/theme.js`, `assets/store.js`, and `arcade.config.js` — never another creation's code.
@@ -119,7 +119,7 @@ An arcade built before apps existed has no `window.APPS` wiring. Upgrade it on t
 1. **`assets/store.js`** and **`assets/theme.js`** — if missing, copy each from `templates/assets/`.
 2. **`assets/apps-manifest.js`** — if missing, create it with `window.APPS = [];` (don't overwrite an existing one — you'd wipe the kid's apps).
 3. **`apps/`** — create the empty folder if missing.
-4. **`index.html`** — make it load `assets/apps-manifest.js` and render the apps zone. **Default: edit the existing hub surgically** — add the `apps-manifest.js` `<script>` tag (after `games-manifest.js`), the `var APPS = window.APPS || []` line, extend the empty-state guard to `!GAMES.length && !APPS.length`, and append the apps-section render block (copy it from `templates/index.html`). This **preserves any custom hub tweaks the kid asked for** (a custom header, an extra section). Only **fall back to overwriting** the hub with `templates/index.html` if you can confirm it's the unmodified standard template (it holds no kid *data* — branding/games/apps/Brain Wall all live in external files — so overwriting an *unmodified* hub is safe and idempotent; overwriting a *customized* one silently discards the kid's changes). When unsure, edit surgically.
+4. **`index.html`** — make it load `assets/apps-manifest.js` and render the apps zone. **Default: edit the existing hub surgically, and apply each action only if it isn't already present** (so a re-run, or a previous run that died half-way, never duplicates anything): add the `apps-manifest.js` `<script>` tag if missing (after `games-manifest.js`), add the `var APPS = window.APPS || []` line if missing, extend the empty-state guard to `!GAMES.length && !APPS.length` if not already extended, and append the apps-section render block only if there's no `"My Apps & Tools"` section already (copy it from `templates/index.html`). This **preserves any custom hub tweaks the kid asked for** (a custom header, an extra section). Only **fall back to overwriting** the hub with `templates/index.html` if you can confirm it's the unmodified standard template (it holds no kid *data* — branding/games/apps/Brain Wall all live in external files — so overwriting an *unmodified* hub is safe and idempotent; overwriting a *customized* one silently discards the kid's changes). When unsure, edit surgically.
 5. **`CLAUDE.md`** — if missing, write it (see [[reference/project-claude-md]]); if present, merge (never clobber).
 6. Leave `games-manifest.js`, `scores.js`, every `games/<id>/`, and `.jacked-kids/` **exactly as they are**.
 
