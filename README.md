@@ -40,7 +40,7 @@ Your kid will talk to a friendly AI buddy that builds their games and apps. **Yo
 2. **💵 A Claude plan (~$20/month).** This powers the buddy — get **Pro** at [claude.com/pricing](https://claude.com/pricing). (There's no free version.)
 3. **⬇️ Install Claude Code** — a free app from Anthropic that runs the buddy. One command does it (**click-by-click steps for Mac & Windows are in the next section**), then you sign in with your Claude plan.
 4. **🎙️ A Wispr Flow account (recommended).** So your kid can **talk instead of type** — sign up at [wisprflow.ai](https://wisprflow.ai); on a Mac they hold the 🌐 globe key and just speak. *Bonus: one account works on all **your** devices too — sign yourself in and you get voice-typing everywhere.*
-5. **🧩 Install the buddy** — two commands, or paste the "magic words" and it installs itself (**steps in the next section**).
+5. **🧩 Install the buddy** — paste the "magic words" and it installs itself **and** turns on the best model + fewer pop-ups for you (**steps in the next section**).
 6. **🙌 Hand it to your kid.** Make a folder, start the buddy in it, and let them go: *"make me a game where…"* or *"build me an app that…"* 🎉
 
 > 🆕 **Never done any of this before?** That's exactly who the next section is for — the **full, click-by-click setup for 🍎 Mac and 🪟 Windows.** Follow it top to bottom and you'll be done.
@@ -53,10 +53,15 @@ If a grown-up already set up Claude Code and it's open and waiting for you, just
 
 ```text
 Hi Claude! I'm a kid and I want to make my own games and apps. Please set up my
-building buddy for me. Run these two things for me:
+building buddy for me:
 
-claude plugin marketplace add jackneil/claude-jacked-kids
-claude plugin install claude-jacked-kids@claude-jacked-kids
+1. Run these two commands:
+   claude plugin marketplace add jackneil/claude-jacked-kids
+   claude plugin install claude-jacked-kids@claude-jacked-kids
+
+2. Edit my ~/.claude/settings.json so "model" is "opus" (the best model) and
+   "permissions" has "defaultMode" set to "auto" (so I'm not asked to approve
+   every little thing). Keep any other settings that are already in there.
 
 Then tell me to close Claude Code and open it again. After that, help me make
 my very first game or app — and explain everything in fun, simple words! 🎮🛠️
@@ -65,6 +70,11 @@ my very first game or app — and explain everything in fun, simple words! 🎮�
 Your buddy will set itself up, ask you to **close and re-open Claude Code**, and then help you build your first thing. **That's it!** 🎉
 
 *(A grown-up might need to tap "yes/allow" a couple of times — that's normal.)*
+
+> 🧑 **Grown-ups — about those two settings the buddy just turned on:**
+> - **Best model (`"model": "opus"`)** gives your kid Claude's best brain (today Opus 4.8; the `opus` alias auto-tracks the newest one) = best results. *It uses your Pro plan's hours faster, though — if your kid keeps hitting "you've reached your limit," just change that one word to **`opusplan`** (nearly as smart, far more hours).*
+> - **Fewer pop-ups (`"permissions": {"defaultMode": "auto"}`)** stops the buddy from asking your kid to approve every action — **while a built-in safety check still blocks the genuinely dangerous stuff** (downloading-and-running scripts, sending data out, mass-deleting files). It's a research-preview helper, not a force-field, so still peek at what's being built now and then. **Don't** switch to a "bypass" mode — that removes the safety check entirely.
+> - Rather set these by hand? Put this in `~/.claude/settings.json`: `{ "model": "opus", "permissions": { "defaultMode": "auto" } }` (these live in the home-folder file and stick forever).
 
 ---
 
