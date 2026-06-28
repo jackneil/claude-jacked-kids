@@ -65,6 +65,62 @@ games/<id>/
 
 `window.ArcadeScores.getHigh(id)` / `setHigh(id, score)` over `localStorage` (offline-safe). For richer per-game saves (slots, inventories, world state), use **IndexedDB** inside the game (a real local database) — keep its DB name `arcade:<gameId>`.
 
+---
+
+## Apps — the peer structure to games (additive; nothing about games changes)
+
+An **app** is any non-game creation: a tracker, a countdown, a quiz, a chore chart, a drawing toy, a "who goes first" picker — whatever a kid dreams up that isn't a score game. Apps **mirror games** exactly, one level over: `apps/` beside `games/`, `apps-manifest.js` beside `games-manifest.js`, `store.js` beside `scores.js`. The game symbols (`window.GAMES`, `games/<id>/`, `GAME_META`, `ArcadeScores`) are **untouched**; apps add `window.APPS`, `apps/<id>/`, `APP_META`, `AppStore`.
+
+### `assets/apps-manifest.js` — the apps list
+
+```js
+window.APPS = [
+  { id:"my-list", name:"My List", emoji:"📝",
+    description:"What my app does!", madeByKid:true, path:"apps/my-list/index.html" }
+];
+```
+
+- No `category` — the hub shows every app together under one **"🛠️ My Apps & Tools"** zone (apps aren't bucketed like games are). The card shape is otherwise identical to a game's, so the hub reuses the same `makeCard`/`.game-card` rendering.
+- `madeByKid: true` marks apps the kid dreamed up (the `my-creations` view greps both manifests for this).
+- Adding an app = append one entry here **AND** create `apps/<id>/` (below). Keep `id`, `name`, `emoji` identical between the manifest entry and the app's own `metadata.js`. **The hub lists apps from `apps-manifest.js` ONLY** — the manifest append is the load-bearing step, same rule as games.
+- A brand-new arcade with no apps yet uses `window.APPS = [];`.
+
+### An app "island" — `apps/<id>/`
+
+Each app is **self-contained** (copy `templates/apps/sample-list/`):
+
+```
+apps/<id>/
+  index.html     # the app page — includes ../../arcade.config.js, ../../assets/store.js, metadata.js, app.js
+  app.js         # the app's logic
+  metadata.js    # window.APP_META = { id, name, emoji, description, madeByKid }
+```
+
+- `index.html` is a complete page: the app's UI, a "back to home" link to `../../index.html`, and `<script src>` includes (classic, in order: arcade.config.js → store.js → metadata.js → app.js). Same offline-safe rules as games.
+- `app.js` reads/writes its data with `window.AppStore.load(APP_META.id, fallback)` / `save(APP_META.id, data)`.
+- Keep each app's code in its own folder. The only shared files an app touches are `assets/store.js` and `arcade.config.js` — never another creation's code.
+
+### `assets/store.js` — the app data box (`window.AppStore`)
+
+The app peer of `scores.js`. `window.AppStore.load(appId, fallback)` / `save(appId, data)` / `clear(appId)` over `localStorage` (offline-safe), JSON-serialized so `data` can be a number, string, array, or object. Namespaced key `appdata:<appId>`. For a richer app (many records, big saves) use **IndexedDB** inside the app instead (DB name `app:<appId>`).
+
+**Privacy by construction:** app data lives in `localStorage` on the kid's own machine — it is never a committed file and never deployed. An app that holds personal info (a journal, a tracker) keeps that info local automatically. If an app genuinely needs to persist a *file* (rare), write it under the already-gitignored `.jacked-kids/` so it stays private and out of every publish — never a committed path.
+
+### The hub shows both zones
+
+`index.html` loads `assets/apps-manifest.js` right after `games-manifest.js`, reads `window.APPS`, and renders a **"🛠️ My Apps & Tools"** section after the game category sections (reusing `makeCard`). The empty state shows only when **both** games and apps are empty.
+
+### Retrofitting a pre-apps hub (idempotent — safe to re-run)
+
+An arcade built before apps existed has no `window.APPS` wiring. Upgrade it on the kid's first app (or any time) — every step is a no-op if already done, so re-running never clobbers or duplicates:
+
+1. **`assets/store.js`** — if missing, copy it from `templates/assets/store.js`.
+2. **`assets/apps-manifest.js`** — if missing, create it with `window.APPS = [];` (don't overwrite an existing one — you'd wipe the kid's apps).
+3. **`apps/`** — create the empty folder if missing.
+4. **`index.html`** — ensure it loads `assets/apps-manifest.js` and renders the apps zone. The hub holds **no kid data** — all branding, games, apps, and the Brain Wall live in external config/manifest files — so the safe upgrade is to **copy the current `templates/index.html` over the old hub** (re-applying any one-off hub tweaks the kid asked for, which are rare). Overwriting it is non-destructive and idempotent. (If you prefer a surgical edit: add the `apps-manifest.js` `<script>` tag, the `var APPS = …` line, the both-empty guard, and the apps-section render block.)
+5. **`CLAUDE.md`** — if missing, write it (see [[reference/project-claude-md]]); if present, merge (never clobber).
+6. Leave `games-manifest.js`, `scores.js`, every `games/<id>/`, and `.jacked-kids/` **exactly as they are**.
+
 ## `assets/brain-wall.js` — the Brain Wall panel (written by about-me)
 
 The hub shows the kid's Brain Wall + rank + Brain Points by reading `window.BRAIN_WALL`. The [[about-me]] skill writes this file from the Player Card so the hub works offline (it never `fetch`es `.jacked-kids/player-card.json`). Shape:
