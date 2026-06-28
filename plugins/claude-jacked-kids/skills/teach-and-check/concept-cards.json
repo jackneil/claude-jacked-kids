@@ -209,6 +209,45 @@
       "mustHaveIdea": "the current mode/state the game is in",
       "olderCheck": "Why do we need a separate 'game over' mode from 'playing'?",
       "acceptExamples": ["playing", "play mode", "the first one", "im playing", "playing it"]
+    },
+    {
+      "id": "input",
+      "kidName": "type-box",
+      "realName": "input box",
+      "teach": "A type-box is where YOU type words or numbers into your app — like typing what you need to do.",
+      "check": "Does the type-box let you TYPE stuff in, or is it just a picture to look at?",
+      "reteach": "It's like the line on a form where you write your name. Does the type-box let you type into it, or is it just there to look at?",
+      "hint": "Hint — it's where you type!",
+      "coAnswer": "Together: you TYPE into it! That's the type-box.",
+      "mustHaveIdea": "a place where the user types text or numbers in",
+      "olderCheck": "What does your app do with what you type into the box?",
+      "acceptExamples": ["type", "you type in it", "type stuff", "write in it", "the first one"]
+    },
+    {
+      "id": "button",
+      "kidName": "tappy button",
+      "realName": "button (click event)",
+      "teach": "A tappy button makes your app DO something the moment you tap it — like adding your chore to the list.",
+      "check": "Does the app do its thing when you TAP the button, or all by itself with no tapping?",
+      "reteach": "Like a doorbell — nothing happens until you press it. Does your button wait for a tap, or go off on its own?",
+      "hint": "Hint — it waits for your tap!",
+      "coAnswer": "Together: when you TAP it! That's the tappy button.",
+      "mustHaveIdea": "runs an action when the user taps or clicks it",
+      "olderCheck": "What should happen when someone taps your Add button?",
+      "acceptExamples": ["when you tap", "tap it", "you press it", "click it", "the first one"]
+    },
+    {
+      "id": "update",
+      "kidName": "live update",
+      "realName": "update the screen (re-render)",
+      "teach": "A live update means the screen changes right away to show your new stuff — add a chore and BAM, it's on the list.",
+      "check": "After you add something, does the list change RIGHT AWAY, or only tomorrow?",
+      "reteach": "Like a scoreboard at a game — the second someone scores, the number changes. Does your list change the moment you add something, or much later?",
+      "hint": "Hint — it changes right away!",
+      "coAnswer": "Together: RIGHT AWAY! That's a live update.",
+      "mustHaveIdea": "the screen refreshes immediately to show the new data",
+      "olderCheck": "Why does the screen need to redraw after you change the data?",
+      "acceptExamples": ["right away", "right now", "instantly", "immediately", "the first one"]
     }
   ]
 }
