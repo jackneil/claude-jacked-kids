@@ -105,7 +105,7 @@ No Claude Code yet? That's okay — we'll go nice and slow. **Grab a grown-up** 
    irm https://claude.ai/install.ps1 | iex
    ```
    - 📖 *If that command ever fails or looks out of date, use Claude's current install page:* [code.claude.com/docs/en/setup](https://code.claude.com/docs/en/setup)
-   - 🧑 *Nicer terminal (optional):* [**Windows Terminal**](https://aka.ms/terminal) is a friendlier app than the old black CMD box (built in on Windows 11; free in the Microsoft Store on Windows 10). Totally optional.
+   - 🧑 *Nicer terminal (optional):* [**Windows Terminal**](https://learn.microsoft.com/en-us/windows/terminal/install) is a friendlier app than the old black CMD box (built in on Windows 11; free in the Microsoft Store on Windows 10). Totally optional.
 
 #### 🎮 Every time you want to make games
 
