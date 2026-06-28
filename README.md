@@ -6,14 +6,23 @@
 
 ### Just say what you want. Your buddy builds it. ✨
 
-🎮 *"Make a monster truck that jumps over school buses!"*
-⏰ *"An app that counts down to the new dinosaur movie!"*
+🎮 *"Make a monster truck that jumps over school buses!"* &nbsp;·&nbsp; ⏰ *"An app that counts down to the new dinosaur movie!"*
+
 🐱 *"A cat that catches falling fish!"* &nbsp;·&nbsp; 🚀 *"A rocket that dodges asteroids!"*
+
 🧹 *"A chore chart for me and my brother!"* &nbsp;·&nbsp; ⚾ *"A page to keep score of my baseball season!"*
 
-**You talk. It builds. You play it, use it, and show it off.** No code. No hard stuff. 🎉
+<br>
 
-#### 🔊 New here? [**▶️ Press play — a 1-minute welcome**](https://jackneil.github.io/claude-jacked-kids/audio/listen.html) &nbsp;<sub>grown-ups: play it for your kid — great if they can't read yet</sub>
+**You talk. It builds. You play it, use it, and show it off.**
+
+No code. No hard stuff. 🎉
+
+<br>
+
+<a href="https://jackneil.github.io/claude-jacked-kids/audio/listen.html"><img src="docs/img/listen-button.png" alt="Press play — listen to what to do (about a minute)" width="460"></a>
+
+<sub>🔊 grown-ups: press play for your kid — great if they can't read yet &nbsp;·&nbsp; AI voice</sub>
 
 </div>
 
@@ -38,7 +47,8 @@ It also **teaches you cool stuff while it builds**, and gives you 🧠 **Brain P
 
 Your kid will talk to a friendly AI buddy that builds their games and apps. **You just set a few things up once** — no tech knowledge required. Here's the whole list, in order:
 
-> 🎧 **Rather listen?** [**▶️ Play the 1-minute setup guide**](https://jackneil.github.io/claude-jacked-kids/audio/listen.html) — the kid's welcome is on the same page. <sub>(AI voice)</sub>
+[<img src="docs/img/listen-button.png" alt="Press play to listen" width="340">](https://jackneil.github.io/claude-jacked-kids/audio/listen.html)
+> <sub>🔊 a 1-minute welcome for your kid **and** a quick setup guide for you — on the same page · AI voice</sub>
 
 
 1. **💻 A computer — a Mac is best.** Minimum: a **[MacBook Neo](https://www.apple.com/macbook-neo/)** (~$599, Apple's budget MacBook). Better: a **MacBook Air with 16GB of RAM**. Windows works, but isn't quite as good for this.
