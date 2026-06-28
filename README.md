@@ -53,6 +53,8 @@ No Claude Code yet? That's okay — we'll go nice and slow. **Grab a grown-up** 
 
 > 🖥️ **We use Claude Code in a *terminal*** (a typing window you'll open in a minute) — **not** the Claude **Desktop** app. If you have the Claude Desktop app, leave it closed for this; it's a different thing.
 
+> 📖 **Apps change over time — if a step below ever looks different, the official pages are the boss:** [Install Claude Code](https://code.claude.com/docs/en/setup) · [Never used a terminal? Claude's beginner guide](https://code.claude.com/docs/en/terminal-guide) · [Claude pricing/plans](https://claude.com/pricing).
+
 <details>
 <summary><h3>🍎 I have a Mac — tap here</h3></summary>
 
@@ -69,6 +71,7 @@ No Claude Code yet? That's okay — we'll go nice and slow. **Grab a grown-up** 
    ```bash
    curl -fsSL https://claude.ai/install.sh | bash
    ```
+   - 📖 *If that command ever fails or looks out of date, use Claude's current install page:* [code.claude.com/docs/en/setup](https://code.claude.com/docs/en/setup)
 
 #### 🎮 Every time you want to make games
 
@@ -101,7 +104,8 @@ No Claude Code yet? That's okay — we'll go nice and slow. **Grab a grown-up** 
    ```powershell
    irm https://claude.ai/install.ps1 | iex
    ```
-   - 🧑 *Nicer terminal (optional):* **Windows Terminal** is a friendlier app than the old black CMD box (built in on Windows 11; free in the Microsoft Store on Windows 10). Totally optional.
+   - 📖 *If that command ever fails or looks out of date, use Claude's current install page:* [code.claude.com/docs/en/setup](https://code.claude.com/docs/en/setup)
+   - 🧑 *Nicer terminal (optional):* [**Windows Terminal**](https://aka.ms/terminal) is a friendlier app than the old black CMD box (built in on Windows 11; free in the Microsoft Store on Windows 10). Totally optional.
 
 #### 🎮 Every time you want to make games
 
