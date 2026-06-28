@@ -51,34 +51,38 @@ No Claude Code yet? That's okay — we'll go nice and slow. **Grab a grown-up** 
 
 > 🧑 **Grown-ups, the honest bit first:** Claude Code needs a paid **Claude plan** (a **Pro** plan is about **$20/month**). There is **no free version** for this. One plan covers Claude everywhere. Prices can change — check [claude.com/pricing](https://claude.com/pricing).
 
+> 🖥️ **We use Claude Code in a *terminal*** (a typing window you'll open in a minute) — **not** the Claude **Desktop** app. If you have the Claude Desktop app, leave it closed for this; it's a different thing.
+
 <details>
 <summary><h3>🍎 I have a Mac — tap here</h3></summary>
 
 **Do these in order. The 🧑 steps are for a grown-up.**
 
-1. 🧑 **Get a Claude plan** (about $20/month) at [claude.com/pricing](https://claude.com/pricing). You'll sign in with it in a minute.
+#### ⭐ First time only — install Claude Code
 
-2. **Open the typing window** (it's called the "Terminal"):
-   - Hold **Command (⌘)** and tap **Spacebar**. A little search box pops up. 🔎
-   - Type **`Terminal`** and press **Enter**.
-   - A plain window with a blinking cursor opens. That's it — don't be scared, it's just a place to type. 😊
+1. 🧑 **Get a Claude plan** (about $20/month) at [claude.com/pricing](https://claude.com/pricing). You'll sign in with it soon.
 
-3. **Install Claude Code.** Copy the line below, click in the Terminal window, paste it (**⌘ + V**), and press **Enter**. Then wait a minute while it works:
+2. **Open a terminal** (a typing window): hold **Command (⌘)** and tap **Spacebar**, type **`Terminal`**, press **Enter**. A plain window with a blinking cursor opens — don't be scared, it's just a place to type. 😊
+   - 🧑 *Nicer terminal (optional):* lots of people prefer **iTerm2** — it's a free, friendlier terminal from [iterm2.com](https://iterm2.com). Use it instead of Terminal if you like; either works.
+
+3. **Install Claude Code.** Copy this, paste it in (**⌘ + V**), press **Enter**, wait a minute — then **close the terminal**:
    ```bash
    curl -fsSL https://claude.ai/install.sh | bash
    ```
 
-4. **Start it up.** Type this and press Enter:
-   ```bash
-   claude
-   ```
-   The first time, your **web browser pops open to sign in** — 🧑 a grown-up signs in with the Claude plan from step 1. ✅
+#### 🎮 Every time you want to make games
 
-5. **Say the magic words!** Scroll up to the **🚀 magic words** near the top of this page, copy them, paste them into the window (**⌘ + V**), and press Enter. 🎉
+4. **Make a folder for your games.** In **Finder**, go to your Desktop, right-click → **New Folder**, and name it **`my-games`**. 📁
 
-6. When your buddy says to **close and re-open Claude Code**, just close the window, do step 4 again (`claude`), and say: **"Let's make a game!"**
+5. **Open a terminal _inside_ that folder.** Open Terminal (or iTerm2), type **`cd `** (with a space), then **drag your `my-games` folder onto the window** so it fills in the path, and press **Enter**.
+   - *(Slick shortcut: turn on Finder's right-click → **New Terminal at Folder** in System Settings → Keyboard → Keyboard Shortcuts → Services, then just right-click the folder.)*
 
-> 🧑 *No-terminal option:* you can instead download the Claude desktop app at [claude.com/download](https://claude.com/download), install it, sign in, then use the magic words inside it.
+6. **Start your buddy.** Type **`claude`** and press **Enter**.
+   - 🧑 *First time only:* your **web browser opens to sign in** — a grown-up signs in with the Claude plan. ✅
+
+7. **First time only:** paste the **🚀 magic words** from the top of this page (**⌘ + V**), press Enter, and when it says to **close and re-open**, do so — then open a terminal in `my-games` again (step 5) and run **`claude`**.
+
+8. **Make a game!** 🎉 Say: *"Let's make a game where a cat catches fish!"* 🐱🐟
 
 </details>
 
@@ -87,30 +91,33 @@ No Claude Code yet? That's okay — we'll go nice and slow. **Grab a grown-up** 
 
 **Do these in order. The 🧑 steps are for a grown-up.**
 
-1. 🧑 **Get a Claude plan** (about $20/month) at [claude.com/pricing](https://claude.com/pricing). You'll sign in with it in a minute.
+#### ⭐ First time only — install Claude Code
 
-2. **Open the typing window** (called "PowerShell"):
-   - Hold the **Windows key** and tap **X**. A menu pops up.
-   - Click **Windows PowerShell** (or **Terminal**).
-   - A window opens. ✅ You're in the right one if you see **`PS C:\Users\...`** at the start. *(If it doesn't say `PS`, close it and pick **PowerShell**.)*
+1. 🧑 **Get a Claude plan** (about $20/month) at [claude.com/pricing](https://claude.com/pricing). You'll sign in with it soon.
 
-3. **Install Claude Code.** Copy the line below, click in the window, paste it (**Ctrl + V** or right-click), and press **Enter**. Then wait a minute:
+2. **Open PowerShell** (a typing window): hold the **Windows key** and tap **X**, then click **Windows PowerShell** (or **Terminal**). You're in the right one if you see **`PS C:\Users\...`**. *(The plain black "Command Prompt" / CMD won't work for THIS install step — use PowerShell.)*
+
+3. **Install Claude Code.** Copy this, paste it (**Ctrl + V** or right-click), press **Enter**, wait a minute — then **close the window**:
    ```powershell
    irm https://claude.ai/install.ps1 | iex
    ```
+   - 🧑 *Nicer terminal (optional):* **Windows Terminal** is a friendlier app than the old black CMD box (built in on Windows 11; free in the Microsoft Store on Windows 10). Totally optional.
 
-4. **Start it up.** Type this and press Enter:
-   ```powershell
-   claude
-   ```
-   The first time, your **web browser pops open to sign in** — 🧑 a grown-up signs in with the Claude plan from step 1. ✅
+#### 🎮 Every time you want to make games
 
-5. **Say the magic words!** Scroll up to the **🚀 magic words** near the top of this page, copy them, paste them in (**Ctrl + V** or right-click), and press Enter. 🎉
+4. **Make a folder for your games.** Open **File Explorer**, go to your Desktop, right-click → **New → Folder**, name it **`my-games`**, and **double-click to open it**. 📁
 
-6. When your buddy says to **close and re-open Claude Code**, just close the window, do step 4 again (`claude`), and say: **"Let's make a game!"**
+5. **Open a command window _inside_ that folder** — the slick trick: click the **address bar** at the top of File Explorer (where the folder name shows), type **`cmd`**, and press **Enter**. A command window opens, already in your `my-games` folder. 🎯
+   - *(On Windows 11 you can instead right-click the folder → **Open in Terminal**.)*
 
-> 🧑 *No-terminal option:* you can instead download the Claude desktop app at [claude.com/download](https://claude.com/download), install it, sign in, then use the magic words inside it.
-> *Optional:* installing [Git for Windows](https://git-scm.com/downloads/win) (click Next on every screen) gives Claude Code a smoother experience, but it's **not required**.
+6. **Start your buddy.** Type **`claude`** and press **Enter**.
+   - 🧑 *First time only:* your **web browser opens to sign in** — a grown-up signs in with the Claude plan. ✅
+
+7. **First time only:** paste the **🚀 magic words** from the top of this page (**Ctrl + V** or right-click), press Enter, and when it says to **close and re-open**, do so — then open `my-games` again, type `cmd` in the address bar (step 5), and run **`claude`**.
+
+8. **Make a game!** 🎉 Say: *"Let's make a game where a rocket dodges asteroids!"* 🚀☄️
+
+> 🧑 *Optional:* installing [Git for Windows](https://git-scm.com/downloads/win) (click Next on every screen) gives Claude Code a smoother experience — not required.
 
 </details>
 
