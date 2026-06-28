@@ -91,20 +91,22 @@ Each app is **self-contained** (copy `templates/apps/sample-list/`):
 
 ```
 apps/<id>/
-  index.html     # the app page — includes ../../arcade.config.js, ../../assets/store.js, metadata.js, app.js
+  index.html     # the app page — includes ../../arcade.config.js, ../../assets/theme.js, ../../assets/store.js, metadata.js, app.js
   app.js         # the app's logic
   metadata.js    # window.APP_META = { id, name, emoji, description, madeByKid }
 ```
 
-- `index.html` is a complete page: the app's UI, a "back to home" link to `../../index.html`, and `<script src>` includes (classic, in order: arcade.config.js → store.js → metadata.js → app.js). Same offline-safe rules as games.
+- `index.html` is a complete page: the app's UI, a "back to home" link to `../../index.html`, and `<script src>` includes (classic, in order: arcade.config.js → **theme.js** → store.js → metadata.js → app.js). Same offline-safe rules as games.
+- **`theme.js` paints the app page in the kid's chosen colors.** Unlike a game (whose canvas is recolored in `game.js`), an app island has no canvas, so without `theme.js` the whole page would ignore a recolored arcade and fall back to the `style.css` defaults. Always include it in an app island.
 - `app.js` reads/writes its data with `window.AppStore.load(APP_META.id, fallback)` / `save(APP_META.id, data)`.
-- Keep each app's code in its own folder. The only shared files an app touches are `assets/store.js` and `arcade.config.js` — never another creation's code.
+- **The `id` is the save key (`appdata:<id>`).** Never change an app's `id` when renaming it — change `name`/`emoji`/`description`, keep the `id`. If the `id` genuinely must change, copy the saved data first (`appdata:<old>` → `appdata:<new>`), or the kid's data is silently orphaned. Same rule for a game's `id` and its high score (`arcade:highscore:<id>`).
+- Keep each app's code in its own folder. The only shared files an app touches are `assets/theme.js`, `assets/store.js`, and `arcade.config.js` — never another creation's code.
 
 ### `assets/store.js` — the app data box (`window.AppStore`)
 
 The app peer of `scores.js`. `window.AppStore.load(appId, fallback)` / `save(appId, data)` / `clear(appId)` over `localStorage` (offline-safe), JSON-serialized so `data` can be a number, string, array, or object. Namespaced key `appdata:<appId>`. For a richer app (many records, big saves) use **IndexedDB** inside the app instead (DB name `app:<appId>`).
 
-**Privacy by construction:** app data lives in `localStorage` on the kid's own machine — it is never a committed file and never deployed. An app that holds personal info (a journal, a tracker) keeps that info local automatically. If an app genuinely needs to persist a *file* (rare), write it under the gitignored **`app-data/`** folder so it stays private and out of every publish — never a committed path.
+**Privacy by construction:** app data lives in `localStorage` on the kid's own machine — never a committed file, never deployed. An app that holds personal info (a journal, a tracker) keeps it local automatically; a running web app can't write to disk anyway. The rare exception is when **the buddy** seeds a *private* data file for an app at build time (e.g. saved journal entries the kid doesn't want shared) — put that under the gitignored **`app-data/`** folder so it stays private and out of every publish. (Shareable seed data — flashcard words, quiz questions — is just part of the app and lives in its folder normally.)
 
 ### The hub shows both zones
 
@@ -114,10 +116,10 @@ The app peer of `scores.js`. `window.AppStore.load(appId, fallback)` / `save(app
 
 An arcade built before apps existed has no `window.APPS` wiring. Upgrade it on the kid's first app (or any time) — every step is a no-op if already done, so re-running never clobbers or duplicates:
 
-1. **`assets/store.js`** — if missing, copy it from `templates/assets/store.js`.
+1. **`assets/store.js`** and **`assets/theme.js`** — if missing, copy each from `templates/assets/`.
 2. **`assets/apps-manifest.js`** — if missing, create it with `window.APPS = [];` (don't overwrite an existing one — you'd wipe the kid's apps).
 3. **`apps/`** — create the empty folder if missing.
-4. **`index.html`** — ensure it loads `assets/apps-manifest.js` and renders the apps zone. The hub holds **no kid data** — all branding, games, apps, and the Brain Wall live in external config/manifest files — so the safe upgrade is to **copy the current `templates/index.html` over the old hub** (re-applying any one-off hub tweaks the kid asked for, which are rare). Overwriting it is non-destructive and idempotent. (If you prefer a surgical edit: add the `apps-manifest.js` `<script>` tag, the `var APPS = …` line, the both-empty guard, and the apps-section render block.)
+4. **`index.html`** — make it load `assets/apps-manifest.js` and render the apps zone. **Default: edit the existing hub surgically** — add the `apps-manifest.js` `<script>` tag (after `games-manifest.js`), the `var APPS = window.APPS || []` line, extend the empty-state guard to `!GAMES.length && !APPS.length`, and append the apps-section render block (copy it from `templates/index.html`). This **preserves any custom hub tweaks the kid asked for** (a custom header, an extra section). Only **fall back to overwriting** the hub with `templates/index.html` if you can confirm it's the unmodified standard template (it holds no kid *data* — branding/games/apps/Brain Wall all live in external files — so overwriting an *unmodified* hub is safe and idempotent; overwriting a *customized* one silently discards the kid's changes). When unsure, edit surgically.
 5. **`CLAUDE.md`** — if missing, write it (see [[reference/project-claude-md]]); if present, merge (never clobber).
 6. Leave `games-manifest.js`, `scores.js`, every `games/<id>/`, and `.jacked-kids/` **exactly as they are**.
 
@@ -152,7 +154,7 @@ node_modules/
 
 ## Deploy scrub (Tier 2)
 
-Before any deploy/publish, produce the served copy WITHOUT `.jacked-kids/`, `app-data/`, and `dev-server.js`; **overwrite `assets/brain-wall.js` with its null stub (`window.BRAIN_WALL = null;`) rather than deleting it** — deleting leaves the hub's `<script src="assets/brain-wall.js">` 404ing; and set `arcade.config.js` `owner` to a generic value (or drop the greeting). Serve with `server.js` (never `dev-server.js`). A first name is the most that may ever appear publicly, and prefer none. Use the [[put-it-online]] skill's scrub if available — **and note `put-it-online` / `deploy-to-railway` may not be built yet, so until then do this scrub by hand and check `git status` before any push.**
+Before any deploy/publish, produce the served copy WITHOUT `.jacked-kids/`, `app-data/`, and `dev-server.js`; **overwrite `assets/brain-wall.js` with its null stub (`window.BRAIN_WALL = null;`) rather than deleting it** — deleting leaves the hub's `<script src="assets/brain-wall.js">` 404ing; and set `arcade.config.js` `owner` to a generic value (or drop the greeting). Serve with `server.js` (never `dev-server.js`). A first name is the most that may ever appear publicly, and prefer none. Use the [[put-it-online]] skill, which runs this scrub and gates publishing to a grown-up. (`put-it-online` may delegate the actual hosting to [[deploy-to-railway]], an external skill that might not be installed — if it isn't, do the scrub by hand and check `git status` before any push.)
 
 ---
 

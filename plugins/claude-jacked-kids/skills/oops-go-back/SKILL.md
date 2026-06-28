@@ -11,6 +11,7 @@ A kid says *"undo,"* *"put it back,"* *"I don't like that,"* *"that broke it."* 
 
 - You only ever revert the creation's **code** — the files you just edited (`game.js` / `app.js` / `index.html` / `metadata.js`, and a manifest entry if you added one).
 - **Never** touch the kid's **saved progress**: `localStorage`, `IndexedDB`, the high score, the saved app data, or anything in `.jacked-kids/` (the Player Card + Brain Wall). An undo of the *code* must leave their scores and stuff exactly where they were.
+- **Watch the `id` when reverting `metadata.js`.** A creation's saved data is keyed on its `id` (`appdata:<id>` / `arcade:highscore:<id>`). If an earlier change this session set a *new* `id` and the kid saved data under it, reverting `metadata.js` to the old `id` would orphan that data. Keep the `id` the kid's data currently lives under; revert everything else.
 
 ## How to actually go back
 

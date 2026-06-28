@@ -60,6 +60,14 @@ a make/change skill adds or renames a creation (to refresh the derived list):
    replace just the inner `jacked-kids:creations:begin … :creations:end` block
    instead of the whole outer block. Same in-place rule.
 
+5. **Malformed or duplicated markers → don't guess.** The tool's own flow can't
+   produce these (rule 3 only appends when no `begin` exists), so they mean an
+   external hand-edit went wrong: a `begin` with no matching `end`, or two marker
+   blocks. Do **not** greedily replace across the ambiguous span — you could delete
+   a grown-up's content sitting between blocks. Instead leave the existing text
+   untouched and append one fresh, correctly-marked block at the end (or ask the
+   grown-up). Never blind-replace when the markers don't form one clean pair.
+
 ### Rendering the creations list
 
 From the two manifests, list each creation as a bullet (emoji + name). Keep it

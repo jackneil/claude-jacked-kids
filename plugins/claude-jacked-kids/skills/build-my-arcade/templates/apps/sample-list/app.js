@@ -24,6 +24,10 @@
   var items = window.AppStore ? window.AppStore.load(META.id, []) : [];
   if (!Array.isArray(items)) items = [];   // be forgiving if storage held junk
 
+  // Guard against an accidental double-tap deleting the row that shifts up into
+  // the same spot — ignore a second delete for a moment after one fires.
+  var deleting = false;
+
   // Save and tell the kid it worked (or gently warn if storage is blocked).
   function save() {
     var ok = window.AppStore ? window.AppStore.save(META.id, items) : false;
@@ -47,7 +51,8 @@
       var check = document.createElement("span");
       check.className = "check";
       check.textContent = item.done ? "✅" : "⬜";
-      check.title = "Check it off";
+      check.setAttribute("role", "button");
+      check.setAttribute("aria-label", (item.done ? "Uncheck " : "Check off ") + item.text);
       check.addEventListener("click", function () {
         items[i].done = !items[i].done;
         save(); render();
@@ -61,10 +66,13 @@
       del.className = "del";
       del.type = "button";
       del.textContent = "✕";
-      del.title = "Remove";
+      del.setAttribute("aria-label", "Remove " + item.text);
       del.addEventListener("click", function () {
+        if (deleting) return;               // ignore an accidental double-tap
+        deleting = true;
         items.splice(i, 1);
         save(); render();
+        setTimeout(function () { deleting = false; }, 350);
       });
 
       li.appendChild(check);

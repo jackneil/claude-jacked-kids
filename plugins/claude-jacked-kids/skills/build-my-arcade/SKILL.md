@@ -66,6 +66,7 @@ While you build *with* the kid, run the zero-dependency **`dev-server.js`** (fro
     apps-manifest.js      # window.APPS = [...]   — the list of apps/tools the hub shows
     scores.js             # window.ArcadeScores — localStorage high scores (use IndexedDB for richer saves)
     store.js              # window.AppStore — localStorage data box for apps (use IndexedDB for richer saves)
+    theme.js              # paints an app island in the kid's chosen colors (apps have no canvas to recolor)
     brain-wall.js         # window.BRAIN_WALL = {...} — written by about-me; LOCAL ONLY
   vendor/                 # (optional) a vendored game engine for richer games
   games/

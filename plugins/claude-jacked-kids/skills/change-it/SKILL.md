@@ -36,6 +36,7 @@ Run [[teach-and-check]] exactly as written:
 
 - Make the **complete** change — tested, still fun, still kid-safe. No half-edits, no "we'll finish later".
 - **Never lose the kid's saved progress.** Only edit the creation's *code* (`game.js`/`app.js`/`index.html`/`metadata.js`). Never clear `localStorage`/`IndexedDB`, the high score, the saved app data, or `.jacked-kids/`. If a change *must* change the save format, migrate the old data, never wipe it.
+- **Renaming? Keep the `id`.** A creation's saved data is keyed on its `id` (an app's data is `appdata:<id>`; a game's high score is `arcade:highscore:<id>`). When a kid renames a creation, change the `name`/`emoji`/`description` but **leave the `id` unchanged** — re-slugging the `id` (e.g. `chore-chart` → `my-jobs`) silently orphans every bit of their saved data. If the `id` truly must change, copy the saved data across first (`appdata:<old>` → `appdata:<new>`), then update `metadata.js` + the manifest. This is the most common way a rename quietly eats a kid's weeks of work — don't let it.
 - If you rename or add a creation, update the matching manifest and refresh the project `CLAUDE.md` list ([[reference/project-claude-md]]).
 
 ## Step 5 — show them

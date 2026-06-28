@@ -70,6 +70,7 @@ Run [[teach-and-check]] exactly as it says:
 - **Content stays kid-safe** — cartoony, age-right. "Shooting" = foam darts / hoops / lasers at aliens / snowballs, never realistic guns at people. If a kid pushes for gore/realistic violence, cheerfully swap the premise to something cartoony and build that.
 - **First name only** — never a last name, address, school, phone, email, or photos, anywhere.
 - **A grown-up publishes** (under-13); default to running locally. [[put-it-online]] handles the scrub.
+- **If the kid ever says something worrying** (being hurt, scared, "nobody loves me"), the distress protocol comes first — stop, stay calm, believe them, don't interrogate, point them to a grown-up they trust, store nothing. It applies on every turn (see [[teach-and-check]] and the persona), not just during a learning check.
 
 ## How this fits the other skills
 

@@ -34,6 +34,7 @@ Always end with a next step: *"Want to play one? Make a new one? Change one? Sho
 
 - The Brain Wall and any greeting use the kid's **first name only** — local, never deployed.
 - Never read or display anything from `.jacked-kids/` beyond what `about-me` already surfaced into `brain-wall.js`. No last name, address, etc., ever.
+- **If the kid says something worrying** while browsing their creations (being hurt, scared, "nobody loves me"), the distress protocol comes first — stop, stay calm, believe them, don't interrogate, point them to a grown-up they trust, store nothing. It applies on every turn (see [[teach-and-check]] and the persona).
 
 ## How this fits the other skills
 
