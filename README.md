@@ -1,14 +1,17 @@
 <div align="center">
 
-# 🎮 Make Your Own Video Games! 🎮
+<img src="docs/img/hero.jpg" alt="A happy kid and a friendly robot buddy surrounded by games and gadgets" width="840">
+
+# 🎮 Make Your Own Games & Apps! 🛠️
 
 ### Just say what you want. Your buddy builds it. ✨
 
-*"Make a monster truck that jumps over school buses!"* 🚚💥
-*"A cat that catches falling fish!"* 🐱🐟
-*"A rocket that dodges asteroids!"* 🚀☄️
+🎮 *"Make a monster truck that jumps over school buses!"*
+🏈 *"Build me an app that shows off all my football touchdowns this season!"*
+🐱 *"A cat that catches falling fish!"* &nbsp;·&nbsp; 🚀 *"A rocket that dodges asteroids!"*
+⚾ *"Track my baseball stats and grab them from where my league posts them!"*
 
-**You talk. It builds. You play.** No code. No hard stuff. 🎉
+**You talk. It builds. You play it, use it, and show it off.** No code. No hard stuff. 🎉
 
 </div>
 
@@ -16,11 +19,16 @@
 
 ## 🎈 What is this?
 
-This is a **friendly buddy** that lives inside an app called **Claude Code**. You tell it what game you want — in your own words — and it builds the whole game and shows it to you on your screen. Then you can play it, change it, and (with a grown-up) even put it on the internet for friends.
+A **friendly buddy** that lives inside an app called **Claude Code**. You tell it what you want — in your own words — and it builds the whole thing and shows it on your screen. It's not just games:
+
+- 🎮 **Games** — monster trucks, cats catching fish, rockets, dragons… whatever you dream up.
+- 🛠️ **Apps & tools that do real stuff** — a tracker for your touchdowns, a page that pulls your baseball stats from where your league posts them, a "how good an athlete am I?" scoreboard to show your friends, a chore chart, a quiz, a money-saver… real things that help *you*.
+
+Then you can play it, use it, change it, and (with a grown-up) put it on the internet to share.
 
 It also **teaches you cool stuff while it builds**, and gives you 🧠 **Brain Points** when you figure things out. (More on that down below.)
 
-> 🧑 **Grown-ups:** this is a plugin for **Claude Code** (Anthropic's AI coding tool). It's warm, jargon-free, and safe for kids — it ignores any "be blunt" developer settings. Setup + cost details are in the **🧑 For grown-ups** section further down. Short version: you'll need Claude Code installed and a Claude plan (about **$20/month**).
+> 🧑 **Grown-ups:** this is a plugin for **Claude Code** (Anthropic's AI tool). It's warm, jargon-free, and kid-safe — it ignores any "be blunt" developer settings. Setup, cost, and what-computer info are in the **🧑 For grown-ups** section further down. Short version: you'll need Claude Code + a Claude plan (~**$20/month**), best on a Mac.
 
 ---
 
@@ -29,17 +37,17 @@ It also **teaches you cool stuff while it builds**, and gives you 🧠 **Brain P
 If a grown-up already set up Claude Code and it's open and waiting for you, just **paste these magic words** to your buddy and press Enter:
 
 ```text
-Hi Claude! I'm a kid and I want to make my own video games. Please set up my
-game-building buddy for me. Run these two things for me:
+Hi Claude! I'm a kid and I want to make my own games and apps. Please set up my
+building buddy for me. Run these two things for me:
 
 claude plugin marketplace add jackneil/claude-jacked-kids
 claude plugin install claude-jacked-kids@claude-jacked-kids
 
 Then tell me to close Claude Code and open it again. After that, help me make
-my very first game — and explain everything in fun, simple words! 🎮
+my very first game or app — and explain everything in fun, simple words! 🎮🛠️
 ```
 
-Your buddy will set itself up, ask you to **close and re-open Claude Code**, and then help you make your first game. **That's it!** 🎉
+Your buddy will set itself up, ask you to **close and re-open Claude Code**, and then help you build your first thing. **That's it!** 🎉
 
 *(A grown-up might need to tap "yes/allow" a couple of times — that's normal.)*
 
@@ -50,6 +58,8 @@ Your buddy will set itself up, ask you to **close and re-open Claude Code**, and
 No Claude Code yet? That's okay — we'll go nice and slow. **Grab a grown-up** for this part, then pick your computer:
 
 > 🧑 **Grown-ups, the honest bit first:** Claude Code needs a paid **Claude plan** (a **Pro** plan is about **$20/month**). There is **no free version** for this. One plan covers Claude everywhere. Prices can change — check [claude.com/pricing](https://claude.com/pricing).
+
+> 💻 **What computer?** A **Mac** is best for this. Minimum: a **[MacBook Neo](https://www.apple.com/macbook-neo/)** (~$599, Apple's new budget MacBook). Better: a **MacBook Air with 16GB of RAM** (pricier, but smoother). **Windows works too**, but honestly it's not quite as good for kids doing this, in our opinion.
 
 > 🖥️ **We use Claude Code in a *terminal*** (a typing window you'll open in a minute) — **not** the Claude **Desktop** app. If you have the Claude Desktop app, leave it closed for this; it's a different thing.
 
@@ -65,7 +75,7 @@ No Claude Code yet? That's okay — we'll go nice and slow. **Grab a grown-up** 
 1. 🧑 **Get a Claude plan** (about $20/month) at [claude.com/pricing](https://claude.com/pricing). You'll sign in with it soon.
 
 2. **Open a terminal** (a typing window): hold **Command (⌘)** and tap **Spacebar**, type **`Terminal`**, press **Enter**. A plain window with a blinking cursor opens — don't be scared, it's just a place to type. 😊
-   - 🧑 *Nicer terminal (optional):* lots of people prefer **iTerm2** — it's a free, friendlier terminal from [iterm2.com](https://iterm2.com). Use it instead of Terminal if you like; either works.
+   - 🧑 *Nicer terminal (optional):* lots of people prefer **iTerm2** — a free, friendlier terminal from [iterm2.com](https://iterm2.com). Either works.
 
 3. **Install Claude Code.** Copy this, paste it in (**⌘ + V**), press **Enter**, wait a minute — then **close the terminal**:
    ```bash
@@ -73,19 +83,19 @@ No Claude Code yet? That's okay — we'll go nice and slow. **Grab a grown-up** 
    ```
    - 📖 *If that command ever fails or looks out of date, use Claude's current install page:* [code.claude.com/docs/en/setup](https://code.claude.com/docs/en/setup)
 
-#### 🎮 Every time you want to make games
+#### 🛠️ Every time you want to build something
 
-4. **Make a folder for your games.** In **Finder**, go to your Desktop, right-click → **New Folder**, and name it **`my-games`**. 📁
+4. **Make a folder for your creations.** In **Finder**, go to your Desktop, right-click → **New Folder**, and name it **`my-creations`**. 📁
 
-5. **Open a terminal _inside_ that folder.** Open Terminal (or iTerm2), type **`cd `** (with a space), then **drag your `my-games` folder onto the window** so it fills in the path, and press **Enter**.
+5. **Open a terminal _inside_ that folder.** Open Terminal (or iTerm2), type **`cd `** (with a space), then **drag your `my-creations` folder onto the window** so it fills in the path, and press **Enter**.
    - *(Slick shortcut: turn on Finder's right-click → **New Terminal at Folder** in System Settings → Keyboard → Keyboard Shortcuts → Services, then just right-click the folder.)*
 
 6. **Start your buddy.** Type **`claude`** and press **Enter**.
    - 🧑 *First time only:* your **web browser opens to sign in** — a grown-up signs in with the Claude plan. ✅
 
-7. **First time only:** paste the **🚀 magic words** from the top of this page (**⌘ + V**), press Enter, and when it says to **close and re-open**, do so — then open a terminal in `my-games` again (step 5) and run **`claude`**.
+7. **First time only:** paste the **🚀 magic words** from the top of this page (**⌘ + V**), press Enter, and when it says to **close and re-open**, do so — then open a terminal in `my-creations` again (step 5) and run **`claude`**.
 
-8. **Make a game!** 🎉 Say: *"Let's make a game where a cat catches fish!"* 🐱🐟
+8. **Build something!** 🎉 Say: *"Let's make a game where a cat catches fish!"* 🐱🐟 — or *"Build me an app that tracks my touchdowns!"* 🏈
 
 </details>
 
@@ -107,19 +117,19 @@ No Claude Code yet? That's okay — we'll go nice and slow. **Grab a grown-up** 
    - 📖 *If that command ever fails or looks out of date, use Claude's current install page:* [code.claude.com/docs/en/setup](https://code.claude.com/docs/en/setup)
    - 🧑 *Nicer terminal (optional):* [**Windows Terminal**](https://learn.microsoft.com/en-us/windows/terminal/install) is a friendlier app than the old black CMD box (built in on Windows 11; free in the Microsoft Store on Windows 10). Totally optional.
 
-#### 🎮 Every time you want to make games
+#### 🛠️ Every time you want to build something
 
-4. **Make a folder for your games.** Open **File Explorer**, go to your Desktop, right-click → **New → Folder**, name it **`my-games`**, and **double-click to open it**. 📁
+4. **Make a folder for your creations.** Open **File Explorer**, go to your Desktop, right-click → **New → Folder**, name it **`my-creations`**, and **double-click to open it**. 📁
 
-5. **Open a command window _inside_ that folder** — the slick trick: click the **address bar** at the top of File Explorer (where the folder name shows), type **`cmd`**, and press **Enter**. A command window opens, already in your `my-games` folder. 🎯
+5. **Open a command window _inside_ that folder** — the slick trick: click the **address bar** at the top of File Explorer (where the folder name shows), type **`cmd`**, and press **Enter**. A command window opens, already in your `my-creations` folder. 🎯
    - *(On Windows 11 you can instead right-click the folder → **Open in Terminal**.)*
 
 6. **Start your buddy.** Type **`claude`** and press **Enter**.
    - 🧑 *First time only:* your **web browser opens to sign in** — a grown-up signs in with the Claude plan. ✅
 
-7. **First time only:** paste the **🚀 magic words** from the top of this page (**Ctrl + V** or right-click), press Enter, and when it says to **close and re-open**, do so — then open `my-games` again, type `cmd` in the address bar (step 5), and run **`claude`**.
+7. **First time only:** paste the **🚀 magic words** from the top of this page (**Ctrl + V** or right-click), press Enter, and when it says to **close and re-open**, do so — then open `my-creations` again, type `cmd` in the address bar (step 5), and run **`claude`**.
 
-8. **Make a game!** 🎉 Say: *"Let's make a game where a rocket dodges asteroids!"* 🚀☄️
+8. **Build something!** 🎉 Say: *"Let's make a game where a rocket dodges asteroids!"* 🚀☄️ — or *"Build me an app for my baseball stats!"* ⚾
 
 > 🧑 *Optional:* installing [Git for Windows](https://git-scm.com/downloads/win) (click Next on every screen) gives Claude Code a smoother experience — not required.
 
@@ -129,25 +139,35 @@ No Claude Code yet? That's okay — we'll go nice and slow. **Grab a grown-up** 
 
 ## 🕹️ Now what? Just talk to your buddy!
 
-Type stuff like:
+<div align="center">
+<img src="docs/img/building-games.jpg" alt="A kid building a game with the buddy" width="560">
+</div>
+
+Type (or **talk** — see below) stuff like:
 
 - 🎨 *"Make a game where a dragon flies through caves!"*
-- 🔧 *"Make my truck jump higher!"*
-- 🏆 *"Add a high score!"*
-- ▶️ *"Let me play it now!"*
-- 🌈 *"Make it nighttime with stars!"*
+- 🏈 *"Build an app that lists my touchdowns and shows my best game."*
+- ⚾ *"Pull my baseball stats from the league website and make a cool stats page."*
+- 🔧 *"Make my truck jump higher!"* &nbsp;·&nbsp; 🏆 *"Add a high score!"*
+- ▶️ *"Let me play it now!"* &nbsp;·&nbsp; 🌈 *"Make it nighttime with stars!"*
 
 Your buddy builds it, opens it on your screen, and cheers you on. The more you make, the bigger your **Brain Wall** grows. 🧠
+
+> 🎙️ **Talk instead of typing!** Holding a key and just *talking* is way easier than typing. Install **[Wispr Flow](https://wisprflow.ai)** — then on a Mac, hold the **🌐 globe key** and speak; it types your words for you anywhere, including to your buddy. (Grown-ups: see the note below — you can use it too.)
 
 ---
 
 ## 🧠 It teaches you while you build
 
+<div align="center">
+<img src="docs/img/learning.jpg" alt="A kid having an aha moment with the buddy" width="560">
+</div>
+
 Your buddy isn't just a builder — it's a little teacher, and it makes learning a **game**:
 
 > *"YES, a laser cannon! 😎 Quick — to earn it: does the memory box **remember** your scores, or **forget** them?"*
 
-- ✅ **It's an unlock, never a wall.** You always keep the game you made. A question only stands in front of the *next* cool thing — and if you're not sure, your buddy explains it a different way, gives a hint, and finally says the answer *with* you. **You never get stuck.**
+- ✅ **It's an unlock, never a wall.** You always keep the thing you made. A question only stands in front of the *next* cool thing — and if you're not sure, your buddy explains it a different way, gives a hint, and finally says the answer *with* you. **You never get stuck.**
 - 🧠 **Right answers earn Brain Points** and stickers on your own "Things I Learned" wall, with a rank that grows as you learn (Curious Cub → Spark Scout → … → Mastermind!).
 - 🎚️ **It fits you.** Little kids get easy either/or questions; bigger kids get "say it in your own words" and "why" questions. You can answer by **talking** (voice-to-text) — spelling doesn't matter.
 
@@ -156,10 +176,12 @@ Your buddy isn't just a builder — it's a little teacher, and it makes learning
 ## 🧑 For grown-ups (please read)
 
 - 💵 **Cost:** Claude Code needs a paid **Claude plan** — a **Pro** plan (~**$20/month**) includes it; **Max** starts at ~$100/month for heavy use. The free Claude.ai chat tier does **not** include Claude Code. Check current prices at [claude.com/pricing](https://claude.com/pricing).
-- 🔒 **Privacy:** everything stays **on your computer**. The buddy keeps only a first name, age, a few interests, and which ideas the child has learned — **never** a last name, address, school, phone, or photos. Delete it all by removing the `.jacked-kids` folder in the child's game folder.
-- 🌍 **Going online is a grown-up step.** Games run locally by default. Publishing to the internet needs a grown-up (under-13), and personal info is scrubbed first.
+- 💻 **Computer:** a **Mac** is best. Minimum a **[MacBook Neo](https://www.apple.com/macbook-neo/)** (~$599); a **MacBook Air with 16GB RAM** is better. Windows works but isn't quite as good for this, in our opinion.
+- 🎙️ **Voice typing (Wispr Flow):** kids talk way faster than they type. Set up a **[Wispr Flow](https://wisprflow.ai)** account so they can hold the 🌐 globe key on a Mac and just speak. **Bonus: one account works across all your devices** — sign your kid in on theirs, then sign in *yourself* on your phone and laptop, and you get voice-typing everywhere too. (Parents usually end up using it more than the kid.)
+- 🔒 **Privacy:** everything stays **on your computer**. The buddy keeps only a first name, age, a few interests, and which ideas the child has learned — **never** a last name, address, school, phone, or photos. Delete it all by removing the `.jacked-kids` folder in the child's creations folder.
+- 🌍 **Going online is a grown-up step.** Creations run locally by default. Publishing to the internet needs a grown-up (under-13), and personal info is scrubbed first.
 - 🎚️ **You hold a learning dial.** Tell the buddy: *"I'm the grown-up — set learning checks to off / light / normal / strict."*
-- 🔁 **Staying updated (automatic):** turn it on once — `/plugin` → Marketplaces → `claude-jacked-kids` → **Enable auto-update**. Because the plugin is only prompts/skills, an update **can never break a game your kid already made** — it just refreshes the buddy's know-how.
+- 🔁 **Staying updated (automatic):** turn it on once — `/plugin` → Marketplaces → `claude-jacked-kids` → **Enable auto-update**. Because the plugin is only prompts/skills, an update **can never break something your kid already made** — it just refreshes the buddy's know-how.
 - 🛠️ **Prefer the terminal?** The whole install is two lines:
   ```bash
   claude plugin marketplace add jackneil/claude-jacked-kids
@@ -172,7 +194,7 @@ Your buddy isn't just a builder — it's a little teacher, and it makes learning
 <details>
 <summary><h2>🧰 For developers (what's inside)</h2></summary>
 
-A **Claude Code plugin**: pure skills + a kid-safe persona. It ships **no application code** — the skills hold the know-how, and Claude builds each kid's game arcade from scratch in their own folder (offline-first; can deploy; can grow into a logins+leaderboards platform). Companion to the grown-up [`claude-jacked`](https://github.com/jackneil/claude-jacked).
+A **Claude Code plugin**: pure skills + a kid-safe persona. It ships **no application code** — the skills hold the know-how, and Claude builds each kid's **creations hub** (games *and* apps/tools) from scratch in their own folder (offline-first; can deploy; can grow into a logins+leaderboards platform). Companion to the grown-up [`claude-jacked`](https://github.com/jackneil/claude-jacked).
 
 ```
 claude-jacked-kids/
@@ -183,7 +205,7 @@ claude-jacked-kids/
     ├── settings.json                       # { "agent": "kid-buddy" } — always-on kid persona
     ├── agents/kid-buddy.md                 # the warm, kid-safe main-thread persona (tone + safety)
     └── skills/
-        ├── build-my-arcade/                # from-scratch recipe: the kid's whole offline-first arcade
+        ├── build-my-arcade/                # from-scratch recipe: the kid's offline-first creations hub (games + apps)
         ├── about-me/                       # local "Player Card": name, age, interests + "Things I Learned" wall
         └── teach-and-check/                # learn-as-you-build gate: teach, check, earn Brain Points
 ```
@@ -192,11 +214,11 @@ The persona (`kid-buddy`) is the main-thread agent, so every turn is gentle, jar
 
 ### Roadmap
 
-**Shipped:** `build-my-arcade` (offline-first arcade; optional Railway deploy; optional clone-of-Hank's-Hits for logins+leaderboards), `about-me` (Player Card + Brain Wall + parent dial), `teach-and-check` (the learn-as-you-build gate — full design in `docs/`).
+**Shipped:** `build-my-arcade` (offline-first hub for games + apps; optional Railway deploy; optional clone-of-Hank's-Hits for logins+leaderboards), `about-me` (Player Card + Brain Wall + parent dial), `teach-and-check` (the learn-as-you-build gate — full design in `docs/`).
 
-**Next:** `make-a-game`, `change-a-game`, `remix-a-game`, `play-my-game`, `put-it-online` (under-13 grown-up gate + identity scrub), `my-creations`, `oops-go-back`, `getting-started`, `game-ideas`, and a SessionStart "new powers are ready!" notice. Each builds on `build-my-arcade`'s conventions and fires `teach-and-check` at the seams.
+**Next:** `make-a-game` / `make-an-app`, `change-it`, `remix-it`, `play-it`, `put-it-online` (under-13 grown-up gate + identity scrub), `my-creations`, `oops-go-back`, `getting-started`, `idea-helper`, and a SessionStart "new powers are ready!" notice. Each builds on `build-my-arcade`'s conventions and fires `teach-and-check` at the seams.
 
-Generalized from [Hank's Hits](https://github.com/jackneil/hanks-hits), retargeted at the conventions `build-my-arcade` establishes so they work for any kid's arcade.
+Generalized from [Hank's Hits](https://github.com/jackneil/hanks-hits), retargeted at the conventions `build-my-arcade` establishes so they work for any kid's creations hub.
 
 </details>
 
@@ -204,6 +226,6 @@ Generalized from [Hank's Hits](https://github.com/jackneil/hanks-hits), retarget
 
 <div align="center">
 
-*Made so any kid can dream up a game and watch it get built.* 🎈
+*Made so any kid can dream something up — a game, an app, anything — and watch it get built.* 🎈
 
 </div>
