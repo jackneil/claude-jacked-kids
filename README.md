@@ -82,6 +82,13 @@ building buddy for me:
    "permissions" has "defaultMode" set to "auto" (so I'm not asked to approve
    every little thing). Keep any other settings that are already in there.
 
+3. Set up my buddy everywhere: find the claude-jacked-kids "global buddy note"
+   that ships with the plugin (a file named global-claude-md.md in the plugin's
+   templates folder) and add its marked block to my ~/.claude/CLAUDE.md. Keep
+   anything already in that file — only add, or replace, the part between the
+   <!-- jacked-kids:global --> markers. (This keeps my buddy warm, kid-safe,
+   and helpful in every folder, even before it fully switches on.)
+
 Then tell me to FULLY QUIT Claude Code and open it again (a restart is what
 switches my buddy on). When it comes back, the buddy should say hi to me all
 by itself and ask what I want to make — that's how we know it worked. Then
@@ -98,6 +105,7 @@ Your buddy will set itself up, ask you to **close and re-open Claude Code**, and
 > - **Fewer pop-ups (`"permissions": {"defaultMode": "auto"}`)** stops the buddy from asking your kid to approve every action — **while a built-in safety check still blocks the genuinely dangerous stuff** (downloading-and-running scripts, sending data out, mass-deleting files). It's a research-preview helper, not a force-field, so still peek at what's being built now and then. **Don't** switch to a "bypass" mode — that removes the safety check entirely.
 > - Rather set these by hand? Put this in `~/.claude/settings.json`: `{ "model": "opus", "permissions": { "defaultMode": "auto" } }` (these live in the home-folder file and stick forever).
 > - **Buddy not greeting your kid on its own after a restart?** Then the plugin got installed but not switched on — the usual culprit. Run `claude plugin enable claude-jacked-kids@claude-jacked-kids`, then **fully quit and reopen** Claude Code (the buddy only switches on at a fresh start, never mid-session). To confirm it's active: type `/agents` — you should see `claude-jacked-kids:kid-buddy`, and the header shows an `@kid-buddy` badge. Still nothing? Open `/plugin`, check `claude-jacked-kids` shows **enabled**, then restart.
+> - **The buddy note in `~/.claude/CLAUDE.md`** (step 3 of the magic words) is a small always-on reminder that keeps Claude warm, skill-aware, and kid-safe in every folder — a safety net for the case above, so even a not-yet-switched-on buddy still behaves kindly. It holds **no** personal info about your kid. To remove it, delete the block between the `<!-- jacked-kids:global -->` markers (uninstalling the plugin doesn't erase it automatically).
 
 ---
 
@@ -232,7 +240,7 @@ Your buddy isn't just a builder — it's a little teacher, and it makes learning
   claude plugin install claude-jacked-kids@claude-jacked-kids
   claude plugin enable  claude-jacked-kids@claude-jacked-kids
   ```
-  then **fully restart** Claude Code (the `agent` persona loads only at session start; `/reload-plugins` picks up skills but a restart is what promotes the main-thread buddy). Confirm with `/agents` (look for `claude-jacked-kids:kid-buddy`). In a session you can also manage it via `/plugin`.
+  then **fully restart** Claude Code (the `agent` persona loads only at session start; `/reload-plugins` picks up skills but a restart is what promotes the main-thread buddy). Confirm with `/agents` (look for `claude-jacked-kids:kid-buddy`). In a session you can also manage it via `/plugin`. *(Optional safety net: the kid-flow "magic words" also merge the plugin's `templates/global-claude-md.md` block into `~/.claude/CLAUDE.md` so a not-yet-switched-on buddy still behaves kindly — pure CLI installs skip that; add it by hand if you want the fallback.)*
 
 ---
 
@@ -248,8 +256,9 @@ claude-jacked-kids/
 ├── docs/teach-and-check-design.html        # design spec for the learn-as-you-build gate
 └── plugins/claude-jacked-kids/
     ├── .claude-plugin/plugin.json          # the plugin (no version → SHA = version → push = update)
-    ├── settings.json                       # { "agent": "kid-buddy" } — always-on kid persona
-    ├── agents/kid-buddy.md                 # the warm, kid-safe main-thread persona (tone + safety)
+    ├── settings.json                       # { "agent": "kid-buddy" } — promotes the persona to the main thread when enabled
+    ├── agents/kid-buddy.md                 # warm, kid-safe main-thread persona — greets first (initialPrompt) + tone + safety
+    ├── templates/global-claude-md.md       # canonical "global buddy note" merged into ~/.claude/CLAUDE.md at install (fallback persona)
     └── skills/
         ├── build-my-arcade/                # from-scratch recipe: the kid's offline-first creations hub (games + apps) + project CLAUDE.md
         ├── make-a-game/                    # build one self-contained game island
