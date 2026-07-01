@@ -73,16 +73,20 @@ If a grown-up already set up Claude Code and it's open and waiting for you, just
 Hi Claude! I'm a kid and I want to make my own games and apps. Please set up my
 building buddy for me:
 
-1. Run these two commands:
+1. Install AND turn on my buddy so it's on in every folder — run all three:
    claude plugin marketplace add jackneil/claude-jacked-kids
    claude plugin install claude-jacked-kids@claude-jacked-kids
+   claude plugin enable claude-jacked-kids@claude-jacked-kids
 
 2. Edit my ~/.claude/settings.json so "model" is "opus" (the best model) and
    "permissions" has "defaultMode" set to "auto" (so I'm not asked to approve
    every little thing). Keep any other settings that are already in there.
 
-Then tell me to close Claude Code and open it again. After that, help me make
-my very first game or app — and explain everything in fun, simple words! 🎮🛠️
+Then tell me to FULLY QUIT Claude Code and open it again (a restart is what
+switches my buddy on). When it comes back, the buddy should say hi to me all
+by itself and ask what I want to make — that's how we know it worked. Then
+help me make my very first game or app, and explain everything in fun, simple
+words! 🎮🛠️
 ```
 
 Your buddy will set itself up, ask you to **close and re-open Claude Code**, and then help you build your first thing. **That's it!** 🎉
@@ -93,6 +97,7 @@ Your buddy will set itself up, ask you to **close and re-open Claude Code**, and
 > - **Best model (`"model": "opus"`)** gives your kid Claude's best brain (today Opus 4.8; the `opus` alias auto-tracks the newest one) = best results. *It uses your Pro plan's hours faster, though — if your kid keeps hitting "you've reached your limit," just change that one word to **`opusplan`** (nearly as smart, far more hours).*
 > - **Fewer pop-ups (`"permissions": {"defaultMode": "auto"}`)** stops the buddy from asking your kid to approve every action — **while a built-in safety check still blocks the genuinely dangerous stuff** (downloading-and-running scripts, sending data out, mass-deleting files). It's a research-preview helper, not a force-field, so still peek at what's being built now and then. **Don't** switch to a "bypass" mode — that removes the safety check entirely.
 > - Rather set these by hand? Put this in `~/.claude/settings.json`: `{ "model": "opus", "permissions": { "defaultMode": "auto" } }` (these live in the home-folder file and stick forever).
+> - **Buddy not greeting your kid on its own after a restart?** Then the plugin got installed but not switched on — the usual culprit. Run `claude plugin enable claude-jacked-kids@claude-jacked-kids`, then **fully quit and reopen** Claude Code (the buddy only switches on at a fresh start, never mid-session). To confirm it's active: type `/agents` — you should see `claude-jacked-kids:kid-buddy`, and the header shows an `@kid-buddy` badge. Still nothing? Open `/plugin`, check `claude-jacked-kids` shows **enabled**, then restart.
 
 ---
 
@@ -132,7 +137,7 @@ No Claude Code yet? That's okay — we'll go nice and slow. (Got the prerequisit
 6. **Start your buddy.** Type **`claude`** and press **Enter**.
    - 🧑 *First time only:* your **web browser opens to sign in** — a grown-up signs in with the Claude plan. ✅
 
-7. **First time only:** paste the **🚀 magic words** from the top of this page (**⌘ + V**), press Enter, and when it says to **close and re-open**, do so — then open a terminal in `my-creations` again (step 5) and run **`claude`**.
+7. **First time only:** paste the **🚀 magic words** from the top of this page (**⌘ + V**), press Enter, and when it says to **close and re-open**, do so — then open a terminal in `my-creations` again (step 5) and run **`claude`**. You'll know it worked when your **buddy says hi to you first** and asks what you want to make. 🎉
 
 8. **Build something!** 🎉 Say: *"Let's make a game where a cat catches fish!"* 🐱🐟 — or *"Build me an app that tracks my touchdowns!"* 🏈
 
@@ -166,7 +171,7 @@ No Claude Code yet? That's okay — we'll go nice and slow. (Got the prerequisit
 6. **Start your buddy.** Type **`claude`** and press **Enter**.
    - 🧑 *First time only:* your **web browser opens to sign in** — a grown-up signs in with the Claude plan. ✅
 
-7. **First time only:** paste the **🚀 magic words** from the top of this page (**Ctrl + V** or right-click), press Enter, and when it says to **close and re-open**, do so — then open `my-creations` again, type `cmd` in the address bar (step 5), and run **`claude`**.
+7. **First time only:** paste the **🚀 magic words** from the top of this page (**Ctrl + V** or right-click), press Enter, and when it says to **close and re-open**, do so — then open `my-creations` again, type `cmd` in the address bar (step 5), and run **`claude`**. You'll know it worked when your **buddy says hi to you first** and asks what you want to make. 🎉
 
 8. **Build something!** 🎉 Say: *"Let's make a game where a rocket dodges asteroids!"* 🚀☄️ — or *"Build me an app for my baseball stats!"* ⚾
 
@@ -221,12 +226,13 @@ Your buddy isn't just a builder — it's a little teacher, and it makes learning
 - 🌍 **Going online is a grown-up step.** Creations run locally by default. Publishing to the internet needs a grown-up (under-13), and personal info is scrubbed first.
 - 🎚️ **You hold a learning dial.** Tell the buddy: *"I'm the grown-up — set learning checks to off / light / normal / strict."*
 - 🔁 **Staying updated (automatic):** turn it on once — `/plugin` → Marketplaces → `claude-jacked-kids` → **Enable auto-update**. Because the plugin is only prompts/skills, an update **can never break something your kid already made** — it just refreshes the buddy's know-how.
-- 🛠️ **Prefer the terminal?** The whole install is two lines:
+- 🛠️ **Prefer the terminal?** The whole install is three lines (install **and enable**, or the buddy stays dormant):
   ```bash
   claude plugin marketplace add jackneil/claude-jacked-kids
   claude plugin install claude-jacked-kids@claude-jacked-kids
+  claude plugin enable  claude-jacked-kids@claude-jacked-kids
   ```
-  then restart Claude Code (or `/reload-plugins`). In a session you can also use `/plugin`.
+  then **fully restart** Claude Code (the `agent` persona loads only at session start; `/reload-plugins` picks up skills but a restart is what promotes the main-thread buddy). Confirm with `/agents` (look for `claude-jacked-kids:kid-buddy`). In a session you can also manage it via `/plugin`.
 
 ---
 

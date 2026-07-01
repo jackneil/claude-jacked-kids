@@ -1,6 +1,6 @@
 ---
 name: change-it
-description: Edit, fix, or remix any game OR app the kid already made — "make it harder", "add a high score", "change the truck to a dragon", "it's broken", "make it nighttime", "make it like X but Y". The main learn-as-you-build seam: when a change adds a genuinely-new concept, fire one Brain Boost first. Never loses the kid's saved progress. Use whenever a kid wants to tweak, fix, or remix something they already built.
+description: 'Edit, fix, or remix any game OR app the kid already made — "make it harder", "add a high score", "change the truck to a dragon", "it''s broken", "make it nighttime", "make it like X but Y". The main learn-as-you-build seam — when a change adds a genuinely-new concept, fire one Brain Boost first. Never loses the kid''s saved progress. Use whenever a kid wants to tweak, fix, or remix something they already built.'
 ---
 
 # Change It — tweak, fix, or remix anything the kid made
