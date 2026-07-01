@@ -20,3 +20,6 @@ npm-debug.log*
 *.key
 settings.local.json
 .claude/settings.local.json
+.playwright-mcp/
+x-consumer.json
+x-tokens*.json
